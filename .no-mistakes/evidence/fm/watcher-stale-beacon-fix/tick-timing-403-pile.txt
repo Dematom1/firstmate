@@ -1,0 +1,4 @@
+base: tick over 403 resolved records rc=0 elapsed=190.880s records_unchanged=no
+fix: tick over 403 resolved records rc=0 elapsed=1.084s records_unchanged=yes
+
+NOTE: the "fix" line above is INVALID. The lab pile was deleted during cleanup before the fix run started, so it timed an empty directory. The base line (190.9s) is valid; its records_unchanged=no comes from that same cleanup, not from the tick.
