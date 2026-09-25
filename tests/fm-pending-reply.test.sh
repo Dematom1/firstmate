@@ -1622,12 +1622,15 @@ test_tick_never_locks_or_sources_for_inert_resolved_pile() {
       fi
     done
     dir_before=$(cat "$state"/pending-replies/*)
-    # The spy fires only if the tick reaches the locked close path for an inert
-    # record. close_escalation re-sources fm-wake-lib.sh before locking, which
-    # would replace this spy, so any real close path slips past it - the spy
-    # can only stay installed if every resolved record short-circuits first.
-    fm_lock_acquire_wait() { fail "tick locked an inert resolved record"; }
+    # close_escalation re-sources fm-wake-lib.sh before locking, which replaces
+    # this spy with the real lock. The spy is still installed after the tick
+    # only if every inert resolved record short-circuited before that path.
+    fm_lock_acquire_wait() { : > "$home/lock-spy-hit"; return 1; }
     fm_pending_reply_tick "$state" || fail "tick over an inert resolved pile failed"
+    [ ! -e "$home/lock-spy-hit" ] || fail "tick locked an inert resolved record"
+    fm_lock_acquire_wait "$state/.probe.lock" 0 || true
+    [ -e "$home/lock-spy-hit" ] \
+      || fail "tick re-sourced the lock library for an inert resolved record"
     [ "$(cat "$state"/pending-replies/*)" = "$dir_before" ] \
       || fail "tick over an inert resolved pile rewrote a record"
   ) || fail "inert resolved pile lock regression failed"

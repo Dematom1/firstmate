@@ -2119,7 +2119,6 @@ run_check_capture() {
   # can drop a trap that is pending when one is parsed (watcher_stop_signals).
   trap 'FM_CHECK_SIGNAL_PENDING=1' HUP INT TERM
   set -m
-  tstep "check-exec-begin:$*"
   ( FM_CHECK_OWNED_GROUP=1 run_check_process "$@" ) > "$FM_CHECK_OUTPUT" 2>/dev/null &
   FM_ACTIVE_CHECK_PID=$!
   FM_ACTIVE_CHECK_PGID=$FM_ACTIVE_CHECK_PID
@@ -2133,7 +2132,6 @@ run_check_capture() {
     return 1
   fi
   wait "$FM_ACTIVE_CHECK_PID" 2>/dev/null || true
-  tstep "check-exec-end:$*"
   FM_ACTIVE_CHECK_PID=
   fm_active_check_stop || return 1
   FM_CHECK_RESULT=$(cat "$FM_CHECK_OUTPUT" 2>/dev/null || true)
@@ -2476,15 +2474,6 @@ reconcile_requests_detached() {
 PR_POLL_CONTROL_LOCK=
 PR_POLL_PUBLISH_LOCK=
 
-# Opt-in per-step cycle tracing (FM_WATCH_TRACE=1): appends one epoch-plus-label
-# line per step boundary to $STATE/.watch-step-trace.log, so a cycle step that
-# blocks longer than the beacon grace is identifiable by delta the way the
-# 2026-09-24 pending-reply fork storm was. Never active without the opt-in.
-tstep() {  # <label>
-  [ -n "${FM_WATCH_TRACE:-}" ] || return 0
-  printf '%s %s\n' "$(date +%s)" "$1" >> "$STATE/.watch-step-trace.log" 2>/dev/null || true
-}
-
 pr_poll_control_release() {
   [ -z "$PR_POLL_CONTROL_LOCK" ] || fm_lock_release "$PR_POLL_CONTROL_LOCK" || return 1
   PR_POLL_CONTROL_LOCK=
@@ -2630,7 +2619,6 @@ while :; do
   # Liveness beacon for fm-guard.sh: a fresh mtime here means a watcher is
   # alive. Supervision scripts warn when this goes stale with tasks in flight.
   touch "$STATE/.last-watcher-beat"
-  tstep cycle-begin
 
   # Opt-in fleet activity ledger (docs/fleet-ledger.md): pick up newly appended
   # status lines before this cycle can exit on a wake. Off costs one file test.
@@ -2651,40 +2639,32 @@ while :; do
   # parent reports, observe backend busy/idle turn completion, send one recovery
   # repost after grace, and escalate once if the recovery turn is also missed.
   # No conversation scraping; unresolved records are never silently expired.
-  tstep pending-reply-begin
   fm_pending_reply_tick "$STATE" || true
-  tstep pending-reply-end
 
   # Endpoint liveness runs before queue observation: a positively dead or
   # missing secondmate endpoint is relaunched here on a bounded cadence, which
   # is also what unsticks that mate's foreign wake queue. The tick's single
   # wake exits the cycle like every other wake, so its marker is stamped before
   # any relaunch and the restarted watcher will not re-probe early.
-  tstep liveness-begin
   secondmate_liveness_tick || {
     echo "watcher: secondmate liveness check failed" >&2
     exit 1
   }
-  tstep liveness-end
 
   # A live secondmate endpoint does not prove that its own wake loop is alive.
   # Observe the foreign queue before the rest of this cycle so an aged row wakes
   # the parent without consuming or rewriting the receiving home's record.
-  tstep wake-stall-begin
   secondmate_wake_stall_tick || {
     echo "watcher: secondmate wake-loop observation failed" >&2
     exit 1
   }
-  tstep wake-stall-end
 
   # Process-to-event liveness repair. This never discovers a result by polling:
   # each registered source has its own child blocking on that source, and this
   # only republishes results already captured durably and restarts a source
   # whose owner is gone. It is a no-op with nothing registered.
   if [ -d "$STATE/procevent" ]; then
-    tstep procevent-reconcile-begin
     FM_HOME="$FM_HOME" "$SCRIPT_DIR/fm-procevent.sh" reconcile >/dev/null 2>&1 || true
-    tstep procevent-reconcile-end
   fi
   # Then deliver any queued-but-unsurfaced result, including one a runner
   # published while this watcher was between cycles.
@@ -2698,7 +2678,6 @@ while :; do
   # This is mechanical and silent unless a durable terminal-outcome obligation
   # was created, so quiet cycles never wake firstmate or consume model tokens.
   inactive_out=
-  tstep inactive-scan-begin
   if inactive_out=$(FM_HOME="$FM_HOME" FM_STATE_OVERRIDE="$STATE" \
     "$SCRIPT_DIR/fm-inactive-reconcile.sh" scan 2>/dev/null); then
     if [ -n "$inactive_out" ]; then
@@ -2707,7 +2686,6 @@ while :; do
   else
     triage_log "inactive-outcome reconciliation unavailable"
   fi
-  tstep inactive-scan-end
 
   # Slow per-task checks (firstmate writes these, e.g. a merged-PR poll).
   # Time-based via .last-check mtime so the cadence survives watcher restarts.
@@ -2733,7 +2711,6 @@ while :; do
         fi
       else
         id=$(basename "$c" .check.sh)
-        tstep "check-begin:$id"
         if fm_pr_poll_snapshot_capture "$STATE" "$id" "$SCRIPT_DIR/fm-pr-poll.sh" \
           || { rerecord_device_shifted_pr_poll "$id" \
             && fm_pr_poll_snapshot_capture "$STATE" "$id" "$SCRIPT_DIR/fm-pr-poll.sh"; }; then
@@ -2839,9 +2816,7 @@ EOF
   # hook land seconds apart, and reporting them as separate actionable wakes
   # costs a full firstmate turn each. The re-scan also picks up a newer
   # signature for an already-pending file (last write wins below).
-  tstep signal-scan-begin
   pending=$(scan_signals)
-  tstep signal-scan-end
   if [ -n "$pending" ]; then
     sleep "$SIGNAL_GRACE"
     pending=$(printf '%s\n%s' "$pending" "$(scan_signals)")
@@ -2966,9 +2941,7 @@ EOF
   # stale hash is surfaced, absorbed, or timed toward escalation once (.stale-*
   # remembers the hash already classified, or the declaration a busy pane's
   # crossed turn bound already handed to the away-mode daemon).
-  tstep pane-loop-begin
   while IFS= read -r w; do
-    tstep "pane-begin:$w"
     kind=$(window_kind "$w")
     task=$(window_to_task "$w" "$STATE")
     # Steering-inbox loss detection runs before the secondmate stale
@@ -3184,7 +3157,6 @@ EOF
       fi
     fi
   done < <(recorded_windows)
-  tstep pane-loop-end
 
   # Heartbeat: the watcher runs a cheap fleet-scan at a regular cadence no matter
   # what. Time-based via .last-heartbeat mtime; interval doubles per consecutive
@@ -3227,7 +3199,5 @@ EOF
 
   # Terminal wait: a bounded native-event wait for push-capable homes (herdr),
   # else the blind poll sleep. See event_wait_or_sleep.
-  tstep event-wait-begin
   event_wait_or_sleep
-  tstep event-wait-end
 done
