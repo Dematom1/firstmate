@@ -66,9 +66,10 @@
 # its sha is the merge-ref commit, never the MR head, so a successful pipeline
 # whose sha is not the MR head is accepted only when its ref is
 # refs/merge-requests/<iid>/merge and the GitLab API shows its merge commit's
-# parents are exactly the current target-branch head then the live MR head; a
-# target branch that moved since the pipeline ran refuses, because the pipeline
-# no longer proves the current merge result. Any other pipeline sha still
+# second parent is the live MR head; the current target-branch head is
+# deliberately not verified, because GitLab re-checks mergeability at merge
+# time and a merge train retests on the train ref, so merged-results pipelines
+# follow the same rule as head-sha pipelines. Any other pipeline sha still
 # refuses, reported as before. Every failing condition is reported, not just the
 # first. The verified head is then passed to glab as --sha, so a push that lands
 # between that read and the merge fails the merge instead of landing commits
@@ -416,47 +417,36 @@ FM_PR_GITLAB_ASYNC_CONFIGURED=false
 
 # A successful head pipeline whose sha is not the MR head is accepted only as a
 # merged-results pipeline that still proves this merge: its ref must be
-# refs/merge-requests/<iid>/merge and its merge commit's parents must be
-# exactly the current target-branch head then the live MR head, both read from
-# the GitLab API. Prints one refusal line and returns 1 otherwise; an
-# unreadable API answer refuses rather than passing.
+# refs/merge-requests/<iid>/merge and its merge commit's second parent must be
+# the live MR head, read from the GitLab API. GitLab re-checks mergeability at
+# merge time and a merge train retests on the train ref, so the current
+# target-branch head is deliberately not verified here: merged-results
+# pipelines follow the same rule as head-sha pipelines. Prints one refusal
+# line and returns 1 otherwise; an unreadable API answer refuses rather than
+# passing.
 gitlab_merged_results_refusal() {
-  local p_sha=$1 p_ref=$2 p_target_project=$3 p_target_branch=$4 p_head=$5
-  local encoded='' commit_json='' branch_json='' parents=''
-  local parent_target='' parent_head='' target_head=''
+  local p_sha=$1 p_ref=$2 p_target_project=$3 p_head=$4
+  local commit_json='' parents='' parent_count=0 parent_head=''
   if [ "$p_ref" != "refs/merge-requests/$PR_NUMBER/merge" ]; then
     printf 'the head pipeline ran at "%s", not at the current head %s, and its ref "%s" is not a merged-results pipeline ref\n' \
       "$p_sha" "$p_head" "$p_ref"
     return 1
   fi
-  encoded=$(printf '%s' "$p_target_branch" | jq -rR '@uri')
-  if ! commit_json=$(GITLAB_HOST="$FM_PR_HOST" glab api "projects/$p_target_project/repository/commits/$p_sha" 2>/dev/null) \
-    || ! branch_json=$(GITLAB_HOST="$FM_PR_HOST" glab api "projects/$p_target_project/repository/branches/$encoded" 2>/dev/null); then
-    printf 'the merged-results pipeline could not be verified: reading its merge commit or the target branch head from the GitLab API failed\n'
+  if ! commit_json=$(GITLAB_HOST="$FM_PR_HOST" glab api "projects/$p_target_project/repository/commits/$p_sha" 2>/dev/null); then
+    printf 'the merged-results pipeline could not be verified: reading its merge commit from the GitLab API failed\n'
     return 1
   fi
   parents=$(printf '%s' "$commit_json" | jq -r 'if type == "object" and (.parent_ids | type) == "array" then .parent_ids | map(tostring) | join(" ") else error("commit payload is not an object with parent_ids") end' 2>/dev/null) || parents=''
-  parent_target=${parents%% *}
-  parent_head=${parents#* }
-  if [ "$(printf '%s' "$parents" | wc -w | tr -d ' ')" -ne 2 ]; then
+  parent_count=$(printf '%s' "$parents" | wc -w | tr -d ' ')
+  if [ "$parent_count" -ne 2 ]; then
     printf 'the merged-results pipeline merge commit at %s has %s parents, not exactly the target-branch head and the merge request head\n' \
-      "$p_sha" "${parents:-none}"
+      "$p_sha" "$parent_count"
     return 1
   fi
+  parent_head=${parents#* }
   if [ "$parent_head" != "$p_head" ]; then
     printf 'the merged-results pipeline merge commit at %s was built from MR head %s, not the current head %s\n' \
       "$p_sha" "$parent_head" "$p_head"
-    return 1
-  fi
-  target_head=$(printf '%s' "$branch_json" | jq -r 'if type == "object" and (.commit | type) == "object" then .commit.id // "" | tostring else error("branch payload is not an object with a commit") end' 2>/dev/null) || target_head=''
-  if ! fm_pr_head_valid "$target_head"; then
-    printf 'the merged-results pipeline could not be verified: the current head of target branch %s could not be read from the GitLab API\n' \
-      "$p_target_branch"
-    return 1
-  fi
-  if [ "$parent_target" != "$target_head" ]; then
-    printf 'the merged-results pipeline ran against target branch %s at %s, which has since moved to %s, so it no longer proves the current merge result\n' \
-      "$p_target_branch" "$parent_target" "$target_head"
     return 1
   fi
   return 0
@@ -467,7 +457,7 @@ gitlab_verify_mergeable() {
   local total=0 named=0 refusals=''
   local state='' detail='' conflicts='' discussions=''
   local live_head='' pipeline_sha='' pipeline_status='' async_configured=''
-  local pipeline_ref='' target_project_id='' target_branch=''
+  local pipeline_ref='' target_project_id=''
   local pipeline_refusal=''
 
   # GITLAB_HOST is set to the same host the project URL already carries, so the
@@ -493,7 +483,6 @@ gitlab_verify_mergeable() {
         "pipeline_status=" + ((.head_pipeline.status // "") | tostring),
         "pipeline_ref=" + ((.head_pipeline.ref // "") | tostring),
         "target_project_id=" + ((.target_project_id // "") | tostring),
-        "target_branch=" + ((.target_branch // "") | tostring),
         "async_configured=" + (if .merge_when_pipeline_succeeds == true or (.merge_after != null) then "true" else "false" end)
       else
         error("merge request payload is not an object")
@@ -513,7 +502,6 @@ gitlab_verify_mergeable() {
       pipeline_status=*) pipeline_status=${line#pipeline_status=} ;;
       pipeline_ref=*) pipeline_ref=${line#pipeline_ref=} ;;
       target_project_id=*) target_project_id=${line#target_project_id=} ;;
-      target_branch=*) target_branch=${line#target_branch=} ;;
       async_configured=*) async_configured=${line#async_configured=} ;;
       *) continue ;;
     esac
@@ -524,7 +512,7 @@ FIELDS
   # Every field named exactly once and no unnamed line: a value carrying a
   # newline would split into a line no name matches, so it is refused here
   # rather than silently truncated into a value a check could accept.
-  if [ "$named" -ne 11 ] || [ "$total" -ne 11 ]; then
+  if [ "$named" -ne 10 ] || [ "$total" -ne 10 ]; then
     echo "error: could not read the GitLab merge request state before merging" >&2
     return 1
   fi
@@ -562,7 +550,7 @@ FIELDS
   # refused for other reasons.
   if [ "$pipeline_status" = success ] && [ "$pipeline_sha" != "$live_head" ]; then
     pipeline_refusal=$(gitlab_merged_results_refusal \
-      "$pipeline_sha" "$pipeline_ref" "$target_project_id" "$target_branch" "$live_head") || true
+      "$pipeline_sha" "$pipeline_ref" "$target_project_id" "$live_head") || true
     [ -z "$pipeline_refusal" ] \
       || refusals="$refusals  - $pipeline_refusal
 "
