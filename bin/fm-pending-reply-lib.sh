@@ -1475,10 +1475,9 @@ fm_pending_reply_tick() {  # <state-dir>
     esac
     # Fork-free routing prologue: one bash pass per record for the three keys
     # the loop routes on. Under load a single fork can cost about a second, so
-    # the per-poll scan of a large resolved pile must not fork per record - a
-    # pile of resolved records once cost a real home its whole supervision
-    # cycle (2026-09-24 stale-beacon stalls). Non-resolved records keep the
-    # full machinery below; last key occurrence wins, matching
+    # the per-poll scan of a large resolved pile must not fork per record or it
+    # can starve the watcher beacon. Non-resolved records keep the full
+    # machinery below; last key occurrence wins, matching
     # fm_pending_reply_get's tail -1.
     corr=''
     task_id=''
