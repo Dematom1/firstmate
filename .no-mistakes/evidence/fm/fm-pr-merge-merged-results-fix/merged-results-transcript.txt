@@ -1,0 +1,81 @@
+ok - fm-pr-merge accepts a merged-results pipeline whose second parent is the MR head
+ok - fm-pr-merge merges a merged-results pipeline whose target parent no longer matches the target branch
+ok - fm-pr-merge refuses a merged-results pipeline whose second parent is not the MR head
+ok - fm-pr-merge refuses a merged-results pipeline whose merge commit cannot be read
+ok - fm-pr-merge still refuses a successful pipeline whose ref is not the merge ref
+---- auto-merge-attended: rc=0
+  stderr| ●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  stderr| ●  WATCHER DOWN - SUPERVISION IS OFF
+  stderr| ●  1 task(s) in flight, but no watcher has a fresh beacon (last beat: never, grace 300s).
+  stderr| ●  Trust the emitted supervision protocol for this harness; do not use shell & for watcher repair.
+  stderr| ●  This is a supervision warning only; the guarded operation WILL still run.
+  stderr| ●  watcher supervision needs Stop-owned automatic recovery; inspect the hook registration and startup status before ending the turn.
+  stderr| ●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  stderr| verified: https://gitlab.example/group/subgroup/project/-/merge_requests/7 is open and mergeable, with a successful merged-results pipeline at dddddddddddddddddddddddddddddddddddddddd proving head aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  glab merge line: GITLAB_HOST=gitlab.example mr merge 7 -R https://gitlab.example/group/subgroup/project --sha aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa --yes --auto-merge
+ok - attended --auto-merge accepts a merged-results pipeline
+ok - fm-pr-merge merges a GitLab merge request through glab instead of refusing it
+---- happy-merged-results: rc=0
+  stderr| ●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  stderr| ●  WATCHER DOWN - SUPERVISION IS OFF
+  stderr| ●  1 task(s) in flight, but no watcher has a fresh beacon (last beat: never, grace 300s).
+  stderr| ●  Trust the emitted supervision protocol for this harness; do not use shell & for watcher repair.
+  stderr| ●  This is a supervision warning only; the guarded operation WILL still run.
+  stderr| ●  watcher supervision needs Stop-owned automatic recovery; inspect the hook registration and startup status before ending the turn.
+  stderr| ●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  stderr| verified: https://gitlab.example/group/subgroup/project/-/merge_requests/7 is open and mergeable, with a successful merged-results pipeline at dddddddddddddddddddddddddddddddddddddddd proving head aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  glab merge line: GITLAB_HOST=gitlab.example mr merge 7 -R https://gitlab.example/group/subgroup/project --sha aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa --yes
+---- stale-target: rc=0
+  stderr| ●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  stderr| ●  WATCHER DOWN - SUPERVISION IS OFF
+  stderr| ●  1 task(s) in flight, but no watcher has a fresh beacon (last beat: never, grace 300s).
+  stderr| ●  Trust the emitted supervision protocol for this harness; do not use shell & for watcher repair.
+  stderr| ●  This is a supervision warning only; the guarded operation WILL still run.
+  stderr| ●  watcher supervision needs Stop-owned automatic recovery; inspect the hook registration and startup status before ending the turn.
+  stderr| ●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  stderr| verified: https://gitlab.example/group/subgroup/project/-/merge_requests/7 is open and mergeable, with a successful merged-results pipeline at dddddddddddddddddddddddddddddddddddddddd proving head aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  glab merge line: GITLAB_HOST=gitlab.example mr merge 7 -R https://gitlab.example/group/subgroup/project --sha aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa --yes
+---- wrong-mr-parent: rc=1
+  stderr| ●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  stderr| ●  WATCHER DOWN - SUPERVISION IS OFF
+  stderr| ●  1 task(s) in flight, but no watcher has a fresh beacon (last beat: never, grace 300s).
+  stderr| ●  Trust the emitted supervision protocol for this harness; do not use shell & for watcher repair.
+  stderr| ●  This is a supervision warning only; the guarded operation WILL still run.
+  stderr| ●  watcher supervision needs Stop-owned automatic recovery; inspect the hook registration and startup status before ending the turn.
+  stderr| ●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  stderr| error: refusing to merge https://gitlab.example/group/subgroup/project/-/merge_requests/7
+  stderr|   - the merged-results pipeline merge commit at dddddddddddddddddddddddddddddddddddddddd was built from MR head 1111111111111111111111111111111111111111, not the current head aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  glab merge line: 
+---- api-fails: rc=1
+  stderr| ●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  stderr| ●  WATCHER DOWN - SUPERVISION IS OFF
+  stderr| ●  1 task(s) in flight, but no watcher has a fresh beacon (last beat: never, grace 300s).
+  stderr| ●  Trust the emitted supervision protocol for this harness; do not use shell & for watcher repair.
+  stderr| ●  This is a supervision warning only; the guarded operation WILL still run.
+  stderr| ●  watcher supervision needs Stop-owned automatic recovery; inspect the hook registration and startup status before ending the turn.
+  stderr| ●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  stderr| error: refusing to merge https://gitlab.example/group/subgroup/project/-/merge_requests/7
+  stderr|   - the merged-results pipeline could not be verified: reading its merge commit from the GitLab API failed
+  glab merge line: 
+---- other-mr-merge-ref: rc=1
+  stderr| ●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  stderr| ●  WATCHER DOWN - SUPERVISION IS OFF
+  stderr| ●  1 task(s) in flight, but no watcher has a fresh beacon (last beat: never, grace 300s).
+  stderr| ●  Trust the emitted supervision protocol for this harness; do not use shell & for watcher repair.
+  stderr| ●  This is a supervision warning only; the guarded operation WILL still run.
+  stderr| ●  watcher supervision needs Stop-owned automatic recovery; inspect the hook registration and startup status before ending the turn.
+  stderr| ●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  stderr| error: refusing to merge https://gitlab.example/group/subgroup/project/-/merge_requests/7
+  stderr|   - the head pipeline ran at "dddddddddddddddddddddddddddddddddddddddd", not at the current head aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, and its ref "refs/merge-requests/8/merge" is not a merged-results pipeline ref
+  glab merge line: 
+---- branch-ref: rc=1
+  stderr| ●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  stderr| ●  WATCHER DOWN - SUPERVISION IS OFF
+  stderr| ●  1 task(s) in flight, but no watcher has a fresh beacon (last beat: never, grace 300s).
+  stderr| ●  Trust the emitted supervision protocol for this harness; do not use shell & for watcher repair.
+  stderr| ●  This is a supervision warning only; the guarded operation WILL still run.
+  stderr| ●  watcher supervision needs Stop-owned automatic recovery; inspect the hook registration and startup status before ending the turn.
+  stderr| ●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  stderr| error: refusing to merge https://gitlab.example/group/subgroup/project/-/merge_requests/7
+  stderr|   - the head pipeline ran at "dddddddddddddddddddddddddddddddddddddddd", not at the current head aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, and its ref "refs/heads/main" is not a merged-results pipeline ref
+  glab merge line: 

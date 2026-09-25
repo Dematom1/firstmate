@@ -1,0 +1,58 @@
+==== [base script] real GitLab MR !734: rc=1
+  stderr| ●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  stderr| ●  WATCHER DOWN - SUPERVISION IS OFF
+  stderr| ●  1 task(s) in flight, but no watcher has a fresh beacon (last beat: never, grace 300s).
+  stderr| ●  Trust the emitted supervision protocol for this harness; do not use shell & for watcher repair.
+  stderr| ●  This is a supervision warning only; the guarded operation WILL still run.
+  stderr| ●  watcher supervision needs Stop-owned automatic recovery; inspect the hook registration and startup status before ending the turn.
+  stderr| ●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  stderr| error: refusing to merge https://gitlab.com/teamworksdev/performance/data-gen-ai/ingestion/ingestion/-/merge_requests/734
+  stderr|   - detailed_merge_status is "discussions_not_resolved", not mergeable
+  stderr|   - blocking_discussions_resolved is "false", not true
+  stderr|   - the head pipeline ran at "6cb6f0cc9878d3b83e63173bef79199c97a099ab", not at the current head c3366567571b43e548f8c8496ec5ab7ceabbda4c
+  glab calls:
+    glab mr view 734 -R https://gitlab.com/teamworksdev/performance/data-gen-ai/ingestion/ingestion -F json
+==== [fixed script] real GitLab MR !734: rc=1
+  stderr| ●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  stderr| ●  WATCHER DOWN - SUPERVISION IS OFF
+  stderr| ●  1 task(s) in flight, but no watcher has a fresh beacon (last beat: never, grace 300s).
+  stderr| ●  Trust the emitted supervision protocol for this harness; do not use shell & for watcher repair.
+  stderr| ●  This is a supervision warning only; the guarded operation WILL still run.
+  stderr| ●  watcher supervision needs Stop-owned automatic recovery; inspect the hook registration and startup status before ending the turn.
+  stderr| ●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  stderr| error: refusing to merge https://gitlab.com/teamworksdev/performance/data-gen-ai/ingestion/ingestion/-/merge_requests/734
+  stderr|   - detailed_merge_status is "discussions_not_resolved", not mergeable
+  stderr|   - blocking_discussions_resolved is "false", not true
+  glab calls:
+    glab mr view 734 -R https://gitlab.com/teamworksdev/performance/data-gen-ai/ingestion/ingestion -F json
+    glab api projects/73552462/repository/commits/6cb6f0cc9878d3b83e63173bef79199c97a099ab
+==== [base script] real GitLab MR !739: rc=1
+  stderr| ●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  stderr| ●  WATCHER DOWN - SUPERVISION IS OFF
+  stderr| ●  1 task(s) in flight, but no watcher has a fresh beacon (last beat: never, grace 300s).
+  stderr| ●  Trust the emitted supervision protocol for this harness; do not use shell & for watcher repair.
+  stderr| ●  This is a supervision warning only; the guarded operation WILL still run.
+  stderr| ●  watcher supervision needs Stop-owned automatic recovery; inspect the hook registration and startup status before ending the turn.
+  stderr| ●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  stderr| error: refusing to merge https://gitlab.com/teamworksdev/performance/data-gen-ai/ingestion/ingestion/-/merge_requests/739
+  stderr|   - detailed_merge_status is "draft_status", not mergeable
+  stderr|   - has_conflicts is "true", not false
+  stderr|   - blocking_discussions_resolved is "false", not true
+  stderr|   - the head pipeline ran at "28562ade1ec5ab3a2fad8927873b104f2cb36741", not at the current head e50b7d509bbf954f6b7db121d7c157787a1846e3
+  glab calls:
+    glab mr view 739 -R https://gitlab.com/teamworksdev/performance/data-gen-ai/ingestion/ingestion -F json
+==== [fixed script] real GitLab MR !739: rc=1
+  stderr| ●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  stderr| ●  WATCHER DOWN - SUPERVISION IS OFF
+  stderr| ●  1 task(s) in flight, but no watcher has a fresh beacon (last beat: never, grace 300s).
+  stderr| ●  Trust the emitted supervision protocol for this harness; do not use shell & for watcher repair.
+  stderr| ●  This is a supervision warning only; the guarded operation WILL still run.
+  stderr| ●  watcher supervision needs Stop-owned automatic recovery; inspect the hook registration and startup status before ending the turn.
+  stderr| ●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  stderr| error: refusing to merge https://gitlab.com/teamworksdev/performance/data-gen-ai/ingestion/ingestion/-/merge_requests/739
+  stderr|   - detailed_merge_status is "draft_status", not mergeable
+  stderr|   - has_conflicts is "true", not false
+  stderr|   - blocking_discussions_resolved is "false", not true
+  glab calls:
+    glab mr view 739 -R https://gitlab.com/teamworksdev/performance/data-gen-ai/ingestion/ingestion -F json
+    glab api projects/73552462/repository/commits/28562ade1ec5ab3a2fad8927873b104f2cb36741
