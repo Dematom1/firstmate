@@ -180,9 +180,65 @@ test_declared_pause_does_not_fire() {
   pass "a declared paused: wait never fires the stall alert"
 }
 
+# --- a failed publication must not swallow the episode ------------------------
+
+test_failed_append_leaves_episode_unmarked() {
+  local dir state
+  dir=$(make_stall_case stall-append-fails \
+    'state: working · source: run-step · validating (running) · stall-secs: 1200 · stall-step: review · run: 01RUN')
+  state="$dir/state"
+  (
+    export FM_STATE_OVERRIDE="$state" FM_CONFIG_OVERRIDE="$dir/config" \
+      FM_RUN_STALL_SECS=900 FM_RUN_STALL_CHECK_SECS=1 \
+      FM_CREW_STATE_BIN="$dir/fakebin/fm-crew-state.sh" \
+      FM_FAKE_CREW_STATE="$(cat "$state/.crew-verdict")"
+    # shellcheck disable=SC1090
+    . "$WATCH"
+    fm_wake_append() { return 1; }
+    run_stall_tick
+  ) >/dev/null 2>&1
+  [ ! -e "$state/.run-stall-stalltask" ] || fail "a failed wake append still marked the episode"
+  age_throttle "$dir"
+  [ -n "$(run_tick "$dir" "$(cat "$state/.crew-verdict")")" ] \
+    || fail "the stall was not re-surfaced after a failed publication"
+  pass "a failed wake append leaves the episode unmarked so the next cycle retries"
+}
+
+# --- the fleet-wide tick is bounded ------------------------------------------
+
+test_tick_bounds_crew_state_reads() {
+  local dir state i n
+  dir=$(make_stall_case stall-bounded 'state: working · source: run-step · validating (running)')
+  state="$dir/state"
+  for i in 1 2 3 4 5; do
+    printf 'window=test:fm-t%s\nbackend=tmux\nharness=pi\nkind=ship\n' "$i" > "$state/t$i.meta"
+  done
+  rm -f "$state/stalltask.meta"
+  tick() {
+    (
+      export FM_STATE_OVERRIDE="$state" FM_CONFIG_OVERRIDE="$dir/config" \
+        FM_RUN_STALL_CHECK_SECS=300 FM_RUN_STALL_MAX_READS=2 \
+        FM_CREW_STATE_BIN="$dir/fakebin/fm-crew-state.sh" \
+        FM_FAKE_CREW_STATE="$(cat "$state/.crew-verdict")"
+      # shellcheck disable=SC1090
+      . "$WATCH"
+      run_stall_tick
+    )
+  }
+  tick
+  n=$(ls "$state"/.run-stall-check-* 2>/dev/null | wc -l | tr -d ' ')
+  [ "$n" = 2 ] || fail "first tick read $n tasks instead of the cap of 2"
+  tick
+  n=$(ls "$state"/.run-stall-check-* 2>/dev/null | wc -l | tr -d ' ')
+  [ "$n" = 4 ] || fail "second tick did not continue with the unread tasks: $n read"
+  pass "run_stall_tick caps crew-state reads per tick and continues next tick"
+}
+
 test_crew_run_stall_parses_evidence
 test_stalled_run_fires_once_per_episode
 test_parked_gate_does_not_fire
 test_declared_pause_does_not_fire
+test_failed_append_leaves_episode_unmarked
+test_tick_bounds_crew_state_reads
 
 echo "all fm-watch-run-stall tests passed"

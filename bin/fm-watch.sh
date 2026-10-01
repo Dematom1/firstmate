@@ -357,6 +357,11 @@ case "$RUN_STALL_SECS" in ''|*[!0-9]*|0) RUN_STALL_SECS=900 ;; esac
 # most one cadence to RUN_STALL_SECS.
 RUN_STALL_CHECK_SECS=${FM_RUN_STALL_CHECK_SECS:-300}
 case "$RUN_STALL_CHECK_SECS" in ''|*[!0-9]*|0) RUN_STALL_CHECK_SECS=300 ;; esac
+# Crew-state reads per run_stall_tick: each read makes several separately
+# bounded queries, so a fleet-wide tick must not run past the beacon grace.
+# Unread tasks keep their due throttle and are served by the next tick.
+RUN_STALL_MAX_READS=${FM_RUN_STALL_MAX_READS:-3}
+case "$RUN_STALL_MAX_READS" in ''|*[!0-9]*|0) RUN_STALL_MAX_READS=3 ;; esac
 # A busy pane is unconditional proof of liveness with no built-in duration bound,
 # so a hung foreground call can remain hidden even while its rendered busy
 # footer changes every poll. BUSY_TURN_MAX_SECS bounds how long any busy pane
@@ -2010,7 +2015,7 @@ surface_nonterminal_stale() {  # <window> <hash>
 # adds at most one cadence to RUN_STALL_SECS. Evidence only: this never
 # interrupts, steers, or restarts anything.
 run_stall_tick() {
-  local meta task kind w last throttle evidence secs step run mins marker episode
+  local meta task kind w last throttle evidence secs step run mins marker episode reads=0
   for meta in "$STATE"/*.meta; do
     [ -e "$meta" ] || continue
     task=${meta##*/}; task=${task%.meta}
@@ -2025,6 +2030,8 @@ run_stall_tick() {
     fi
     throttle="$STATE/.run-stall-check-$task"
     [ "$(age_of "$throttle")" -ge "$RUN_STALL_CHECK_SECS" ] || continue
+    [ "$reads" -lt "$RUN_STALL_MAX_READS" ] || break
+    reads=$((reads + 1))
     date +%s > "$throttle"
     if ! evidence=$(crew_run_stall "$task"); then
       # No stall evidence: activity resumed, the run ended or parked, or the
@@ -2042,14 +2049,14 @@ run_stall_tick() {
     marker="$STATE/.run-stall-$task"
     episode="run:${run:-unknown}:step:${step}"
     [ "$(cat "$marker" 2>/dev/null || true)" = "$episode" ] && continue
-    if ! printf '%s' "$episode" > "$marker"; then
-      triage_log "run-stall marker unwritable for $task; stall not surfaced this cycle"
-      continue
-    fi
     w=$(fm_meta_get "$meta" window)
     [ -n "$w" ] || w="fm-$task"
     reason="stale: $w (run stalled: run ${run:-unknown} step $step shows no activity for ${secs}s (~${mins}m) with no parked gate and no declared wait - recover or steer the worker)"
     fm_wake_append stale "$w" "$reason" || exit 1
+    # Mark the episode only once the wake is durably queued, so a failed
+    # publication leaves the next cycle to retry it.
+    printf '%s' "$episode" > "$marker" \
+      || triage_log "run-stall marker unwritable for $task; stall may re-fire"
     wake "$reason"
   done
   return 0
