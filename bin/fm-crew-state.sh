@@ -747,22 +747,23 @@ nm_run_stall_detail() {  # -> " · stall-secs: <n> · stall-step: <step>" or emp
       *) continue ;;
     esac
     quiet=${last#quiet }
+    quiet=${quiet%% *}
     secs=0
     while :; do
       case "$quiet" in
-        [0-9]*h*) d=${quiet%%h*}; secs=$((secs + d * 3600)); quiet=${quiet#*h} ;;
+        [0-9]*h*) d=${quiet%%h*}; case "$d" in *[!0-9]*) break ;; esac; secs=$((secs + d * 3600)); quiet=${quiet#*h} ;;
         *) break ;;
       esac
     done
     while :; do
       case "$quiet" in
-        [0-9]*m*) d=${quiet%%m*}; secs=$((secs + d * 60)); quiet=${quiet#*m} ;;
+        [0-9]*m*) d=${quiet%%m*}; case "$d" in *[!0-9]*) break ;; esac; secs=$((secs + d * 60)); quiet=${quiet#*m} ;;
         *) break ;;
       esac
     done
     while :; do
       case "$quiet" in
-        [0-9]*s*) d=${quiet%%s*}; secs=$((secs + d)); quiet=${quiet#*s} ;;
+        [0-9]*s*) d=${quiet%%s*}; case "$d" in *[!0-9]*) break ;; esac; secs=$((secs + d)); quiet=${quiet#*s} ;;
         *) break ;;
       esac
     done
