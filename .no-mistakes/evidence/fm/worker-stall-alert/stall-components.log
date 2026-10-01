@@ -1,0 +1,5 @@
+ok - captured AXI replacement status replays through crew-state
+ok - captured AXI parked status replays through crew-state
+ok - captured AXI failed status replays through crew-state
+ok - run-stall components follow client-quiet activity and nothing else
+done-ok
