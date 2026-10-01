@@ -234,11 +234,43 @@ test_tick_bounds_crew_state_reads() {
   pass "run_stall_tick caps crew-state reads per tick and continues next tick"
 }
 
+test_cap_reads_oldest_checked_first() {
+  local dir state i
+  dir=$(make_stall_case stall-oldest-first 'state: working · source: run-step · validating (running)')
+  state="$dir/state"
+  rm -f "$state/stalltask.meta"
+  for i in 1 2 3 4 5; do
+    printf 'window=test:fm-t%s\nbackend=tmux\nharness=pi\nkind=ship\n' "$i" > "$state/t$i.meta"
+  done
+  # t1-t4 were checked recently (t1 least recently); t5 never was. All are due,
+  # and the cap of 2 must still reach t5 rather than re-reading t1/t2 forever.
+  age_set "$state/.run-stall-check-t1" 14400
+  age_set "$state/.run-stall-check-t2" 10800
+  age_set "$state/.run-stall-check-t3" 7200
+  age_set "$state/.run-stall-check-t4" 3600
+  (
+    export FM_STATE_OVERRIDE="$state" FM_CONFIG_OVERRIDE="$dir/config" \
+      FM_RUN_STALL_CHECK_SECS=300 FM_RUN_STALL_MAX_READS=2 \
+      FM_CREW_STATE_BIN="$dir/fakebin/fm-crew-state.sh" \
+      FM_FAKE_CREW_STATE="$(cat "$state/.crew-verdict")"
+    # shellcheck disable=SC1090
+    . "$WATCH"
+    run_stall_tick
+  )
+  [ "$(age_check "$state/.run-stall-check-t5")" = fresh ] || fail "never-checked t5 was starved by the read cap"
+  [ "$(age_check "$state/.run-stall-check-t1")" = fresh ] || fail "oldest-checked t1 was not read"
+  [ "$(age_check "$state/.run-stall-check-t4")" = old ] || fail "t4 was read ahead of older tasks"
+  pass "read cap serves oldest-last-checked tasks first"
+}
+age_set() { python3 -c 'import os,sys,time; open(sys.argv[1],"w").close(); t=time.time()-int(sys.argv[2]); os.utime(sys.argv[1],(t,t))' "$1" "$2"; }
+age_check() { [ "$(find "$1" -mmin -5 2>/dev/null | wc -l | tr -d ' ')" = 1 ] && echo fresh || echo old; }
+
 test_crew_run_stall_parses_evidence
 test_stalled_run_fires_once_per_episode
 test_parked_gate_does_not_fire
 test_declared_pause_does_not_fire
 test_failed_append_leaves_episode_unmarked
 test_tick_bounds_crew_state_reads
+test_cap_reads_oldest_checked_first
 
 echo "all fm-watch-run-stall tests passed"

@@ -2015,8 +2015,15 @@ surface_nonterminal_stale() {  # <window> <hash>
 # adds at most one cadence to RUN_STALL_SECS. Evidence only: this never
 # interrupts, steers, or restarts anything.
 run_stall_tick() {
-  local meta task kind w last throttle evidence secs step run mins marker episode reads=0
-  for meta in "$STATE"/*.meta; do
+  local meta task kind w last throttle evidence secs step run mins marker episode reads=0 order
+  # Oldest-last-checked first (a missing throttle file ages as never checked),
+  # so the read cap below cannot starve tasks late in the glob order.
+  order=$(for meta in "$STATE"/*.meta; do
+    [ -e "$meta" ] || continue
+    task=${meta##*/}; task=${task%.meta}
+    printf '%s\t%s\n' "$(age_of "$STATE/.run-stall-check-$task")" "$meta"
+  done | sort -s -rn -k1,1 | cut -f2-)
+  while IFS= read -r meta; do
     [ -e "$meta" ] || continue
     task=${meta##*/}; task=${task%.meta}
     kind=$(fm_meta_get "$meta" kind)
@@ -2058,7 +2065,7 @@ run_stall_tick() {
     printf '%s' "$episode" > "$marker" \
       || triage_log "run-stall marker unwritable for $task; stall may re-fire"
     wake "$reason"
-  done
+  done <<< "$order"
   return 0
 }
 
