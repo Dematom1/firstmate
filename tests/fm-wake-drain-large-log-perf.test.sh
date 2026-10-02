@@ -93,6 +93,21 @@ test_large_log_folds_correctly_and_quickly() {
   pass "a ${LARGE_LINES}-line status log folds correctly and drains inside the time bound, twice"
 }
 
+test_drain_leaves_no_scratch_files_and_harness_memo_is_honored() {
+  local dir state leftover
+  dir=$(make_case scratch-cleanup)
+  state="$dir/state"
+  make_large_log_state "$state"
+  printf 'working: more\n' >> "$state/neighbor.status"
+  FM_STATE_OVERRIDE="$state" "$DRAIN" >/dev/null 2>&1 \
+    || fail "drain failed on the scratch-cleanup state"
+  leftover=$(find "$state" -maxdepth 1 \( -name '.*.read.*' -o -name '.*.unread.*' -o -name '.*.span.*' \) -print)
+  [ -z "$leftover" ] || fail "the drain left span scratch files behind: $leftover"
+  [ "$(FM_HARNESS_MEMO=codex "$ROOT/bin/fm-harness.sh")" = codex ] \
+    || fail "a memoized harness was not served without re-detection"
+  pass "the drain removes its deferred span scratch files and serves a memoized harness"
+}
+
 # Seconds-since-epoch without assuming a GNU date: bash's printf %(...)T when
 # available, date otherwise (tests/lib.sh owns no clock helper).
 fm_epoch_now() {
@@ -101,3 +116,4 @@ fm_epoch_now() {
 }
 
 test_large_log_folds_correctly_and_quickly
+test_drain_leaves_no_scratch_files_and_harness_memo_is_honored
