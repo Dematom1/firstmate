@@ -362,6 +362,15 @@ print_status_outcome_backstop_section() {  # <task-and-endpoint-snapshot>
   fi
 
   STATUS_OUTCOME_BACKSTOP_ACKNOWLEDGED=
+  local -a prefetch=()
+  while IFS=$_FM_DRAIN_TAB read -r task endpoint ident; do
+    [ -n "$task" ] || continue
+    receipt=$(status_outcome_backstop_cursor_offset "$STATE/$task.status") || continue
+    [ "$receipt" -lt "$endpoint" ] && prefetch+=("$STATE/$task.status" "$endpoint")
+  done <<EOF
+$snapshot
+EOF
+  [ "${#prefetch[@]}" -le 2 ] || status_prefetch_latest_events "${prefetch[@]}"
   while IFS=$_FM_DRAIN_TAB read -r task endpoint ident; do
     [ -n "$task" ] || continue
     receipt=$(status_outcome_backstop_cursor_offset "$STATE/$task.status") || { rc=1; break; }

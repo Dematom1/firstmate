@@ -1411,7 +1411,7 @@ _fm_scratch_release() {  # <scratch-file>
 _fm_scratch_flush() {  # <state-dir>
   local d=$1
   rm -f -- "$d"/.*.read."$$" "$d"/.*.unread."$$" "$d"/.*.span."$$" \
-    "$d"/.*.span."$$".latest "$d"/.*.span."$$".span 2>/dev/null
+    "$d"/.*.span."$$".latest "$d"/.*.span."$$".latest.record "$d"/.*.span."$$".span 2>/dev/null
 }
 
 _fm_status_read_span() {  # <status-file> <start-offset> <byte-length>
@@ -1613,6 +1613,57 @@ EOF
 FM_STATUS_SNAPSHOT_EVENT_LINE=
 FM_STATUS_SNAPSHOT_EVENT_MTIME=
 FM_STATUS_SNAPSHOT_EVENT_ENDPOINT=
+# Batched prefetch for status_snapshot_latest_event: ONE perl process reads the
+# latest-event tail span of every <status-file> <captured-endpoint> pair given
+# and leaves "<endpoint><TAB><end><TAB><line>" in each file's PID-scoped
+# ".latest.record" scratch, which status_snapshot_latest_event consumes instead
+# of forking its own reader. Same O_NOFOLLOW open and the same 64 KiB tail
+# bound; a file that cannot be read gets no record and falls back to the
+# per-file reader. Best-effort only, never fatal.
+status_prefetch_latest_events() {  # <status-file> <captured-endpoint> [...]
+  local -a spec=()
+  local f endpoint start skip_first limit=65536
+  [ -z "${FM_STATUS_SPAN_READER:-}" ] || return 0
+  while [ "$#" -ge 2 ]; do
+    f=$1 endpoint=$2
+    shift 2
+    case "$endpoint" in ''|*[!0-9]*|0) continue ;; esac
+    [ -f "$f" ] && [ -r "$f" ] && [ ! -L "$f" ] || continue
+    start=0 skip_first=0
+    if [ "$endpoint" -gt "$limit" ]; then start=$((endpoint - limit)); skip_first=1; fi
+    spec+=("$f" "$start" "$((endpoint - start))" "$skip_first" "$endpoint" "$(_fm_status_span_scratch "$f").latest.record")
+  done
+  [ "${#spec[@]}" -gt 0 ] || return 0
+  LC_ALL=C perl -MFcntl=:DEFAULT -e '
+    while (my ($path, $start, $length, $skip_first, $endpoint, $out) = splice(@ARGV, 0, 6)) {
+      sysopen(my $file, $path, O_RDONLY | O_NOFOLLOW) or next;
+      sysseek($file, $start, 0) == $start or next;
+      my $buf = "";
+      my $left = $length;
+      my $ok = 1;
+      while ($left > 0) {
+        my $read = sysread($file, my $chunk, $left > 65536 ? 65536 : $left);
+        unless (defined($read) && $read > 0) { $ok = 0; last }
+        $buf .= $chunk;
+        $left -= $read;
+      }
+      $ok or next;
+      open my $mem, "<", \$buf or next;
+      scalar(<$mem>) if $skip_first;
+      my ($latest, $end);
+      while (defined(my $line = <$mem>)) {
+        next unless $line =~ /[^\s]/;
+        $line =~ s/[\r\n]+\z//;
+        ($latest, $end) = ($line, $start + tell($mem));
+      }
+      defined $end or next;
+      open my $o, ">", $out or next;
+      print $o "$endpoint\t$end\t$latest";
+      close $o;
+    }
+  ' "${spec[@]}" 2>/dev/null || true
+}
+
 # shellcheck disable=SC2034 # Output globals are consumed by sourcing drain scripts.
 status_snapshot_latest_event() {  # <status-file> <captured-endpoint> <captured-identity>
   local f=$1 endpoint=$2 expected_ident=$3 limit=65536 start length scratch record line event_endpoint
@@ -1639,6 +1690,13 @@ status_snapshot_latest_event() {  # <status-file> <captured-endpoint> <captured-
   fi
   length=$((endpoint - start))
   scratch="$(_fm_status_span_scratch "$f").latest"
+  record=
+  if [ -f "$scratch.record" ] && [ ! -L "$scratch.record" ]; then
+    record=$(<"$scratch.record")
+    _fm_scratch_release "$scratch.record"
+    case "$record" in "$endpoint"$'\t'*) record=${record#*$'\t'} ;; *) record= ;; esac
+  fi
+  if [ -z "$record" ]; then
   _fm_status_read_span "$f" "$start" "$length" > "$scratch" 2>/dev/null \
     || { _fm_scratch_release "$scratch"; return 1; }
   if record=$(LC_ALL=C perl -e '
@@ -1656,6 +1714,7 @@ status_snapshot_latest_event() {  # <status-file> <captured-endpoint> <captured-
     print "$end\t$latest";
   ' "$scratch" "$start" "$skip_first"); then :; else _fm_scratch_release "$scratch"; return 1; fi
   _fm_scratch_release "$scratch"
+  fi
   event_endpoint=${record%%$'\t'*}
   line=${record#*$'\t'}
   case "$event_endpoint" in ''|*[!0-9]*) return 1 ;; esac
