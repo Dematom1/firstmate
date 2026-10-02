@@ -1302,7 +1302,7 @@ _FM_DIR_STAT_CACHE=
 _FM_PRESENTATION_MANIFEST_PATH=
 _FM_PRESENTATION_MANIFEST=
 _fm_status_dir_stat() {  # <state>
-  local state=$1 out line f
+  local state=$1 out line f task rest size mtime raw epoch birth ident
   _FM_DIR_STAT_CACHE=
   # A state dir with no status files is an empty cache, not a failure.
   for f in "$state"/*.status; do
