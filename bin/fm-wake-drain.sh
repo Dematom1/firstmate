@@ -77,6 +77,13 @@ case "$PRESENTATION_LOCK_TIMEOUT" in ''|*[!0-9]*|0) PRESENTATION_LOCK_TIMEOUT=10
 # safe to split: the branch's ack can never remove a row it was not granted,
 # so it can never swallow a main-owned row still waiting for main.
 ACTOR=$(fm_lease_actor) || exit 2
+if [ "$ACTOR" = main ] && [ -z "${FM_HARNESS_MEMO:-}" ]; then
+  if FM_HARNESS_MEMO=$("$SCRIPT_DIR/fm-harness.sh" 2>/dev/null) && [ -n "$FM_HARNESS_MEMO" ]; then
+    export FM_HARNESS_MEMO
+  else
+    FM_HARNESS_MEMO=
+  fi
+fi
 ELIGIBLE_ROWS_FILE="$STATE/.branch-eligible-rows"
 ELIGIBLE_OWNER_FILE="$STATE/.branch-eligible-owner"
 MAIN_ROWS_FILE="$STATE/.main-eligible-rows"
@@ -1055,13 +1062,6 @@ fm_recovery_marker_begin_handling "$RECOVERY_MARKER" || {
 RECOVERY_MARKER_TOKEN=$FM_RECOVERY_MARKER_TOKEN
 
 _FM_SCRATCH_DEFER=1
-if [ "$ACTOR" = main ] && [ -z "${FM_HARNESS_MEMO:-}" ]; then
-  if FM_HARNESS_MEMO=$("$SCRIPT_DIR/fm-harness.sh" 2>/dev/null) && [ -n "$FM_HARNESS_MEMO" ]; then
-    export FM_HARNESS_MEMO
-  else
-    FM_HARNESS_MEMO=
-  fi
-fi
 DRAIN_VIEW_TMP=$(mktemp "$STATE/.wake-queue.actor-view.XXXXXX") || exit 1
 if [ "$ACTOR" = branch ]; then
   ACTOR_ROWS_FILE=$ELIGIBLE_ROWS_FILE

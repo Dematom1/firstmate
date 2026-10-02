@@ -105,6 +105,17 @@ test_drain_leaves_no_scratch_files_and_harness_memo_is_honored() {
   [ -z "$leftover" ] || fail "the drain left span scratch files behind: $leftover"
   [ "$(FM_HARNESS_MEMO=codex "$ROOT/bin/fm-harness.sh")" = codex ] \
     || fail "a memoized harness was not served without re-detection"
+
+  local copy="$dir/bin-copy" execs
+  cp -R "$ROOT/bin" "$copy"
+  printf '#!/usr/bin/env bash\nif [ -n "${FM_HARNESS_MEMO:-}" ]; then echo "$FM_HARNESS_MEMO"; exit 0; fi\necho x >> "%s/harness.execs"\necho codex\n' "$dir" > "$copy/fm-harness.sh"
+  chmod +x "$copy/fm-harness.sh"
+  rm -rf "$state"; make_large_log_state "$state"
+  rm -f "$state"/.*.open-decisions-cursor
+  env -u FM_HARNESS_MEMO -u FM_TEST_SEAM FM_STATE_OVERRIDE="$state" "$copy/fm-wake-drain.sh" >/dev/null 2>&1 \
+    || fail "drain with a counting harness stub failed"
+  execs=$(wc -l < "$dir/harness.execs" 2>/dev/null | tr -d ' ')
+  [ "${execs:-0}" = 1 ] || fail "the drain ran harness detection ${execs:-0} times, expected exactly once"
   pass "the drain removes its deferred span scratch files and serves a memoized harness"
 }
 
