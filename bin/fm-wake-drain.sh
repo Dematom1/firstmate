@@ -828,6 +828,7 @@ cleanup() {
   local status=$?
   [ -z "$DRAIN_TMP" ] || rm -f -- "$DRAIN_TMP" 2>/dev/null || true
   [ -z "$DRAIN_VIEW_TMP" ] || rm -f -- "$DRAIN_VIEW_TMP" 2>/dev/null || true
+  _fm_scratch_flush "$STATE" || true
   if [ "$DRAIN_LOCK_HELD" = true ]; then
     fm_lock_release "$FM_WAKE_QUEUE_LOCK"
   fi
@@ -1053,6 +1054,14 @@ fm_recovery_marker_begin_handling "$RECOVERY_MARKER" || {
 }
 RECOVERY_MARKER_TOKEN=$FM_RECOVERY_MARKER_TOKEN
 
+_FM_SCRATCH_DEFER=1
+if [ "$ACTOR" = main ] && [ -z "${FM_HARNESS_MEMO:-}" ]; then
+  if FM_HARNESS_MEMO=$("$SCRIPT_DIR/fm-harness.sh" 2>/dev/null) && [ -n "$FM_HARNESS_MEMO" ]; then
+    export FM_HARNESS_MEMO
+  else
+    FM_HARNESS_MEMO=
+  fi
+fi
 DRAIN_VIEW_TMP=$(mktemp "$STATE/.wake-queue.actor-view.XXXXXX") || exit 1
 if [ "$ACTOR" = branch ]; then
   ACTOR_ROWS_FILE=$ELIGIBLE_ROWS_FILE

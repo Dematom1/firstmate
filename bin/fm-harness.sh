@@ -435,6 +435,7 @@ supervision_primary_pin() {
 # evidence layer is read.
 detect_own() {
   local marker ancestry strength harness pin
+  [ -z "${FM_HARNESS_MEMO:-}" ] || { echo "$FM_HARNESS_MEMO"; return; }
   pin=$(supervision_primary_pin) || exit 2
   [ -z "$pin" ] || { echo "$pin"; return; }
   marker=$(harness_marker)

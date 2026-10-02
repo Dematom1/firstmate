@@ -1399,6 +1399,21 @@ _fm_status_span_scratch() {  # <status-file>
   printf '%s.span.%s' "$(_fm_open_decisions_cursor_path "$1")" "$$"
 }
 
+# Span scratch files are per-call-site, per-PID names that every call rewrites
+# from scratch. A short-lived caller that sets _FM_SCRATCH_DEFER=1 (the wake
+# drain) skips the per-use rm fork - the release runs inside $(...) subshells,
+# so nothing can be tracked in memory - and removes this PID's scratch files in
+# one _fm_scratch_flush; every other caller keeps the immediate rm.
+_FM_SCRATCH_DEFER=
+_fm_scratch_release() {  # <scratch-file>
+  [ -n "$_FM_SCRATCH_DEFER" ] || rm -f "$1"
+}
+_fm_scratch_flush() {  # <state-dir>
+  local d=$1
+  rm -f -- "$d"/.*.read."$$" "$d"/.*.unread."$$" "$d"/.*.span."$$" \
+    "$d"/.*.span."$$".latest "$d"/.*.span."$$".span 2>/dev/null
+}
+
 _fm_status_read_span() {  # <status-file> <start-offset> <byte-length>
   local f=$1 start=$2 length=$3
   if [ -n "${FM_STATUS_SPAN_READER:-}" ]; then
@@ -1506,12 +1521,12 @@ status_open_decisions_incremental() {  # <status-file> [<captured-end-offset>]
   if [ "$offset" -lt "$size" ]; then
     chunk_file="$cf.read.$$"
     _fm_status_read_span "$f" "$offset" "$((size - offset))" > "$chunk_file" 2>/dev/null \
-      || { rm -f "$chunk_file"; printf '%s' "$trusted_open"; return 0; }
+      || { _fm_scratch_release "$chunk_file"; printf '%s' "$trusted_open"; return 0; }
     chunk_size=$(LC_ALL=C wc -c < "$chunk_file" 2>/dev/null) \
-      || { rm -f "$chunk_file"; printf '%s' "$trusted_open"; return 0; }
+      || { _fm_scratch_release "$chunk_file"; printf '%s' "$trusted_open"; return 0; }
     chunk_size=${chunk_size//[[:space:]]/}
     case "$chunk_size" in
-      ''|*[!0-9]*) rm -f "$chunk_file"; printf '%s' "$trusted_open"; return 0 ;;
+      ''|*[!0-9]*) _fm_scratch_release "$chunk_file"; printf '%s' "$trusted_open"; return 0 ;;
     esac
     # Test-only observability seam (off by default, no production behavior
     # change): when set, records exactly how many bytes THIS call folded, so a
@@ -1524,7 +1539,7 @@ status_open_decisions_incremental() {  # <status-file> [<captured-end-offset>]
     while IFS= read -r line || [ -n "$line" ]; do
       open=$(_fm_decision_fold_line "$open" "$line" "$resolve" "$held" "$kind")
     done < "$chunk_file"
-    rm -f "$chunk_file"
+    _fm_scratch_release "$chunk_file"
     offset=$size
     cursor_dirty=1
   fi
@@ -1625,7 +1640,7 @@ status_snapshot_latest_event() {  # <status-file> <captured-endpoint> <captured-
   length=$((endpoint - start))
   scratch="$(_fm_status_span_scratch "$f").latest"
   _fm_status_read_span "$f" "$start" "$length" > "$scratch" 2>/dev/null \
-    || { rm -f "$scratch"; return 1; }
+    || { _fm_scratch_release "$scratch"; return 1; }
   if record=$(LC_ALL=C perl -e '
     my ($path, $start, $skip_first) = @ARGV;
     open my $file, "<", $path or exit 1;
@@ -1639,8 +1654,8 @@ status_snapshot_latest_event() {  # <status-file> <captured-endpoint> <captured-
     }
     exit 1 unless defined $end;
     print "$end\t$latest";
-  ' "$scratch" "$start" "$skip_first"); then :; else rm -f "$scratch"; return 1; fi
-  rm -f "$scratch"
+  ' "$scratch" "$start" "$skip_first"); then :; else _fm_scratch_release "$scratch"; return 1; fi
+  _fm_scratch_release "$scratch"
   event_endpoint=${record%%$'\t'*}
   line=${record#*$'\t'}
   case "$event_endpoint" in ''|*[!0-9]*) return 1 ;; esac
@@ -2168,13 +2183,13 @@ status_new_lines_since_cursor() {  # <status-file> [<captured-end-offset>]
   fi
   [ "$offset" -lt "$size" ] || return 0
   _fm_status_read_span "$f" "$offset" "$((size - offset))" > "$chunk_file" 2>/dev/null \
-    || { rm -f "$chunk_file"; return 1; }
+    || { _fm_scratch_release "$chunk_file"; return 1; }
   while IFS= read -r line || [ -n "$line" ]; do
     case "$line" in
       *[![:space:]]*) printf '%s\n' "$line" || { rc=1; break; } ;;
     esac
   done < "$chunk_file"
-  rm -f "$chunk_file"
+  _fm_scratch_release "$chunk_file"
   return "$rc"
 }
 
@@ -2572,11 +2587,11 @@ status_span_first_actionable_record() {  # <status-file> <start-offset> [record-
   scratch=$(_fm_status_span_scratch "$f") || return 2
   chunk_file="${scratch}.span"
   _fm_status_read_span "$f" "$start" "$((size - start))" > "$chunk_file" 2>/dev/null \
-    || { rm -f "$chunk_file"; return 2; }
+    || { _fm_scratch_release "$chunk_file"; return 2; }
   cur_ident=$(_fm_open_decisions_file_ident "$f") || {
-    rm -f "$chunk_file"; return 2;
+    _fm_scratch_release "$chunk_file"; return 2;
   }
-  [ "$cur_ident" = "$ident" ] || { rm -f "$chunk_file"; return 2; }
+  [ "$cur_ident" = "$ident" ] || { _fm_scratch_release "$chunk_file"; return 2; }
   # shellcheck disable=SC2094 # The loop and the origin fold below only read the span scratch.
   while IFS= read -r line || [ -n "$line" ]; do
     line_number=$((line_number + 1))
@@ -2632,7 +2647,7 @@ EOF
         ;;
     esac
   done < "$chunk_file"
-  rm -f "$chunk_file"
+  _fm_scratch_release "$chunk_file"
   [ "$failed" -eq 0 ] || return 2
   if [ "$rc" -eq 0 ]; then result="${size}"$'\t'"${ident}"$'\t'"${events}"; else result="${size}"$'\t'"${ident}"; fi
   if [ -n "$output_var" ]; then
