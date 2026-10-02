@@ -61,7 +61,11 @@ fm_supervision_host_primary() {
         ;;
     esac
   fi
-  "$(dirname "${BASH_SOURCE[0]}")/fm-harness.sh" 2>/dev/null || printf 'unknown\n'
+  # Like the sibling libs' SCRIPT_DIR resolution: %/* only when the source path
+  # carries a directory, so a bare same-directory source still resolves.
+  local d=${BASH_SOURCE[0]%/*}
+  [ "$d" != "${BASH_SOURCE[0]}" ] || d=.
+  "$d/fm-harness.sh" 2>/dev/null || printf 'unknown\n'
 }
 
 # fm_supervision_host_enabled <config-dir> [<primary-harness>]: 0 iff this home

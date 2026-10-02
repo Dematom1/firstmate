@@ -159,12 +159,18 @@ harness_marker() {
 # same anchored match as the ancestry walk below, kept separate so the marker
 # precedence above can demand real process evidence before trusting FM_OMP_HARNESS.
 ancestry_names_omp() {
-  local pid=$$ comm
+  local pid=$$ line comm
   for _ in 1 2 3 4 5 6 7 8; do
-    comm=$(ps -o comm= -p "$pid" 2>/dev/null) || return 1
+    # One ps fork carries both fields; two separate calls per level doubled the
+    # walk's fork volume, which is the dominant cost of every drain and guard
+    # cycle on a loaded machine.
+    line=$(ps -o ppid= -o comm= -p "$pid" 2>/dev/null) || return 1
+    line=${line#"${line%%[! ]*}"}
+    comm=${line#* }
     [ "$(basename -- "$comm")" = omp ] && return 0
-    pid=$(ps -o ppid= -p "$pid" 2>/dev/null | tr -d ' ')
-    [ -n "$pid" ] && [ "$pid" -gt 1 ] || return 1
+    pid=${line%% *}
+    case "$pid" in ''|*[!0-9]*) return 1 ;; esac
+    [ "$pid" -gt 1 ] || return 1
   done
   return 1
 }
@@ -260,11 +266,15 @@ harness_process_verdict() {  # <pid>
 # nothing when the walk finds none. The nearest match wins, so a worker nested
 # inside another harness resolves to its own harness.
 harness_ancestry() {  # [<pid>]
-  local pid=${1:-$$} verdict
+  local pid=${1:-$$} verdict line
   for _ in 1 2 3 4 5 6 7 8; do
     verdict=$(harness_process_verdict "$pid")
     [ -z "$verdict" ] || { echo "$verdict"; return; }
-    pid=$(ps -o ppid= -p "$pid" 2>/dev/null | tr -d ' ')
+    # One ps fork for both fields (see ancestry_names_omp above).
+    line=$(ps -o ppid= -o comm= -p "$pid" 2>/dev/null) || break
+    line=${line#"${line%%[! ]*}"}
+    pid=${line%% *}
+    pid=${pid//[[:space:]]/}
     # Stop only once the walk has EXAMINED the top of the chain. Inside a PID
     # namespace the harness itself is pid 1 - a container, or the `codex sandbox`
     # this boundary was proven in - so breaking as soon as the next pid is 1

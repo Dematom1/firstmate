@@ -50,6 +50,8 @@ ACK_FINGERPRINTS=
 ACK_NOTICE_FINGERPRINTS=
 PRESENTATION_LOCK_TIMEOUT=${FM_STATUS_PRESENTATION_LOCK_TIMEOUT:-10}
 BRANCH_OUTCOMES_RC=0
+# Fork-free tab separator for the read loops below.
+_FM_DRAIN_TAB=$'\t'
 case "$PRESENTATION_LOCK_TIMEOUT" in ''|*[!0-9]*|0) PRESENTATION_LOCK_TIMEOUT=10 ;; esac
 
 # --- per-actor consume (docs/watcher-continuity.md "Per-actor acknowledgement") --
@@ -254,7 +256,7 @@ assert_watcher_liveness() {
 # receipt path rather than a second interpretation of general check wakes.
 inactive_outcome_fingerprints() { # <sequence> <key-prefix> [<rows-file>]
   local cutoff=$1 prefix=$2 rows=${3:-} epoch seq kind key payload
-  while IFS=$(printf '\t') read -r epoch seq kind key payload; do
+  while IFS=$_FM_DRAIN_TAB read -r epoch seq kind key payload; do
     [ "$kind" = check ] || continue
     case "$seq" in ''|*[!0-9]*) continue ;; esac
     [ "$seq" -le "$cutoff" ] || continue
@@ -309,7 +311,7 @@ load_branch_outcome_index() { # <task>
   data=$(LC_ALL=C command cat "$path" 2>/dev/null) \
     || { BRANCH_OUTCOME_INDEX_STATE=invalid; return 0; }
   case "$data" in *$'\n'*) BRANCH_OUTCOME_INDEX_STATE=invalid; return 0 ;; esac
-  IFS=$(printf '\t') read -r version seq endpoint ident extra <<EOF
+  IFS=$_FM_DRAIN_TAB read -r version seq endpoint ident extra <<EOF
 $data
 EOF
   if [ "$version" != "$BRANCH_OUTCOME_INDEX_VERSION" ] || [ -n "$extra" ]; then
@@ -353,7 +355,7 @@ print_status_outcome_backstop_section() {  # <task-and-endpoint-snapshot>
   fi
 
   STATUS_OUTCOME_BACKSTOP_ACKNOWLEDGED=
-  while IFS=$(printf '\t') read -r task endpoint ident; do
+  while IFS=$_FM_DRAIN_TAB read -r task endpoint ident; do
     [ -n "$task" ] || continue
     receipt=$(status_outcome_backstop_cursor_offset "$STATE/$task.status") || { rc=1; break; }
     [ "$receipt" -lt "$endpoint" ] || continue
@@ -434,7 +436,7 @@ print_unread_status_section() {
   fi
   [ -n "$unread" ] || return 0
 
-  while IFS=$(printf '\t') read -r task line; do
+  while IFS=$_FM_DRAIN_TAB read -r task line; do
     [ -n "$task" ] || continue
     [ -n "$line" ] || continue
     line="$task $line"
@@ -476,7 +478,7 @@ print_open_decisions_section() {
   fi
   [ -n "$open" ] || return 0
 
-  while IFS=$(printf '\t') read -r task key verb note; do
+  while IFS=$_FM_DRAIN_TAB read -r task key verb note; do
     [ -n "$task" ] || continue
     line="$task"
     [ "$key" = default ] || line="$line [key=$key]"
@@ -540,7 +542,7 @@ print_record_divergence_section() {
   diverged=$(fm_run_timed "$bound" "$SCRIPT_DIR/fm-captain-hold.sh" diverged 2>/dev/null) || return 0
   [ -n "$diverged" ] || return 0
 
-  while IFS=$(printf '\t') read -r task origin key title; do
+  while IFS=$_FM_DRAIN_TAB read -r task origin key title; do
     [ -n "$task" ] || continue
     line="$task [key=$key] reads resolved in $origin's status log but is still held for the captain"
     [ -z "$title" ] || line="$line: $title"
@@ -646,7 +648,7 @@ print_branch_outcomes_section() {
   fi
 
   target=0
-  while IFS=$(printf '\t') read -r seq task task_line; do
+  while IFS=$_FM_DRAIN_TAB read -r seq task task_line; do
     case "$seq" in ''|*[!0-9]*) continue ;; esac
     if [ "$held" -gt 0 ]; then
       held=$((held + 1))
@@ -792,6 +794,18 @@ print_status_presentation() {  # [<deduped-raw-rows>]
       printf 'wake drain: status presentation lock could not be acquired safely\n' >&2
     fi
     return 1
+  fi
+  # Seed the batched stat and manifest caches in this shell before capturing
+  # the snapshot, so every section below serves that one point-in-time instead
+  # of forking a stat or a manifest cat per task per section (the snapshot's
+  # subshell cannot seed them for us).
+  _fm_status_dir_stat "$STATE" || true
+  if [ -e "$STATE/.status-presentation-cursor" ]; then
+    _FM_PRESENTATION_MANIFEST_PATH="$STATE/.status-presentation-cursor"
+    _FM_PRESENTATION_MANIFEST=$(LC_ALL=C command cat "$_FM_PRESENTATION_MANIFEST_PATH" 2>/dev/null) || true
+  else
+    _FM_PRESENTATION_MANIFEST_PATH=
+    _FM_PRESENTATION_MANIFEST=
   fi
   snapshot=$(status_presentation_snapshot "$STATE") || {
     printf 'STATUS PRESENTATION INCOMPLETE: status snapshot could not be read.\n'
