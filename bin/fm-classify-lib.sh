@@ -1410,7 +1410,7 @@ _fm_scratch_release() {  # <scratch-file>
 }
 _fm_scratch_flush() {  # <state-dir>
   local d=$1
-  rm -f -- "$d"/.*.read."$$" "$d"/.*.unread."$$" "$d"/.*.span."$$" \
+  rm -f -- "$d"/.*.read."$$" "$d"/.*.unread."$$" "$d"/.*.unread."$$".pre.* "$d"/.*.span."$$" \
     "$d"/.*.span."$$".latest "$d"/.*.span."$$".latest.record "$d"/.*.span."$$".span 2>/dev/null
 }
 
@@ -2035,8 +2035,53 @@ EOF
   return "$rc"
 }
 
+# Batched prefetch for status_new_lines_since_cursor: when two or more tasks of
+# a captured snapshot have unread bytes, ONE perl process reads every
+# [presentation-cursor offset, captured endpoint) span and leaves it in the
+# PID-scoped "<cursor>.unread.<pid>.pre.<offset>.<length>" scratch, whose name
+# encodes the exact range so the per-task reader can only ever pick up the span
+# it would have read itself. Same O_NOFOLLOW open; each file appears only once
+# fully written. Best-effort: any failure leaves the per-task reader to run.
+status_prefetch_unread_spans() {  # <state> <task-and-endpoint-snapshot>
+  local state=$1 snapshot=$2 task endpoint ident f offset base
+  local -a spec=()
+  [ -z "${FM_STATUS_SPAN_READER:-}" ] || return 0
+  while IFS=$_FM_CLASSIFY_TAB read -r task endpoint ident; do
+    [ -n "$task" ] || continue
+    case "$endpoint" in ''|*[!0-9]*) continue ;; esac
+    f="$state/$task.status"
+    [ -f "$f" ] && [ -r "$f" ] && [ ! -L "$f" ] || continue
+    offset=$(status_presentation_cursor_offset "$f") || continue
+    case "$offset" in ''|*[!0-9]*) continue ;; esac
+    [ "$offset" -lt "$endpoint" ] || continue
+    base="$(_fm_open_decisions_cursor_path "$f").unread.$$.pre.$offset.$((endpoint - offset))"
+    spec+=("$f" "$offset" "$((endpoint - offset))" "$base")
+  done <<EOF
+$snapshot
+EOF
+  [ "${#spec[@]}" -gt 4 ] || return 0
+  LC_ALL=C perl -MFcntl=:DEFAULT -e '
+    while (my ($path, $start, $length, $out) = splice(@ARGV, 0, 4)) {
+      sysopen(my $file, $path, O_RDONLY | O_NOFOLLOW) or next;
+      sysseek($file, $start, 0) == $start or next;
+      open my $o, ">", "$out.tmp" or next;
+      my $left = $length;
+      my $ok = 1;
+      while ($left > 0) {
+        my $read = sysread($file, my $chunk, $left > 65536 ? 65536 : $left);
+        unless (defined($read) && $read > 0) { $ok = 0; last }
+        print $o $chunk or do { $ok = 0; last };
+        $left -= $read;
+      }
+      close($o) or $ok = 0;
+      if ($ok) { rename("$out.tmp", $out) or unlink("$out.tmp") } else { unlink("$out.tmp") }
+    }
+  ' "${spec[@]}" 2>/dev/null || true
+}
+
 status_acknowledge_presented_snapshot() {  # <state> <snapshot> [<fully-presented-task-ids>]
   local state=$1 snapshot=$2 fully_presented=${3:-} task endpoint ident f offset lines line safe
+  status_prefetch_unread_spans "$state" "$snapshot"
   while IFS=$_FM_CLASSIFY_TAB read -r task endpoint ident; do
     [ -n "$task" ] || continue
     safe=false
@@ -2241,8 +2286,12 @@ status_new_lines_since_cursor() {  # <status-file> [<captured-end-offset>]
     size=$actual_size
   fi
   [ "$offset" -lt "$size" ] || return 0
-  _fm_status_read_span "$f" "$offset" "$((size - offset))" > "$chunk_file" 2>/dev/null \
-    || { _fm_scratch_release "$chunk_file"; return 1; }
+  if [ -f "$chunk_file.pre.$offset.$((size - offset))" ] && [ ! -L "$chunk_file.pre.$offset.$((size - offset))" ]; then
+    chunk_file="$chunk_file.pre.$offset.$((size - offset))"
+  else
+    _fm_status_read_span "$f" "$offset" "$((size - offset))" > "$chunk_file" 2>/dev/null \
+      || { _fm_scratch_release "$chunk_file"; return 1; }
+  fi
   while IFS= read -r line || [ -n "$line" ]; do
     case "$line" in
       *[![:space:]]*) printf '%s\n' "$line" || { rc=1; break; } ;;
@@ -2305,6 +2354,7 @@ EOF
 
 scan_unread_surface_snapshot() {  # <state> <task-and-endpoint-snapshot>
   local state=$1 snapshot=$2 task endpoint ident f lines line
+  status_prefetch_unread_spans "$state" "$snapshot"
   while IFS=$_FM_CLASSIFY_TAB read -r task endpoint ident; do
     [ -n "$task" ] || continue
     f="$state/$task.status"

@@ -119,6 +119,45 @@ test_drain_leaves_no_scratch_files_and_harness_memo_is_honored() {
   pass "the drain removes its deferred span scratch files and serves a memoized harness"
 }
 
+make_prefetch_state() {
+  local state=$1 i
+  mkdir -p "$state"
+  for i in 1 2 3; do
+    printf 'note: first %s\n' "$i" > "$state/t$i.status"
+    printf 'kind=secondmate\n' > "$state/t$i.meta"
+  done
+  FM_STATE_OVERRIDE="$state" "$DRAIN" >/dev/null 2>&1 || fail "seed drain failed"
+  for i in 1 2 3; do
+    printf 'note: second %s\n' "$i" >> "$state/t$i.status"
+  done
+  i=0
+  while [ "$i" -lt 1500 ]; do
+    printf 'note: bulk line %s with enough padding to push this tail span past sixty-four kibibytes\n' "$i" >> "$state/t2.status"
+    i=$((i + 1))
+  done
+  printf 'working: routine tail\n' >> "$state/t3.status"
+}
+
+test_batched_span_prefetch_matches_the_per_file_reader() {
+  local dir state_a state_b reader
+  dir=$(make_case batched-prefetch)
+  state_a="$dir/state-a"
+  state_b="$dir/state-b"
+  make_prefetch_state "$state_a"
+  make_prefetch_state "$state_b"
+  reader="$dir/reader.sh"
+  printf '#!/usr/bin/env bash\nperl -e '"'"'open my $f, "<", $ARGV[0] or exit 1; binmode $f; seek($f, $ARGV[1], 0); read($f, my $b, $ARGV[2]); print $b'"'"' "$@"\n' > "$reader"
+  chmod +x "$reader"
+  FM_STATE_OVERRIDE="$state_a" "$DRAIN" > "$dir/batched.out" 2>/dev/null || fail "batched drain failed"
+  FM_STATE_OVERRIDE="$state_b" FM_STATUS_SPAN_READER="$reader" "$DRAIN" > "$dir/plain.out" 2>/dev/null || fail "per-file drain failed"
+  grep -F 'second 1' "$dir/batched.out" >/dev/null || fail "the batched drain did not present the unread note"
+  grep -F 'bulk line 1499' "$dir/batched.out" >/dev/null || fail "the batched drain lost the over-64KiB tail"
+  cmp -s "$dir/batched.out" "$dir/plain.out" || { diff "$dir/batched.out" "$dir/plain.out" | head -10 >&2; fail "the batched drain output differs from the per-file reader's"; }
+  [ -z "$(find "$state_a" -maxdepth 1 \( -name '.*.read.*' -o -name '.*.unread.*' -o -name '.*.span.*' \) -print)" ] \
+    || fail "the batched drain left scratch files behind"
+  pass "a multi-task drain with an over-64KiB tail matches the per-file reader and leaves no scratch"
+}
+
 # Seconds-since-epoch without assuming a GNU date: bash's printf %(...)T when
 # available, date otherwise (tests/lib.sh owns no clock helper).
 fm_epoch_now() {
@@ -128,3 +167,4 @@ fm_epoch_now() {
 
 test_large_log_folds_correctly_and_quickly
 test_drain_leaves_no_scratch_files_and_harness_memo_is_honored
+test_batched_span_prefetch_matches_the_per_file_reader
