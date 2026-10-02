@@ -136,6 +136,8 @@ make_prefetch_state() {
     i=$((i + 1))
   done
   printf 'working: routine tail\n' >> "$state/t3.status"
+  printf 'needs-decision [key=od-1]: first open decision\n' >> "$state/t1.status"
+  printf 'blocked [key=od-3]: second open decision\n' >> "$state/t3.status"
 }
 
 test_batched_span_prefetch_matches_the_per_file_reader() {
@@ -152,6 +154,8 @@ test_batched_span_prefetch_matches_the_per_file_reader() {
   FM_STATE_OVERRIDE="$state_b" FM_STATUS_SPAN_READER="$reader" "$DRAIN" > "$dir/plain.out" 2>/dev/null || fail "per-file drain failed"
   grep -F 'second 1' "$dir/batched.out" >/dev/null || fail "the batched drain did not present the unread note"
   grep -F 'bulk line 1499' "$dir/batched.out" >/dev/null || fail "the batched drain lost the over-64KiB tail"
+  grep -F 'od-1' "$dir/batched.out" >/dev/null && grep -F 'od-3' "$dir/batched.out" >/dev/null \
+    || fail "the batched drain lost an open decision"
   cmp -s "$dir/batched.out" "$dir/plain.out" || { diff "$dir/batched.out" "$dir/plain.out" | head -10 >&2; fail "the batched drain output differs from the per-file reader's"; }
   [ -z "$(find "$state_a" -maxdepth 1 \( -name '.*.read.*' -o -name '.*.unread.*' -o -name '.*.span.*' \) -print)" ] \
     || fail "the batched drain left scratch files behind"
