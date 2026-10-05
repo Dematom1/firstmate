@@ -1303,6 +1303,7 @@ _FM_PRESENTATION_MANIFEST_PATH=
 _FM_PRESENTATION_MANIFEST=
 _fm_status_dir_stat() {  # <state>
   local state=$1 out line f task rest size mtime raw epoch birth ident
+  local -a files=()
   _FM_DIR_STAT_CACHE=
   # A state dir with no status files is an empty cache, not a failure.
   for f in "$state"/*.status; do
@@ -1321,10 +1322,16 @@ _fm_status_dir_stat() {  # <state>
     done
     return 0
   fi
+  # Batch only regular, non-symlink files: one broken or symlinked entry must
+  # not fail the whole directory stat and hide every healthy task's rows.
+  for f in "$state"/*.status; do
+    [ -f "$f" ] && [ ! -L "$f" ] && files+=("$f")
+  done
+  [ "${#files[@]}" -gt 0 ] || return 0
   if [ "$_FM_CLASSIFY_UNAME_S" = Darwin ]; then
-    out=$(LC_ALL=C /usr/bin/stat -f '%N|%z|%m|%d:%i|%B|%FB' "$state"/*.status 2>/dev/null) || return 1
+    out=$(LC_ALL=C /usr/bin/stat -f '%N|%z|%m|%d:%i|%B|%FB' "${files[@]}" 2>/dev/null) || return 1
   else
-    out=$(LC_ALL=C stat -c '%n|%s|%Y|%d:%i|%W|%w' "$state"/*.status 2>/dev/null) || return 1
+    out=$(LC_ALL=C stat -c '%n|%s|%Y|%d:%i|%W|%w' "${files[@]}" 2>/dev/null) || return 1
   fi
   while IFS= read -r line; do
     [ -n "$line" ] || continue

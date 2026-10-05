@@ -164,6 +164,48 @@ test_batched_span_prefetch_matches_the_per_file_reader() {
   pass "a multi-task drain with an over-64KiB tail matches the per-file reader and leaves no scratch"
 }
 
+test_broken_status_symlink_does_not_hide_healthy_tasks() {
+  local dir state
+  dir=$(make_case broken-symlink)
+  state="$dir/state"
+  mkdir -p "$state"
+  printf 'note: bootstrap\n' > "$state/healthy.status"
+  printf 'kind=secondmate\n' > "$state/healthy.meta"
+  FM_STATE_OVERRIDE="$state" "$DRAIN" >/dev/null 2>&1 || fail "seed drain failed"
+  ln -s "$dir/does-not-exist" "$state/broken.status"
+  printf 'note: surfaced beside a broken symlink\n' >> "$state/healthy.status"
+  printf 'needs-decision [key=od-sym]: open beside a broken symlink\n' >> "$state/healthy.status"
+  FM_STATE_OVERRIDE="$state" "$DRAIN" > "$dir/out" 2>/dev/null || fail "drain failed beside a broken symlink"
+  grep -F 'surfaced beside a broken symlink' "$dir/out" >/dev/null || fail "unread status was hidden by a broken status symlink"
+  grep -F 'od-sym' "$dir/out" >/dev/null || fail "an open decision was hidden by a broken status symlink"
+  grep -F 'INCOMPLETE' "$dir/out" >/dev/null && fail "a broken status symlink made presentation incomplete"
+  pass "a broken status symlink does not hide healthy tasks' unread status or open decisions"
+}
+
+test_primary_pin_outranks_the_harness_memo() {
+  local out
+  out=$(env FM_HARNESS_MEMO=codex FM_SUPERVISION_ACTOR=branch FM_SUPERVISION_PRIMARY_HARNESS=claude "$ROOT/bin/fm-harness.sh")
+  [ "$out" = claude ] || fail "the memo overrode the supervision primary pin (got '$out')"
+  pass "the supervision primary pin outranks an inherited harness memo"
+}
+
+test_unreadable_presentation_manifest_is_incomplete_not_replayed() {
+  local dir state
+  dir=$(make_case unreadable-manifest)
+  state="$dir/state"
+  mkdir -p "$state"
+  printf 'note: already presented line\n' > "$state/t.status"
+  printf 'kind=secondmate\n' > "$state/t.meta"
+  FM_STATE_OVERRIDE="$state" "$DRAIN" >/dev/null 2>&1 || fail "seed drain failed"
+  [ -e "$state/.status-presentation-cursor" ] || fail "seed drain wrote no presentation cursor"
+  chmod 000 "$state/.status-presentation-cursor"
+  FM_STATE_OVERRIDE="$state" "$DRAIN" > "$dir/out" 2>/dev/null
+  chmod 600 "$state/.status-presentation-cursor"
+  grep -F 'STATUS PRESENTATION INCOMPLETE' "$dir/out" >/dev/null || fail "an unreadable presentation cursor was not reported incomplete"
+  grep -F 'already presented line' "$dir/out" >/dev/null && fail "an unreadable presentation cursor replayed presented status"
+  pass "an unreadable presentation manifest fails presentation as incomplete without replaying status"
+}
+
 # Seconds-since-epoch without assuming a GNU date: bash's printf %(...)T when
 # available, date otherwise (tests/lib.sh owns no clock helper).
 fm_epoch_now() {
@@ -174,3 +216,6 @@ fm_epoch_now() {
 test_large_log_folds_correctly_and_quickly
 test_drain_leaves_no_scratch_files_and_harness_memo_is_honored
 test_batched_span_prefetch_matches_the_per_file_reader
+test_broken_status_symlink_does_not_hide_healthy_tasks
+test_primary_pin_outranks_the_harness_memo
+test_unreadable_presentation_manifest_is_incomplete_not_replayed

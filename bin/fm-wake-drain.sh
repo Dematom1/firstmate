@@ -796,7 +796,7 @@ print_status_sections() {
 }
 
 print_status_presentation() {  # [<deduped-raw-rows>]
-  local rows=${1:-} lock="$STATE/.status-presentation-lock" snapshot annotation_manifest fully_presented='' rc=0
+  local rows=${1:-} lock="$STATE/.status-presentation-lock" snapshot annotation_manifest fully_presented='' rc=0 manifest
   local lock_rc holder_pid
   if fm_lock_acquire_wait_bounded "$lock" "$PRESENTATION_LOCK_TIMEOUT"; then
     :
@@ -816,17 +816,26 @@ print_status_presentation() {  # [<deduped-raw-rows>]
   # of forking a stat or a manifest cat per task per section (the snapshot's
   # subshell cannot seed them for us).
   _fm_status_dir_stat "$STATE" || true
+  _FM_PRESENTATION_MANIFEST_PATH=
+  _FM_PRESENTATION_MANIFEST=
   if [ -e "$STATE/.status-presentation-cursor" ]; then
-    _FM_PRESENTATION_MANIFEST_PATH="$STATE/.status-presentation-cursor"
-    _FM_PRESENTATION_MANIFEST=$(LC_ALL=C command cat "$_FM_PRESENTATION_MANIFEST_PATH" 2>/dev/null) || true
-  else
-    _FM_PRESENTATION_MANIFEST_PATH=
-    _FM_PRESENTATION_MANIFEST=
+    # Enable the manifest cache only after a successful read: an unreadable
+    # manifest is unknown cursor state, never an empty one (which would replay
+    # already-presented status from offset zero).
+    if manifest=$(LC_ALL=C command cat "$STATE/.status-presentation-cursor" 2>/dev/null); then
+      _FM_PRESENTATION_MANIFEST=$manifest
+      _FM_PRESENTATION_MANIFEST_PATH="$STATE/.status-presentation-cursor"
+    else
+      printf 'STATUS PRESENTATION INCOMPLETE: presentation cursor could not be read.\n'
+      rc=1
+    fi
   fi
-  snapshot=$(status_presentation_snapshot "$STATE") || {
-    printf 'STATUS PRESENTATION INCOMPLETE: status snapshot could not be read.\n'
-    rc=1
-  }
+  if [ "$rc" -eq 0 ]; then
+    snapshot=$(status_presentation_snapshot "$STATE") || {
+      printf 'STATUS PRESENTATION INCOMPLETE: status snapshot could not be read.\n'
+      rc=1
+    }
+  fi
   if [ "$rc" -eq 0 ] && [ -n "$rows" ]; then
     fm_wake_print_annotations "$rows" "$snapshot" || rc=1
     if [ "$rc" -eq 0 ]; then

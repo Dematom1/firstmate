@@ -431,13 +431,13 @@ supervision_primary_pin() {
 #   - Different harness, interpreter-args ancestor only: the marker wins, because
 #     a harness-shaped path in some node process's arguments is weaker evidence
 #     than a harness publishing its own identity.
-# The supervision-branch primary pin, when it applies, answers before either
-# evidence layer is read.
+# The supervision-branch primary pin, when it applies, answers before the drain's
+# FM_HARNESS_MEMO and before either evidence layer is read.
 detect_own() {
   local marker ancestry strength harness pin
-  [ -z "${FM_HARNESS_MEMO:-}" ] || { echo "$FM_HARNESS_MEMO"; return; }
   pin=$(supervision_primary_pin) || exit 2
   [ -z "$pin" ] || { echo "$pin"; return; }
+  [ -z "${FM_HARNESS_MEMO:-}" ] || { echo "$FM_HARNESS_MEMO"; return; }
   marker=$(harness_marker)
   ancestry=$(harness_ancestry)
   if [ -z "$ancestry" ]; then
