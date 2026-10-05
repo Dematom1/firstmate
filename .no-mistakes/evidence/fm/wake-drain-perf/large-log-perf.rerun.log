@@ -1,0 +1,3 @@
+ok - a 4000-line status log folds correctly and drains inside the time bound, twice
+ok - the drain removes its deferred span scratch files and serves a memoized harness
+ok - a multi-task drain with an over-64KiB tail matches the per-file reader and leaves no scratch

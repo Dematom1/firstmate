@@ -1,0 +1,15 @@
+== fm-wake-drain-large-log-perf
+ok - a 4000-line status log folds correctly and drains inside the time bound, twice
+ok - the drain removes its deferred span scratch files and serves a memoized harness
+ok - a multi-task drain with an over-64KiB tail matches the per-file reader and leaves no scratch
+bash tests/$t.test.sh  15.62s user 39.32s system 13% cpu 6:40.94 total
+== fm-wake-drain-open-decisions
+ok - a later unrelated terminal line never clears an open decision
+ok - a reserved decision key can only be opened or closed by its owning library
+ok - no open decisions across the fleet prints nothing
+WAKE_ACK_REQUIRED: after handling completes run bin/fm-wake-drain.sh --ack-through 1 --recovery-generation 92749.1791210807.0ozXKX
+ok - the open-decision section is fleet-wide, not scoped to this drain's own queued records
+ok - a buried open decision surfaces even when the wake queue itself is empty
+ok - the fleet-wide decision scan does not follow status symlinks
+bash tests/$t.test.sh  3.63s user 7.18s system 4% cpu 4:07.47 total
+== fm-wake-drain-open-decisions-cursor
