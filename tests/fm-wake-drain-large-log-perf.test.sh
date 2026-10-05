@@ -108,6 +108,7 @@ test_drain_leaves_no_scratch_files_and_harness_memo_is_honored() {
 
   local copy="$dir/bin-copy" execs
   cp -R "$ROOT/bin" "$copy"
+  # shellcheck disable=SC2016
   printf '#!/usr/bin/env bash\nif [ -n "${FM_HARNESS_MEMO:-}" ]; then echo "$FM_HARNESS_MEMO"; exit 0; fi\necho x >> "%s/harness.execs"\necho codex\n' "$dir" > "$copy/fm-harness.sh"
   chmod +x "$copy/fm-harness.sh"
   rm -rf "$state"; make_large_log_state "$state"
@@ -148,14 +149,15 @@ test_batched_span_prefetch_matches_the_per_file_reader() {
   make_prefetch_state "$state_a"
   make_prefetch_state "$state_b"
   reader="$dir/reader.sh"
+  # shellcheck disable=SC2016
   printf '#!/usr/bin/env bash\nperl -e '"'"'open my $f, "<", $ARGV[0] or exit 1; binmode $f; seek($f, $ARGV[1], 0); read($f, my $b, $ARGV[2]); print $b'"'"' "$@"\n' > "$reader"
   chmod +x "$reader"
   FM_STATE_OVERRIDE="$state_a" "$DRAIN" > "$dir/batched.out" 2>/dev/null || fail "batched drain failed"
   FM_STATE_OVERRIDE="$state_b" FM_STATUS_SPAN_READER="$reader" "$DRAIN" > "$dir/plain.out" 2>/dev/null || fail "per-file drain failed"
   grep -F 'second 1' "$dir/batched.out" >/dev/null || fail "the batched drain did not present the unread note"
   grep -F 'bulk line 1499' "$dir/batched.out" >/dev/null || fail "the batched drain lost the over-64KiB tail"
-  grep -F 'od-1' "$dir/batched.out" >/dev/null && grep -F 'od-3' "$dir/batched.out" >/dev/null \
-    || fail "the batched drain lost an open decision"
+  grep -F 'od-1' "$dir/batched.out" >/dev/null || fail "the batched drain lost an open decision"
+  grep -F 'od-3' "$dir/batched.out" >/dev/null || fail "the batched drain lost an open decision"
   cmp -s "$dir/batched.out" "$dir/plain.out" || { diff "$dir/batched.out" "$dir/plain.out" | head -10 >&2; fail "the batched drain output differs from the per-file reader's"; }
   [ -z "$(find "$state_a" -maxdepth 1 \( -name '.*.read.*' -o -name '.*.unread.*' -o -name '.*.span.*' \) -print)" ] \
     || fail "the batched drain left scratch files behind"
