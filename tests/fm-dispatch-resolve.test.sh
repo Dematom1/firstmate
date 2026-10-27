@@ -1151,6 +1151,8 @@ assert_contains "$err" 'not JSON' "non-JSON rules is named"
 for bad in \
   '{"rules":[{"when":"x","use":{"harness":"claude"},"approval":"firstmate"}]}|approval must be "captain" when present' \
   '{"rules":[{"when":"x","use":{"harness":"claude"},"select":"mystery"}]}|unknown select: mystery' \
+  '{"shared_quota":"yes","rules":[{"when":"x","use":{"harness":"claude"}}]}|shared_quota must be true or false when present' \
+  '{"shared_quota":1,"rules":[{"when":"x","use":{"harness":"claude"}}]}|shared_quota must be true or false when present' \
   '{"rules":[{"when":"x","use":{"harness":"claude"},"min_confidence":"high"}]}|min_confidence must be a number from 0 through 1 when present' \
   '{"rules":[{"when":"x","use":{"harness":"claude"},"min_confidence":1.5}]}|min_confidence must be a number from 0 through 1 when present' \
   '{"rules":[{"when":"x","use":{"harness":"claude"},"floor":{"scope":"model:fable","min_percent":20}}]}|rule floor needs scope, min_percent 0..100, and provider matching ^[a-z0-9]+(-[a-z0-9]+)*\z' \
@@ -1189,5 +1191,34 @@ run code out err --help
 expect_code 0 "$code" "--help exits 0"
 assert_contains "$out" 'Usage:' "--help prints usage"
 pass "configuration errors exit 2 before any network call"
+
+# --- shared-quota opt-out: no quota call, declared-order pick ----------------
+cp "$BASE_RULES" "$RULES"
+jq '.shared_quota = true' "$BASE_RULES" > "$RULES"
+reset_log
+write_response "$RESPONSE" rule_4 0.9
+TYPESAFE_API_KEY=$KEY run code out err "$BRIEF" --project pager
+expect_code 0 "$code" "shared-quota clear exits 0"
+assert_contains "$out" '  status: clear' "shared-quota clear status"
+assert_contains "$out" "  profile: --harness 'claude' --model 'sonnet' --effort 'high'" "shared-quota picks the first declared profile, not the argmax winner"
+assert_not_contains "$out" 'spendPriority=' "shared-quota prints no quota evidence"
+assert_not_contains "$out" '  remaining=' "shared-quota prints no remaining percentages"
+assert_not_contains "$out" '  runway=' "shared-quota prints no runway gates"
+assert_contains "$out" 'quota ranking off: home declares a single shared quota' "every candidate line states quota ranking is off"
+assert_absent "$LOG/quota-axi.calls" "shared-quota never reads quota-axi"
+[ "$(printf '%s\n' "$out" | grep -c 'quota ranking off')" -ge 3 ] || fail "shared-quota states the opt-out on every candidate line"
+pass "shared-quota opt-out: no quota snapshot, deterministic declared-order pick, opt-out stated on every candidate"
+
+# --- shared_quota false: byte-for-byte the quota-ranked path ------------------
+jq '.shared_quota = false' "$BASE_RULES" > "$RULES"
+reset_log
+TYPESAFE_API_KEY=$KEY run code out err "$BRIEF" --project pager
+expect_code 0 "$code" "shared_quota false exits 0"
+assert_contains "$out" "  profile: --harness 'cursor' --model 'cursor-grok-4.6-medium'" "shared_quota false keeps the spendPriority argmax"
+assert_not_contains "$out" 'quota ranking off' "shared_quota false prints no opt-out wording"
+[ -f "$LOG/quota-axi.calls" ] || fail "shared_quota false still reads quota-axi"
+assert_contains "$out" 'spendPriority=' "shared_quota false prints quota evidence"
+pass "shared_quota false keeps the unchanged quota-ranked behavior"
+cp "$BASE_RULES" "$RULES"
 
 printf '# all fm-dispatch-resolve tests passed\n'
