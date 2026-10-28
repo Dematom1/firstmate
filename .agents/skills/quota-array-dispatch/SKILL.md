@@ -18,8 +18,8 @@ The [worker helper](../../../bin/fm-quota-choose.sh) and [typed resolver](../../
 
 ## Shared-quota opt-out
 
-When the home's `config/crew-dispatch.json` declares a top-level `"shared_quota": true`, this home draws every provider's usage from one single shared budget, so per-provider quota rows do not describe what is left, and this skill's quota snapshot, three gates, and `spendPriority` ranking are off by home declaration.
-Make no `quota-axi` call, apply no quota floor, runway gate, or `spendPriority` rank, and choose the matched rule's first declared profile that meets the required reasoning class.
+When the home's `config/crew-dispatch.json` declares a top-level `"shared_quota": true`, this home draws every provider's usage from one single shared budget, so per-provider quota rows do not describe what is left, and this skill's quota snapshot, the quota parts of the eligibility and runway gates, and `spendPriority` ranking are off by home declaration.
+Make no `quota-axi` call, apply no quota row, quota floor, runway gate, or `spendPriority` rank, and choose the matched rule's first declared profile that its authoritative catalog supports and that meets the required reasoning class; catalog eligibility and reasoning-class fit still apply.
 Account for every candidate as always, stating in place of quota evidence that quota ranking is off by home declaration.
 The declared value must be a boolean; anything else is an actionable configuration error.
 
@@ -42,7 +42,7 @@ It never removes this skill's authority, and its `ambiguous`, `escalate`, and `e
 
 ## Read the default TOON
 
-When the home declares the [shared-quota opt-out](#shared-quota-opt-out), skip this section's quota reading and everything built on it entirely.
+When the home declares the [shared-quota opt-out](#shared-quota-opt-out), skip this section's quota reading and every quota-derived check built on it (quota rows, floors, runway, and `spendPriority`); catalog eligibility and reasoning-class fit still apply.
 Start each intake by running `quota-axi` once with no `--json`, and reuse that TOON for every candidate.
 Post-consolidation quota-axi (the floor owned by `bin/fm-quota-axi-lib.sh`) puts `spendPriority` in the default `quota[]` block beside `effectivePercentRemaining`, `runway`, `confidence`, `limitedBy`, and `resetsAt`.
 Sparse `exhaustion[]` carries finite-runway seconds only for `projected_exhaustion` and `exhausted_now`.
