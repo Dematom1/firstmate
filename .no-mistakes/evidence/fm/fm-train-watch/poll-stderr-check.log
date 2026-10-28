@@ -1,0 +1,7 @@
+ok   [FM_TEST_GLAB_TRAIN=car] -> ontrain
+ok   [FM_TEST_GLAB_STDERR_NOTICE=1 FM_TEST_GLAB_TRAIN=car] -> ontrain
+ok   [FM_TEST_GLAB_STDERR_NOTICE=1 FM_TEST_GLAB_TRAIN=gone] -> degraded train=dropped url=https://gitlab.example/group/subgroup/project/-/merge_requests/7 reason=mergeable pipeline_url=https://gitlab.example/group/subgroup/project/-/pipelines/941
+ok   [FM_TEST_GLAB_TRAIN=fail] -> 
+ok   [FM_TEST_GLAB_STDERR_NOTICE=1 FM_TEST_GLAB_TRAIN=fail] -> 
+ok   [FM_TEST_GLAB_TRAIN=gone FM_TEST_GLAB_STATE_AFTER=merged] -> 
+ok   [FM_TEST_GLAB_STDERR_NOTICE=1 FM_TEST_GLAB_TRAIN=gone FM_TEST_GLAB_STATE_AFTER=merged] -> 
