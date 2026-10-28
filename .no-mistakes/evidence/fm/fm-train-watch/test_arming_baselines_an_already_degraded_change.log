@@ -1,2 +1,2 @@
-not ok - baseline cycle acknowledgement failed
-exit=1
+== test_arming_baselines_an_already_degraded_change start Wed Oct 28 10:13:18 MDT 2026
+stopped by test phase after ~11 min in watcher with FM_TEST_WATCH_BOUND=900 without reaching a check cycle; load avg ~11

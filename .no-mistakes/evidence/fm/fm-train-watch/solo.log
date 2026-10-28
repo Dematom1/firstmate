@@ -1,0 +1,3 @@
+ok - raw-byte parser accepts canonical URLs and rejects the complete adversarial matrix
+ok - GitHub Enterprise config resolves override, home, then the library code root
+ok - GitHub Enterprise hosts are accepted only when the home names them and their host reaches every forge call
