@@ -1209,6 +1209,41 @@ assert_absent "$LOG/quota-axi.calls" "shared-quota never reads quota-axi"
 [ "$(printf '%s\n' "$out" | grep -c 'quota ranking off')" -ge 3 ] || fail "shared-quota states the opt-out on every candidate line"
 pass "shared-quota opt-out: no quota snapshot, deterministic declared-order pick, opt-out stated on every candidate"
 
+# --- shared-quota: an unmet rule-level floor is bypassed too -----------------
+# rule_1 declares floor model:fable >= 20% but the fixture has 15% there, so the
+# quota-ranked path would fall through to default; the opt-out keeps the rule.
+jq '.shared_quota = true' "$BASE_RULES" > "$RULES"
+reset_log
+write_response "$RESPONSE" rule_1 0.9
+TYPESAFE_API_KEY=$KEY run code out err "$BRIEF" --project pager
+expect_code 0 "$code" "shared-quota unmet rule floor exits 0"
+assert_contains "$out" '  status: clear' "shared-quota unmet rule floor status"
+assert_contains "$out" '  note: rule matched' "shared-quota skips the unmet rule floor instead of falling through to default"
+assert_not_contains "$out" 'fall through to default' "shared-quota unmet rule floor never falls through to default"
+assert_contains "$out" "  profile: --harness 'claude' --model 'fable' --effort 'xhigh'" "shared-quota unmet rule floor picks the rule's own declared profile"
+assert_contains "$out" 'quota ranking off: home declares a single shared quota' "unmet rule floor candidate states quota ranking is off"
+assert_absent "$LOG/quota-axi.calls" "shared-quota unmet rule floor never reads quota-axi"
+pass "shared-quota bypasses an unmet rule-level floor: the rule's own profile wins with no quota call"
+
+# --- shared-quota: an unmet profile-level floor is bypassed too ---------------
+# The codex profile declares floor all_models >= 50% but the fixture has 31%, so
+# the quota-ranked path marks it not eligible; the opt-out resolves the declared
+# order anyway. The use array is reversed so the floored profile is first.
+jq '.shared_quota = true | .rules[1].use |= reverse' "$BASE_RULES" > "$RULES"
+reset_log
+write_response "$RESPONSE" rule_2 0.99
+TYPESAFE_API_KEY=$KEY run code out err "$BRIEF" --project pager
+expect_code 0 "$code" "shared-quota unmet profile floor exits 0"
+assert_contains "$out" '  status: clear' "shared-quota unmet profile floor status"
+assert_contains "$out" "  profile: --harness 'codex' --model 'gpt-5.6-sol'" "shared-quota unmet profile floor picks the floored profile first in declared order"
+assert_not_contains "$out" 'not eligible' "shared-quota unmet profile floor marks no candidate ineligible"
+assert_contains "$out" 'quota ranking off: home declares a single shared quota' "unmet profile floor candidates state quota ranking is off"
+assert_absent "$LOG/quota-axi.calls" "shared-quota unmet profile floor never reads quota-axi"
+pass "shared-quota bypasses an unmet profile-level floor: the first declared profile wins with no quota call"
+
+# restore the shared response fixture for the false-path test below
+write_response "$RESPONSE" rule_4 0.9
+
 # --- shared_quota false: byte-for-byte the quota-ranked path ------------------
 jq '.shared_quota = false' "$BASE_RULES" > "$RULES"
 reset_log
