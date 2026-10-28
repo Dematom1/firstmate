@@ -1,0 +1,31 @@
+## shared_quota=false, bug-fix brief
+dispatch-resolve: error (quota-axi --json failed)
+dispatch-resolve:
+  status: error
+  reason: quota-axi --json failed
+exit=0
+quota-axi calls: --json
+
+## shared_quota=ABSENT, bug-fix brief
+dispatch-resolve: error (quota-axi --json failed)
+dispatch-resolve:
+  status: error
+  reason: quota-axi --json failed
+exit=0
+quota-axi calls: --json
+
+## shared_quota="yes" (resolver)
+error: malformed rules file: /var/folders/82/fljzhnqn0r30ynqm_rlwrq6c0000gn/T//fm-lab.PEx3zH/config/crew-dispatch.json - shared_quota must be true or false when present
+exit=2
+quota-axi calls: 0
+
+## shared_quota=1 (resolver)
+error: malformed rules file: /var/folders/82/fljzhnqn0r30ynqm_rlwrq6c0000gn/T//fm-lab.PEx3zH/config/crew-dispatch.json - shared_quota must be true or false when present
+exit=2
+quota-axi calls: 0
+
+## shared_quota=null (resolver)
+error: malformed rules file: /var/folders/82/fljzhnqn0r30ynqm_rlwrq6c0000gn/T//fm-lab.PEx3zH/config/crew-dispatch.json - shared_quota must be true or false when present
+exit=2
+quota-axi calls: 0
+

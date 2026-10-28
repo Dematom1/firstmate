@@ -1,0 +1,17 @@
+## shared_quota absent, base(4a67799):/var/folders/82/fljzhnqn0r30ynqm_rlwrq6c0000gn/T//fm-lab.PEx3zH/base/bin
+dispatch-resolve: error (quota-axi --json failed)
+dispatch-resolve:
+  status: error
+  reason: quota-axi --json failed
+exit=0
+quota-axi calls:        1
+
+## shared_quota absent, head(35739e6):bin
+dispatch-resolve: error (quota-axi --json failed)
+dispatch-resolve:
+  status: error
+  reason: quota-axi --json failed
+exit=0
+quota-axi calls:        1
+
+note: real quota-axi --json exits 1 in this sandbox (claude provider: keychain_prompt_required), so both base and head report status error identically; the point is that quota-axi IS called when the opt-out is absent.

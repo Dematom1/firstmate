@@ -1,0 +1,41 @@
+## config/crew-dispatch.json (lab home)
+{
+  "shared_quota": true,
+  "rules": [
+    { "when": "New feature work on the app.",
+      "floor": { "scope": "model:fable", "min_percent": 100, "provider": "claude" },
+      "use": { "harness": "claude", "model": "fable", "effort": "xhigh" } },
+    { "when": "A simple bug fix with a stated root cause.",
+      "use": [
+        { "harness": "codex", "model": "gpt-5.5", "floor": { "scope": "all_models", "min_percent": 100 } },
+        { "harness": "claude", "model": "sonnet", "effort": "high" },
+        { "harness": "cursor", "model": "cursor-grok-4.6-medium" } ] }
+  ],
+  "default": [ { "harness": "claude", "model": "opus" } ]
+}
+
+## Scenario A: shared_quota=true, bug-fix brief (real typesafe.ai call)
+dispatch-resolve:
+  status: clear
+  model: jev-1.14.0   latency_ms: 351   tokens: 452/44
+  rule: rule_2 (A simple bug fix with a stated root cause.)   confidence: 1.0
+  probabilities: rule_1=0.0 rule_2=1.0 default=0.0
+  note: rule matched
+  candidate: codex:gpt-5.5  provider=codex  -> eligible (quota ranking off: home declares a single shared quota)
+  candidate: claude:sonnet  provider=claude  -> eligible (quota ranking off: home declares a single shared quota)
+  candidate: cursor:cursor-grok-4.6-medium  provider=cursor  -> eligible (quota ranking off: home declares a single shared quota)
+  profile: --harness 'codex' --model 'gpt-5.5'
+exit=0
+quota-axi calls: 0
+
+## Scenario B: shared_quota=true, feature brief (rule with unmet rule floor 100%)
+dispatch-resolve:
+  status: clear
+  model: jev-1.14.0   latency_ms: 376   tokens: 438/44
+  rule: rule_1 (New feature work on the app.)   confidence: 1.0
+  probabilities: rule_1=1.0 rule_2=0.0 default=0.0
+  note: rule matched
+  candidate: claude:fable  provider=claude  -> eligible (quota ranking off: home declares a single shared quota)
+  profile: --harness 'claude' --model 'fable' --effort 'xhigh'
+exit=0
+quota-axi calls: 0
