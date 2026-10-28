@@ -1,0 +1,2 @@
+not ok - bounded watcher did not complete through the degraded poll
+exit=1

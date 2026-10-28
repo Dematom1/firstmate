@@ -1,0 +1,2 @@
+ok - GitHub poll emits one degraded line per failing rollup and stays silent otherwise
+exit=0
