@@ -1,0 +1,2 @@
+zz-test_degraded_wake_survives_an_unsaved_marker.sh: line 1407: [: : integer expected
+not ok - a degraded transition whose marker could not be saved was not queued as a wake
