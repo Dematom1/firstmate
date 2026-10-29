@@ -39,7 +39,8 @@
 #   shared budget, so per-provider quota rows do not describe what is left.
 #   With it set, this tool makes no quota-axi call, applies no quota floor or
 #   runway gate, ranks nothing by spendPriority, and resolves the matched
-#   rule's `use` profiles in declared order; every candidate line still
+#   rule's `use` profiles in declared order; preferred_provider still narrows
+#   the pool; declared order then picks within it. Every candidate line still
 #   prints, stating quota ranking is off by home declaration. Without the
 #   setting, behavior is unchanged. The declared value must be a boolean;
 #   anything else is an actionable configuration error.

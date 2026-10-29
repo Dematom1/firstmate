@@ -1241,6 +1241,26 @@ assert_contains "$out" 'quota ranking off: home declares a single shared quota' 
 assert_absent "$LOG/quota-axi.calls" "shared-quota unmet profile floor never reads quota-axi"
 pass "shared-quota bypasses an unmet profile-level floor: the first declared profile wins with no quota call"
 
+# --- shared-quota: preferred_provider still narrows the pool ------------------
+# The matched rule declares claude first, then two codex-family profiles; the
+# home prefers codex, so the first declared codex profile wins.
+jq '.shared_quota = true | .preferred_provider = "codex" | .rules[3].use = [
+  {harness:"claude",model:"sonnet",effort:"high"},
+  {harness:"pi",model:"openai-codex/gpt-5.6-sol",provider:"codex"},
+  {harness:"codex",model:"gpt-5.6-sol"}]' "$BASE_RULES" > "$RULES"
+reset_log
+write_response "$RESPONSE" rule_4 0.9
+TYPESAFE_API_KEY=$KEY run code out err "$BRIEF" --project pager
+expect_code 0 "$code" "shared-quota preferred_provider exits 0"
+assert_contains "$out" '  status: clear' "shared-quota preferred_provider status"
+assert_contains "$out" '  preferred_provider: codex: prefer eligible family candidates' "shared-quota still applies the family preference"
+assert_contains "$out" "  profile: --harness 'pi' --model 'openai-codex/gpt-5.6-sol'" "shared-quota preferred_provider picks the first declared preferred-family profile"
+assert_absent "$LOG/quota-axi.calls" "shared-quota preferred_provider never reads quota-axi"
+[ "$(printf '%s\n' "$out" | grep -c '^  candidate: ')" -eq 3 ] || fail "shared-quota preferred_provider lists every candidate"
+[ "$(printf '%s\n' "$out" | grep '^  candidate: ' | grep -c 'quota ranking off: home declares a single shared quota')" -eq 3 ] ||
+  fail "shared-quota preferred_provider states the opt-out on every candidate line"
+pass "shared-quota keeps preferred_provider narrowing: the preferred family wins in declared order with no quota call"
+
 # restore the shared response fixture for the false-path test below
 write_response "$RESPONSE" rule_4 0.9
 

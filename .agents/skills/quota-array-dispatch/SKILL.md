@@ -20,6 +20,7 @@ The [worker helper](../../../bin/fm-quota-choose.sh) and [typed resolver](../../
 
 When the home's `config/crew-dispatch.json` declares a top-level `"shared_quota": true`, this home draws every provider's usage from one single shared budget, so per-provider quota rows do not describe what is left, and this skill's quota snapshot, the quota parts of the eligibility and runway gates, and `spendPriority` ranking are off by home declaration.
 Make no `quota-axi` call, apply no quota row, quota floor, runway gate, or `spendPriority` rank, and choose the matched rule's first declared profile that its authoritative catalog supports and that meets the required reasoning class; catalog eligibility and reasoning-class fit still apply.
+`preferred_provider` is not a quota signal, so it still applies: `preferred_provider` still narrows the pool; declared order then picks within it.
 Account for every candidate as always, stating in place of quota evidence that quota ranking is off by home declaration.
 The declared value must be a boolean; anything else is an actionable configuration error.
 
