@@ -1721,6 +1721,7 @@ This section is the single owner of the canonical schema and its per-field seman
 ```json
 {
   "preferred_provider": "<optional quota-axi provider family to spend first>",
+  "shared_quota": false,
   "rules": [
     {
       "when": "<natural-language condition describing a kind of task>",
