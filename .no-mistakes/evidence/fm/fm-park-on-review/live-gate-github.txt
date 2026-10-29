@@ -1,0 +1,65 @@
+$ FM_HOME=$LAB bin/fm-park.sh gate gh7949   # PR #7949 (MERGED draft=false mss=UNKNOWN)
+unclean: the PR is merged
+unclean: mergeability is not computed yet (UNKNOWN)
+exit=3
+
+$ FM_HOME=$LAB bin/fm-park.sh gate gh7954   # PR #7954 (OPEN draft=false mss=DIRTY)
+unclean: the PR has merge conflicts
+unclean: CI is failure on head bb6824ef8e87
+unclean: 4 review thread(s) unresolved
+exit=3
+
+$ FM_HOME=$LAB bin/fm-park.sh gate gh7961   # PR #7961 (OPEN draft=false mss=UNSTABLE)
+unclean: CI is failure on head 1e68a0c7db3a
+unclean: 3 review thread(s) unresolved
+exit=3
+
+$ FM_HOME=$LAB bin/fm-park.sh gate gh7960   # PR #7960 (OPEN draft=true mss=UNSTABLE)
+unclean: the PR is a draft
+unclean: CI is none on head 51d112556100
+exit=3
+
+$ FM_HOME=$LAB bin/fm-park.sh gate gh7952   # PR #7952 (OPEN draft=false mss=CLEAN)
+clean head=12703995e2c0f72174614165c722e3f891263e7f
+exit=0
+
+$ FM_HOME=$LAB bin/fm-park.sh gate gh7951   # PR #7951 (OPEN draft=false mss=CLEAN)
+clean head=12c4256d3dccedb59878eba4ea00494e61352baf
+exit=0
+
+$ FM_HOME=$LAB bin/fm-park.sh gate gh7950   # PR #7950 (OPEN draft=false mss=CLEAN)
+clean head=e078bccd5b37de7b5b4fa515b1f8c06c6ea111e3
+exit=0
+
+$ FM_HOME=$LAB bin/fm-park.sh gate gh7948   # PR #7948 (OPEN draft=false mss=CLEAN)
+clean head=492e39777dc3b42f18070c10c36c4c4d3fca7f42
+exit=0
+
+$ FM_HOME=$LAB bin/fm-park.sh gate gh7947   # PR #7947 (OPEN draft=false mss=CLEAN)
+clean head=6daa20655067897774cb243b77c8ad95c1cbdc28
+exit=0
+
+$ FM_HOME=$LAB bin/fm-park.sh gate gh7946   # PR #7946 (OPEN draft=false mss=CLEAN)
+clean head=1cb78ea648dd5b2af54559439d19f409e8d4be87
+exit=0
+
+$ FM_HOME=$LAB bin/fm-park.sh gate gh7945   # PR #7945 (OPEN draft=false mss=CLEAN)
+clean head=7390f5dec1c88a581fb3216e99d277844b95734a
+exit=0
+
+$ FM_HOME=$LAB bin/fm-park.sh gate gh7942   # PR #7942 (OPEN draft=false mss=CLEAN)
+clean head=d09a25494aa9dfcd8d3b194bda9c83e8cc1340ac
+exit=0
+
+$ FM_HOME=$LAB bin/fm-park.sh gate gh7941   # PR #7941 (OPEN draft=false mss=CLEAN)
+clean head=50f4261c8bf2726579805b11304feec17c78e1ec
+exit=0
+
+$ FM_HOME=$LAB bin/fm-park.sh gate gh7930   # PR #7930 (OPEN draft=false mss=CLEAN)
+clean head=8f65347437f6c404c3ab5d046111169cea730d18
+exit=0
+
+$ FM_HOME=$LAB bin/fm-park.sh gate gh7929   # PR #7929 (OPEN draft=false mss=CLEAN)
+clean head=7fc0901d4412950a298f586851154148d15d6931
+exit=0
+

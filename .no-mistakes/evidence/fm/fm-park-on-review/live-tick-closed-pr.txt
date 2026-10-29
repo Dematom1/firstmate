@@ -1,0 +1,7 @@
+Lane cl: idle ship lane, pr=https://github.com/kunchenguid/firstmate/pull/7920 (CLOSED mergedAt=null), armed check file, default config (no flags).
+$ fm-park.sh tick   # first
+closed cl: PR https://github.com/kunchenguid/firstmate/pull/7920 was closed without merging; the lane needs a decision
+$ fm-park.sh tick   # second (must stay silent: reported once)
+<no output>
+$ touch config/no-auto-land; fm-park.sh tick   # opted out of cleanup and parking: no forge reads, silent
+<no output>

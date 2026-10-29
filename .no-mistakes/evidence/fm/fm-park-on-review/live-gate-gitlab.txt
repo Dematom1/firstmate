@@ -1,0 +1,20 @@
+$ FM_HOME=$LAB bin/fm-park.sh gate gl4251   # MR !4251 (state=merged dms=not_open pipeline=success)
+unclean: the PR is merged
+exit=3
+
+$ FM_HOME=$LAB bin/fm-park.sh gate gl4257   # MR !4257 (state=opened dms=not_approved pipeline=failed)
+unclean: CI is failure on head 697744ebfc31
+exit=3
+
+$ FM_HOME=$LAB bin/fm-park.sh gate gl4255   # MR !4255 (state=opened dms=not_approved pipeline=success)
+clean head=1cad8d85beaa5fefe8b7ebfae1d5534bfa15014c
+exit=0
+
+$ FM_HOME=$LAB bin/fm-park.sh gate gl4254   # MR !4254 (state=opened dms=unchecked pipeline=success)
+unclean: mergeability is not computed yet (unchecked)
+exit=3
+
+$ FM_HOME=$LAB bin/fm-park.sh gate gl4250   # MR !4250 (state=opened dms=discussions_not_resolved pipeline=success)
+unclean: 3 review thread(s) unresolved
+exit=3
+
