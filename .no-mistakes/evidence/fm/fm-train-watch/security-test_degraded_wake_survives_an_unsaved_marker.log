@@ -1,0 +1,2 @@
+ok - a degraded wake is queued before its dedupe marker, so a failed marker save never silences it
+exit=0 elapsed=19s
