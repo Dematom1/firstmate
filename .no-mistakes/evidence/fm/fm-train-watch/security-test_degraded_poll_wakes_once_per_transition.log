@@ -1,0 +1,2 @@
+ok - a degraded ready PR wakes once per head/pipeline transition and stays silent on a repeat
+exit=0 elapsed=3204s

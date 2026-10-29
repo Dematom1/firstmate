@@ -1,0 +1,1 @@
+ok - fm-pr-merge refuses an unreadable GitLab merge request state rather than merging blind

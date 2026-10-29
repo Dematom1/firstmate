@@ -1,0 +1,7 @@
+ok - arming baselines an already degraded change so only a later failure wakes
+ok - arming records its baseline, including an on-train merge request, before publishing the poll
+ok - a stalled baseline read fails arming without a lock or poll
+ok - a stalled re-arm leaves the previous watch and metadata intact
+ok - an unreadable baseline read fails arming and keeps the previous watch
+ok - the merge-time re-record skips the baseline read and keeps the watch's marker
+exit=0 elapsed=809s
