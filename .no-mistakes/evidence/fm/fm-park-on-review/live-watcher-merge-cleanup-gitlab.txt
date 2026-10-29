@@ -1,0 +1,17 @@
+Lane gl-base: ship, pr=https://gitlab.com/gitlab-org/cli/-/merge_requests/4214 (merged by squash; MR head bfe5f859 is on no remote-tracking branch after source-branch deletion), copy in leased Treehouse slot 1, merge poll armed by real bin/fm-pr-check.sh.
+Ran real bin/fm-watch.sh with FM_HOME=<lab>, FM_POLL=5 (no config flags; default behavior). Watcher exited after 46s.
+
+--- watcher stdout
+check: /var/folders/82/fljzhnqn0r30ynqm_rlwrq6c0000gn/T//fm-lab.m87JyV/state/gl-base.check.sh: merged
+
+--- state/.wake-queue
+1793294287	1	check	merged-gl-base-https://gitlab.com/gitlab-org/cli/-/merge_requests/4214	check: merge landed: gl-base https://gitlab.com/gitlab-org/cli/-/merge_requests/4214 external
+1793294311	2	check	/var/folders/82/fljzhnqn0r30ynqm_rlwrq6c0000gn/T//fm-lab.m87JyV/state/gl-base.check.sh	check: gl-base merged https://gitlab.com/gitlab-org/cli/-/merge_requests/4214 - cleaned up: lane torn down and its working copy returned
+
+--- state after: task record, check, poll files
+files named gl-base: 0
+
+--- treehouse status after (slot 1 was leased by the lane)
+base  main  (repository default)
+1     available    /var/folders/82/fljzhnqn0r30ynqm_rlwrq6c0000gn/T/fm-lab.m87JyV/th/.treehouse/origin-src-052b1c/1/origin-src  (detached)
+2     available    /var/folders/82/fljzhnqn0r30ynqm_rlwrq6c0000gn/T/fm-lab.m87JyV/th/.treehouse/origin-src-052b1c/2/origin-src  (detached)

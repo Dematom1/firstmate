@@ -1,0 +1,24 @@
+MR: https://gitlab.com/gitlab-org/cli/-/merge_requests/4214 (state=merged squash=true sha=bfe5f8595da1d6cb7ee86b2a39e89587ff35feff squash_commit_sha=3926c43fb087e3ec827b16791f11cc777ee2c3a1)
+MR head on a remote-tracking branch? 0 branches
+
+### BASE c9da5523 bin/fm-teardown.sh gl-base
+REFUSED: worktree /var/folders/82/fljzhnqn0r30ynqm_rlwrq6c0000gn/T/fm-lab.m87JyV/th/.treehouse/origin-src-052b1c/1/origin-src has work not on any remote and not landed.
+unpushed commits:
+bfe5f859 fix(snap): narrow dot-kube plug to kubeconfig and its lock
+Push the branch, land its PR, or get the captain's explicit OK to discard, then --force.
+(exit printed above as REFUSED vs complete)
+
+### TARGET 61674bed bin/fm-teardown.sh gl-target
+
+🌳 Worktree returned to pool.
+/var/folders/82/fljzhnqn0r30ynqm_rlwrq6c0000gn/T//fm-lab.m87JyV/gl/origin-src: STUCK: on branch main with uncommitted changes, 0 commits behind origin/main - needs attention
+teardown gl-target complete (window fm-lab:fm-gl-target, worktree /var/folders/82/fljzhnqn0r30ynqm_rlwrq6c0000gn/T/fm-lab.m87JyV/th/.treehouse/origin-src-052b1c/2/origin-src)
+Backlog: gl-target just finished (this home keeps no markdown backlog at /private/var/folders/82/fljzhnqn0r30ynqm_rlwrq6c0000gn/T/fm-lab.m87JyV/data/backlog.md). Update /private/var/folders/82/fljzhnqn0r30ynqm_rlwrq6c0000gn/T/fm-lab.m87JyV/data/backlog.md - move gl-target to Done, keep Done to the 10 most recent, then re-scan Queued and dispatch only work whose blockers are gone and date is due.
+(exit printed above as REFUSED vs complete)
+
+### after
+task records: gl-base.meta 
+treehouse pool:
+base  main  (repository default)
+1     leased       /var/folders/82/fljzhnqn0r30ynqm_rlwrq6c0000gn/T/fm-lab.m87JyV/th/.treehouse/origin-src-052b1c/1/origin-src  (detached)
+2     available    /var/folders/82/fljzhnqn0r30ynqm_rlwrq6c0000gn/T/fm-lab.m87JyV/th/.treehouse/origin-src-052b1c/2/origin-src  (detached)

@@ -1,0 +1,2 @@
+ok - teardown proves a squash- or train-merged GitLab MR landed from the MR head, and refuses an open one
+ok - teardown proves a Forgejo task landed from the merged pull request when the content check is inconclusive

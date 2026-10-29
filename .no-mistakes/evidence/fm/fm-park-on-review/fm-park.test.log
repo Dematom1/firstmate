@@ -1,0 +1,19 @@
+1..16
+ok - github gate: clean PR parks, and draft, closed, conflict, behind, unknown mergeability, CI pending/failing/absent, changes requested, unresolved and unread threads each refuse
+ok - github gate waits for every reviewer bot to post on the current head since it was pushed, or the quiet window
+ok - gitlab gate: clean MR parks, and draft, conflict, rebase, CI running/failed/absent, changes requested, other merge blockers, unresolved threads and a stale review bot each refuse, across every page of discussions
+ok - park evaluates the gate twice, leases the slot, writes a private record, stops the agent once, and declares the wait
+ok - a head change between the verdict and the stop refuses the park and leaves the agent running
+ok - an instruction or a new turn arriving after the preflight refuses the park before the agent is stopped
+ok - park refuses a busy or unfinished worker, a waiting instruction, a dirty or lagging copy, an unarmed merge poll, an unleasable slot, and a failed stop
+ok - a lane re-parked after a relaunch keeps its own durable lease, and a slot leased to another holder refuses the park
+ok - head change, failing checks, changes requested, an unresolved thread, a conflict, and new GitHub or GitLab comments each relaunch a fresh worker with the trigger in its instructions
+ok - a parked branch that merely fell behind its base stays parked
+ok - a tick never starts a lane action its remaining budget cannot hold, and the next tick takes it
+ok - an unchanged parked PR and a bare approval stay parked silently
+ok - a failed relaunch keeps the park record, reports once, and waits for a manual resume
+ok - a PR or MR closed without merging is reported once by default, parked or not, never relaunched, and silent under config/no-auto-land
+ok - tick parks nothing without opt-in, reads nothing when opted out of cleanup too, never parks an unclean lane, and parks a clean idle one under config/park-on-review
+ok - merge-time cleanup tears down every lane by default and a parked lane even under config/no-auto-land, through teardown's own gates, and surfaces a refusal
+FM_TEST_COMPLETE
+rc=0

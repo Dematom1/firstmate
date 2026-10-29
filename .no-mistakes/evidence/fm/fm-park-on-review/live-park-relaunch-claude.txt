@@ -1,0 +1,101 @@
+## 1. park before any PR is recorded
+$ fm-park.sh park parkl
+fm-park: refusing to park parkl: no PR is recorded (pr=)
+
+## 2. record the PR and arm the merge poll (real fm-pr-check.sh), copy now at PR #7952 head 12703995
+armed: state/parkl.check.sh
+
+## 3. adversarial: uncommitted change in the copy
+$ fm-park.sh park parkl
+fm-park: refusing to park parkl: the local copy has uncommitted changes
+
+## 4. adversarial: an unhandled steering message waiting in the inbox
+$ fm-park.sh park parkl
+fm-park: refusing to park parkl: an instruction is waiting in the steering inbox
+
+## 5. gate (read-only, live GitHub)
+$ fm-park.sh gate parkl
+clean head=12703995e2c0f72174614165c722e3f891263e7f
+
+## 6. crew state before park
+state: done · source: status-log · lab lane ready, nothing to change
+
+## 7. park (real fm-control exit on the live Claude worker)
+$ fm-park.sh park parkl
+parked parkl: PR https://github.com/kunchenguid/firstmate/pull/7952 clean at 12703995e2c0; agent stopped
+
+--- state/parkl.review-park
+pr=https://github.com/kunchenguid/firstmate/pull/7952
+head=12703995e2c0f72174614165c722e3f891263e7f
+parked_at=1793294676
+slot_leased=yes
+--- status log tail
+done [at=1793294633]: lab lane ready, nothing to change
+paused [at=1793294686]: parked on review: PR https://github.com/kunchenguid/firstmate/pull/7952 clean at 12703995e2c0; agent stopped, relaunches on review activity
+--- crew state
+state: paused · source: review-park · parked on review: PR https://github.com/kunchenguid/firstmate/pull/7952 at 12703995e2c0 since 2026-10-29T17:24Z; agent stopped, relaunches on review activity
+--- fm-park.sh list
+parkl	PR https://github.com/kunchenguid/firstmate/pull/7952	head 12703995e2c0	parked 2026-10-29T17:24Z
+--- treehouse status (slot protected by a durable lease)
+base  main  (repository default)
+1     leased       /var/folders/82/fljzhnqn0r30ynqm_rlwrq6c0000gn/T/fm-lab.m87JyV/th/.treehouse/firstmate-2522f6/1/firstmate  (detached)  (held by parkl)
+                   zsh (99867)
+1     leased       /private/var/folders/82/fljzhnqn0r30ynqm_rlwrq6c0000gn/T/fm-lab.m87JyV/th/.treehouse/firstmate-2522f6/1/firstmate  (detached)  (held by recovered: state file was corrupt or truncated; verify before reuse)  (recovery held: a process is using this worktree (a shell standing in it counts); stop it or leave the worktree; inspect it, then free it with: treehouse return '/private/var/folders/82/fljzhnqn0r30ynqm_rlwrq6c0000gn/T/fm-lab.m87JyV/th/.treehouse/firstmate-2522f6/1/firstmate')
+                   zsh (99867)
+--- lab tmux windows / claude processes in the lane's window
+lab pane_dead=0 cmd=zsh
+fm-parkl pane_dead=0 cmd=zsh
+--- task record, brief, branch, PR all kept:
+parkl.check.sh parkl.git-hooks parkl.inbox parkl.meta parkl.pr-poll parkl.pr-poll-registration parkl.review-park parkl.status parkl.turn-ended 
+brief.md
+launch-brief.md
+12703995e2c0f72174614165c722e3f891263e7f
+
+## 8. tick while nothing new happened on the PR since the park (expect silence, agent stays stopped)
+$ fm-park.sh tick
+<no output>
+state: paused · source: review-park · parked on review: PR https://github.com/kunchenguid/firstmate/pull/7952 at 12703995e2c0 since 2026-10-29T17:24Z; agent stopped, relaunches on review activity
+
+## 9. relaunch trigger from real forge data: the record's parked_at is moved back to 2026-10-29T12:00Z (1793275200), before the maintainer's real comment on PR #7952 at 14:16Z, simulating a park that preceded that comment
+$ fm-park.sh tick
+relaunched parkl: PR https://github.com/kunchenguid/firstmate/pull/7952 - new comments from kunchenguid
+--- record after (removed on successful relaunch):
+(file absent: No such file or directory)
+--- status log tail
+paused [at=1793294686]: parked on review: PR https://github.com/kunchenguid/firstmate/pull/7952 clean at 12703995e2c0; agent stopped, relaunches on review activity
+working [at=1793294720]: relaunched from review park: new comments from kunchenguid
+--- treehouse (lease still held, copy reused)
+base  main  (repository default)
+1     leased       /var/folders/82/fljzhnqn0r30ynqm_rlwrq6c0000gn/T/fm-lab.m87JyV/th/.treehouse/firstmate-2522f6/1/firstmate  (detached)  (held by parkl)
+                   claude (40375), bash (45088), grep (45169), grep (45172), uv (45174), node (45184), node (45276), node (45280), node (45294), node (45297), node (45299), node (45301), bash (47525), bash (47583), bash (47594), fff-mcp (47704), ntn (47736), .gh-wrapped (48006), curl (48025), caffeinate (48064), node (48065), zsh (99867)
+
+## 10. the fresh worker (relaunched by fm-control in the same copy with the park note)
+--- status log tail
+working [at=1793294720]: relaunched from review park: new comments from kunchenguid
+working [at=1793294759]: relaunched, acknowledged note
+done [at=1793294759]: lab lane ready, nothing to change
+--- worker pane (see live-relaunched-worker-pane.txt)
+10:     S='/var/folders/82/fljzhnqn0r30ynqm_rlwrq6c0000gn/T//fm-lab.m87JyV/state/parkl.status'; echo "working [at=$(date +%s)]: relaunched, acknowledged note" >> "$S";…
+--- copy HEAD
+12703995e2c0f72174614165c722e3f891263e7f
+--- crew state
+state: working · source: pane · harness busy (claude-hook)
+--- meta pr= still the record's tail after relaunch
+pr=https://github.com/kunchenguid/firstmate/pull/7952
+pr_head=12703995e2c0f72174614165c722e3f891263e7f
+--- relaunch note delivered in the fresh worker's launch brief:
+127:This lane was parked on review: PR https://github.com/kunchenguid/firstmate/pull/7952 was clean and ready to merge at head 12703995e2c0f72174614165c722e3f891263e7f, so its previous agent was stopped.
+128-You are a fresh agent relaunched in the same local copy on the same branch because: new comments from kunchenguid.
+129-Read the PR and its new review activity, address it on this branch, then report again exactly as your instructions define done.
+
+## 11. teardown of the lane after the lab (real fm-teardown.sh)
+teardown: force-killing leaked worktree process(es) for parkl: 99867
+
+🌳 Worktree returned to pool.
+/var/folders/82/fljzhnqn0r30ynqm_rlwrq6c0000gn/T/fm-lab.m87JyV/projects/firstmate: already current
+teardown parkl complete (window firstmate:fm-parkl, worktree /private/var/folders/82/fljzhnqn0r30ynqm_rlwrq6c0000gn/T/fm-lab.m87JyV/th/.treehouse/firstmate-2522f6/1/firstmate)
+Backlog: parkl is closed in /private/var/folders/82/fljzhnqn0r30ynqm_rlwrq6c0000gn/T/fm-lab.m87JyV/data/backlog.md. Run bin/fm-tasks-axi.sh ready for dependency-cleared candidates, check date gates, and dispatch only work whose blockers are gone and date is due.
+--- treehouse state after
+base  main  (repository default)
+1     leased       /var/folders/82/fljzhnqn0r30ynqm_rlwrq6c0000gn/T/fm-lab.m87JyV/th/.treehouse/firstmate-2522f6/1/firstmate  (detached)  (held by parkl)
+1     available    /private/var/folders/82/fljzhnqn0r30ynqm_rlwrq6c0000gn/T/fm-lab.m87JyV/th/.treehouse/firstmate-2522f6/1/firstmate  (detached)
