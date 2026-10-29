@@ -1,0 +1,66 @@
+$ cat $FM_HOME/config/crew-dispatch.json
+{
+  "rules": [
+    {
+      "when": "New feature work on the app.",
+      "floor": {
+        "scope": "model:fable",
+        "min_percent": 100,
+        "provider": "claude"
+      },
+      "use": {
+        "harness": "claude",
+        "model": "fable",
+        "effort": "xhigh"
+      }
+    },
+    {
+      "when": "A simple bug fix with a stated root cause.",
+      "floor": {
+        "scope": "all_models",
+        "min_percent": 100,
+        "provider": "claude"
+      },
+      "use": [
+        {
+          "harness": "claude",
+          "model": "sonnet",
+          "effort": "high",
+          "floor": {
+            "scope": "all_models",
+            "min_percent": 100
+          }
+        },
+        {
+          "harness": "codex",
+          "model": "gpt-5.6-sol"
+        },
+        {
+          "harness": "cursor",
+          "model": "cursor-grok-4.6-medium"
+        }
+      ]
+    }
+  ],
+  "default": [
+    {
+      "harness": "claude",
+      "model": "opus"
+    }
+  ],
+  "shared_quota": true
+}
+$ FM_HOME=$LAB bin/fm-dispatch-resolve.sh brief.md --project pager   # real typesafe.ai, real quota-axi behind a call-logging shim
+dispatch-resolve:
+  status: clear
+  model: jev-1.14.0   latency_ms: 267   tokens: 462/44
+  rule: rule_2 (A simple bug fix with a stated root cause.)   confidence: 1.0
+  probabilities: rule_1=0.0 rule_2=1.0 default=0.0
+  note: rule matched
+  candidate: claude:sonnet  provider=claude  -> eligible (quota ranking off: home declares a single shared quota)
+  candidate: codex:gpt-5.6-sol  provider=codex  -> eligible (quota ranking off: home declares a single shared quota)
+  candidate: cursor:cursor-grok-4.6-medium  provider=cursor  -> eligible (quota ranking off: home declares a single shared quota)
+  profile: --harness 'claude' --model 'sonnet' --effort 'high'
+exit=0
+--- quota-axi invocations recorded by shim:
+(none - quota-axi was never called)
