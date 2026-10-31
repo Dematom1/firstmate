@@ -4256,6 +4256,10 @@ EOF
         # A pane that leaves the stale path ends the wedge episode it was in, so
         # the cap that episode fired goes with the rest of its bookkeeping.
         paused_bound=1
+        if [ "$busy_now" -eq 0 ] && status_is_paused "$(status_declared_wait_line "$STATE/$task.status")"; then
+          line=$("$FM_CREW_STATE_BIN" "$task" 2>/dev/null) || line=''
+          paused_wait_superseded "$w" "$task" "$line" || true
+        fi
         if [ "$busy_now" -eq 0 ] && busy_turn_over_age "$task"; then
           busy_turn_bound_check "$w" "$task" "$h" "$ssf" "$ewf" "$dialog" && paused_bound=0
         else
@@ -4274,6 +4278,10 @@ EOF
       printf '%s' "$h" > "$hf"
       echo 0 > "$cf"
       paused_bound=1
+      if [ "$busy_now" -eq 0 ] && status_is_paused "$(status_declared_wait_line "$STATE/$task.status")"; then
+        line=$("$FM_CREW_STATE_BIN" "$task" 2>/dev/null) || line=''
+        paused_wait_superseded "$w" "$task" "$line" || true
+      fi
       if [ "$busy_now" -eq 0 ] && busy_turn_over_age "$task"; then
         busy_turn_bound_check "$w" "$task" "$h" "$ssf" "$ewf" "$dialog" && paused_bound=0
       else

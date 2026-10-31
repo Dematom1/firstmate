@@ -1479,7 +1479,9 @@ make_superseded_pause_case() {  # <name> <status-line>
 superseded_pause_round() {  # <dir> <crew-state-line> <exit|absorb> [busy]
   local dir=$1 crew_state=$2 mode=$3 busy=${4:-no} state="$1/state" out="$1/watch.out" pid
   local command=zsh busy_max=999999
-  [ "$busy" = yes ] && command=grok && busy_max=1
+  case "$busy" in
+    yes|recent) command=grok; [ "$busy" = yes ] && busy_max=1; printf 'working\nCtrl+c:cancel\n' > "$dir/pane.txt" ;;
+  esac
   PATH="$dir/fakebin:$PATH" FM_FAKE_TMUX_WINDOW=test:fm-superseded \
     FM_FAKE_TMUX_CAPTURE="$dir/pane.txt" FM_FAKE_TMUX_CURRENT_COMMAND="$command" \
     FM_FAKE_CREW_STATE="$crew_state" FM_WATCH_HANDLING_SUCCESSOR=1 \
@@ -1533,14 +1535,21 @@ test_declared_wait_surfaces_superseding_state() {
   grep -F 'paused wait superseded: current run R is terminal (done)' "$dir/watch.out" >/dev/null \
     || fail "terminal wake did not identify the superseded wait"
 
-  dir=$(make_superseded_pause_case gate-busy 'paused: waiting for validation run R')
+  dir=$(make_superseded_pause_case gate-busy-recent 'paused: waiting for validation run R')
+  superseded_pause_round "$dir" \
+    'state: parked · source: run-step · ask-user: authority decision · run: R' exit recent \
+    || fail "recent busy paused run parked at an unreported human gate did not surface"
+  grep -F 'run R is parked at a human-owed gate' "$dir/watch.out" >/dev/null \
+    || fail "recent busy gate wake did not identify the run"
+
+  dir=$(make_superseded_pause_case gate-busy-old 'paused: waiting for validation run R')
   state="$dir/state"
   set_mtime "$(( $(date +%s) - 500 ))" "$state/paused.meta"
   superseded_pause_round "$dir" \
     'state: parked · source: run-step · ask-user: authority decision · run: R' exit yes \
-    || fail "busy paused run parked at an unreported human gate did not surface"
+    || fail "old busy paused run parked at an unreported human gate did not surface"
   grep -F 'run R is parked at a human-owed gate' "$dir/watch.out" >/dev/null \
-    || fail "busy gate wake did not identify the run"
+    || fail "old busy gate wake did not identify the run"
 
   pass "declared waits surface unreported gates and terminal runs once, while working runs and answered gates keep the pause cadence on idle and busy paths"
 }
