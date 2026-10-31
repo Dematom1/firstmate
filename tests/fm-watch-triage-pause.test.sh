@@ -1550,6 +1550,11 @@ test_declared_wait_surfaces_superseding_state() {
     || fail "old busy paused run parked at an unreported human gate did not surface"
   grep -F 'run R is parked at a human-owed gate' "$dir/watch.out" >/dev/null \
     || fail "old busy gate wake did not identify the run"
+  ack_stopped_cycle "$state" || fail "could not acknowledge the busy gate wake"
+  superseded_pause_round "$dir" \
+    'state: parked · source: run-step · ask-user: authority decision · run: R' absorb yes \
+    || fail "the repeated busy poll failed"
+  [ ! -s "$state/.wake-queue" ] || fail "the busy gate repeated inside the cadence"
 
   pass "declared waits surface unreported gates and terminal runs once, while working runs and answered gates keep the pause cadence on idle and busy paths"
 }

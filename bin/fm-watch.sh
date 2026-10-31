@@ -2497,8 +2497,14 @@ stale_reason_naming_dialog() {  # <reason> [dialog-name]
 }
 
 clear_pause_tracking() {  # <window-key>
-  local key=$1
-  clear_pause_state "$key"
+  local key=$1 throttle="$STATE/.paused-resurfaced-$1" scope
+  scope=$(cat "$throttle" 2>/dev/null || true)
+  case "$scope" in
+    declared:*:gate:*|declared:*:terminal:*)
+      rm -f "$STATE/.paused-$key" "$STATE/.paused-rechecked-$key"
+      ;;
+    *) clear_pause_state "$key" ;;
+  esac
   clear_stale_hash_tracking "$key"
 }
 
