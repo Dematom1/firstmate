@@ -1,0 +1,26 @@
+Live validation transcripts (all runs used disposable FM_HOME directories and env -i; each home was removed afterward).
+
+Session-start report, detect-only:
+status=0
+RECORD_HYGIENE: status log without metadata older than 24 hours: orphan
+RECORD_HYGIENE: metadata has no tab: no-tab
+archive_exists=no
+source_remains=yes
+
+Session-start report and archive:
+status=0
+RECORD_HYGIENE: status log without metadata older than 24 hours: orphan
+archive_exists=yes
+source_exists=no
+
+Heartbeat watcher, bounded live run:
+status=0
+wake queue: 1793554691\t1\tcheck\trecord-hygiene\tcheck: record hygiene: RECORD_HYGIENE: metadata has no tab: no-window
+persisted report: RECORD_HYGIENE: metadata has no tab: no-window
+watcher output: check: record hygiene: RECORD_HYGIENE: metadata has no tab: no-window
+
+Commands run:
+- env -i ... FM_BOOTSTRAP_DETECT_ONLY=1 timeout 30 "$PWD/bin/fm-bootstrap.sh"
+- env -i ... FM_BOOTSTRAP_NETWORK=skip timeout 45 "$PWD/bin/fm-bootstrap.sh"
+- env -i ... FM_LIVE=0 FM_POLL=1 FM_HEARTBEAT=1 FM_HEARTBEAT_MAX=1 FM_CHECK_INTERVAL=999999 FM_RECORD_HYGIENE_TIMEOUT=2 timeout 12 "$PWD/bin/fm-watch.sh"
+Each command used a separately-created temporary home and was torn down in the same evidence turn.
