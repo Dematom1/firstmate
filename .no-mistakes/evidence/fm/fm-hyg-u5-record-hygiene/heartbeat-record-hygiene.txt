@@ -1,0 +1,8 @@
+watcher_exit=0
+stdout:
+check: record hygiene: RECORD_HYGIENE: metadata has no endpoint: no-tab
+stderr:
+last_report:
+RECORD_HYGIENE: metadata has no endpoint: no-tab
+wake_queue:
+1793507355	1	check	record-hygiene	check: record hygiene: RECORD_HYGIENE: metadata has no endpoint: no-tab
