@@ -1,0 +1,82 @@
+2026-11-01T21:52:12Z lab root=/Users/laszlohoranszky/.treehouse/agent-workspace-b8697d/3/agent-workspace/data/fm-hyg-u3-pause-ceiling/live/lab-pause-ceiling.cDalOh home=/Users/laszlohoranszky/.treehouse/agent-workspace-b8697d/3/agent-workspace/data/fm-hyg-u3-pause-ceiling/live/lab-pause-ceiling.cDalOh/home code=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CHFYY73HWAK8A41B7K47WQ head=79996166d5ce89be222935da046e1bbf2a1a2bf8 tmux=-L fmlv46595 TMUX_TMPDIR=/tmp/fml.IWeKDH
+2026-11-01T21:52:15Z worker panes before: boot:0 fm-dated:0 fm-undated:0 fm-malformed:0 
+2026-11-01T21:52:15Z env knobs: FM_PAUSE_UNDATED_MAX_SECS=90 FM_PAUSE_RESURFACE_SECS=90 FM_POLL=2 FM_SIGNAL_GRACE=1 FM_HEARTBEAT=999999 FM_CHECK_INTERVAL=999999 FM_LIVE=0
+2026-11-01T21:52:15Z seeded real watcher source head: 79996166d5ce89be222935da046e1bbf2a1a2bf8
+2026-11-01T21:52:15Z seed dated: paused [at=1793569632]: waiting for the vendor fix until 2026-11-01T21:47:12Z
+2026-11-01T21:52:15Z seed undated: paused [at=1793569932]: waiting for the upstream tool release
+2026-11-01T21:52:15Z seed malformed: paused [at=1793569632]: waiting for the vendor fix until tomorrow morning
+2026-11-01T21:52:16Z === watcher runs below the undated 90s age bound
+2026-11-01T21:52:53Z watcher stdout: signal: /Users/laszlohoranszky/.treehouse/agent-workspace-b8697d/3/agent-workspace/data/fm-hyg-u3-pause-ceiling/live/lab-pause-ceiling.cDalOh/home/state/dated.status /Users/laszlohoranszky/.treehouse/agent-workspace-b8697d/3/agent-workspace/data/fm-hyg-u3-pause-ceiling/live/lab-pause-ceiling.cDalOh/home/state/malformed.status /Users/laszlohoranszky/.treehouse/agent-workspace-b8697d/3/agent-workspace/data/fm-hyg-u3-pause-ceiling/live/lab-pause-ceiling.cDalOh/home/state/undated.status
+2026-11-01T21:52:53Z watcher exit=0 after ~30s
+2026-11-01T21:53:12Z drain: 1793569969	4	signal	dated.status	signal: /Users/laszlohoranszky/.treehouse/agent-workspace-b8697d/3/agent-workspace/data/fm-hyg-u3-pause-ceiling/live/lab-pause-ceiling.cDalOh/home/state/dated.status /Users/laszlohoranszky/.treehouse/agent-workspace-b8697d/3/agent-workspace/data/fm-hyg-u3-pause-ceiling/live/lab-pause-ceiling.cDalOh/home/state/malformed.status /Users/laszlohoranszky/.treehouse/agent-workspace-b8697d/3/agent-workspace/data/fm-hyg-u3-pause-ceiling/live/lab-pause-ceiling.cDalOh/home/state/undated.status
+2026-11-01T21:53:12Z drain: 1793569969	5	signal	malformed.status	signal: /Users/laszlohoranszky/.treehouse/agent-workspace-b8697d/3/agent-workspace/data/fm-hyg-u3-pause-ceiling/live/lab-pause-ceiling.cDalOh/home/state/dated.status /Users/laszlohoranszky/.treehouse/agent-workspace-b8697d/3/agent-workspace/data/fm-hyg-u3-pause-ceiling/live/lab-pause-ceiling.cDalOh/home/state/malformed.status /Users/laszlohoranszky/.treehouse/agent-workspace-b8697d/3/agent-workspace/data/fm-hyg-u3-pause-ceiling/live/lab-pause-ceiling.cDalOh/home/state/undated.status
+2026-11-01T21:53:12Z drain: 1793569970	6	signal	undated.status	signal: /Users/laszlohoranszky/.treehouse/agent-workspace-b8697d/3/agent-workspace/data/fm-hyg-u3-pause-ceiling/live/lab-pause-ceiling.cDalOh/home/state/dated.status /Users/laszlohoranszky/.treehouse/agent-workspace-b8697d/3/agent-workspace/data/fm-hyg-u3-pause-ceiling/live/lab-pause-ceiling.cDalOh/home/state/malformed.status /Users/laszlohoranszky/.treehouse/agent-workspace-b8697d/3/agent-workspace/data/fm-hyg-u3-pause-ceiling/live/lab-pause-ceiling.cDalOh/home/state/undated.status
+2026-11-01T21:53:12Z drain: wake annotation: unread wake-EVENT since last drain, not current state: dated.status: working [at=1793569532]: started
+2026-11-01T21:53:12Z drain: wake annotation: latest wake-EVENT observed at drain, not current state: dated.status: paused [at=1793569632]: waiting for the vendor fix until 2026-11-01T21:47:12Z
+2026-11-01T21:53:12Z drain: wake annotation: unread wake-EVENT since last drain, not current state: malformed.status: working [at=1793569532]: started
+2026-11-01T21:53:12Z drain: wake annotation: latest wake-EVENT observed at drain, not current state: malformed.status: paused [at=1793569632]: waiting for the vendor fix until tomorrow morning
+2026-11-01T21:53:12Z drain: wake annotation: unread wake-EVENT since last drain, not current state: undated.status: working [at=1793569832]: started
+2026-11-01T21:53:12Z drain: wake annotation: latest wake-EVENT observed at drain, not current state: undated.status: paused [at=1793569932]: waiting for the upstream tool release
+2026-11-01T21:53:13Z drain: acked through 6
+2026-11-01T21:53:13Z undated pre-bound check at 57s: no overdue decision
+2026-11-01T21:53:47Z === watcher cycles through the overdue bound; dated and undated should open once
+2026-11-01T21:54:00Z watcher stdout: stale: lab:fm-dated (paused 401s, wait overdue - decide or release)
+2026-11-01T21:54:00Z watcher exit=0 after ~10s
+2026-11-01T21:54:16Z drain: 1793570036	7	stale	lab:fm-dated	stale: lab:fm-dated (paused 401s, wait overdue - decide or release)
+2026-11-01T21:54:16Z drain: OPEN DECISIONS (still open, folded from the durable status logs - not just the latest line):
+2026-11-01T21:54:16Z drain: dated [key=paused-overdue-dated] blocked: paused 401s, wait overdue - decide or release
+2026-11-01T21:54:17Z drain: OPEN DECISIONS: close one by answering it: bin/fm-send.sh <task> --resolve-key <key> '<answer>'
+2026-11-01T21:54:18Z drain: acked through 7
+2026-11-01T21:54:32Z watcher stdout: stale: lab:fm-malformed (paused 435s, awaiting external - declared pause, rechecked on a long cadence not a wedge; confirm the wait still holds)
+2026-11-01T21:54:32Z watcher exit=0 after ~11s
+2026-11-01T21:54:38Z drain: 1793570069	8	stale	lab:fm-malformed	stale: lab:fm-malformed (paused 435s, awaiting external - declared pause, rechecked on a long cadence not a wedge; confirm the wait still holds)
+2026-11-01T21:54:38Z drain: OPEN DECISIONS (still open, folded from the durable status logs - not just the latest line):
+2026-11-01T21:54:38Z drain: dated [key=paused-overdue-dated] blocked: paused 401s, wait overdue - decide or release
+2026-11-01T21:54:38Z drain: OPEN DECISIONS: close one by answering it: bin/fm-send.sh <task> --resolve-key <key> '<answer>'
+2026-11-01T21:54:39Z drain: acked through 8
+2026-11-01T21:55:16Z watcher stdout: stale: lab:fm-undated (paused 156s, wait overdue - decide or release)
+2026-11-01T21:55:16Z watcher exit=0 after ~29s
+2026-11-01T21:55:40Z drain: 1793570103	9	stale	lab:fm-undated	stale: lab:fm-undated (paused 156s, wait overdue - decide or release)
+2026-11-01T21:55:40Z drain: OPEN DECISIONS (still open, folded from the durable status logs - not just the latest line):
+2026-11-01T21:55:40Z drain: dated [key=paused-overdue-dated] blocked: paused 401s, wait overdue - decide or release
+2026-11-01T21:55:40Z drain: undated [key=paused-overdue-undated] blocked: paused 156s, wait overdue - decide or release
+2026-11-01T21:55:40Z drain: OPEN DECISIONS: close one by answering it: bin/fm-send.sh <task> --resolve-key <key> '<answer>'
+2026-11-01T21:55:41Z drain: acked through 9
+2026-11-01T21:56:15Z watcher stdout: stale: lab:fm-malformed (paused 538s, awaiting external - declared pause, rechecked on a long cadence not a wedge; confirm the wait still holds)
+2026-11-01T21:56:15Z watcher exit=0 after ~29s
+2026-11-01T21:56:24Z drain: 1793570173	10	stale	lab:fm-malformed	stale: lab:fm-malformed (paused 538s, awaiting external - declared pause, rechecked on a long cadence not a wedge; confirm the wait still holds)
+2026-11-01T21:56:24Z drain: OPEN DECISIONS (still open, folded from the durable status logs - not just the latest line):
+2026-11-01T21:56:24Z drain: dated [key=paused-overdue-dated] blocked: paused 401s, wait overdue - decide or release
+2026-11-01T21:56:24Z drain: undated [key=paused-overdue-undated] blocked: paused 156s, wait overdue - decide or release
+2026-11-01T21:56:24Z drain: OPEN DECISIONS: close one by answering it: bin/fm-send.sh <task> --resolve-key <key> '<answer>'
+2026-11-01T21:56:29Z drain: acked through 10
+2026-11-01T21:57:27Z watcher pid 30161 still blocking after 48s (no wake); stopping it
+2026-11-01T21:57:29Z watcher exit=124 after ~48s
+2026-11-01T21:57:53Z drain: OPEN DECISIONS (still open, folded from the durable status logs - not just the latest line):
+2026-11-01T21:57:53Z drain: dated [key=paused-overdue-dated] blocked: paused 401s, wait overdue - decide or release
+2026-11-01T21:57:53Z drain: undated [key=paused-overdue-undated] blocked: paused 156s, wait overdue - decide or release
+2026-11-01T21:57:53Z drain: OPEN DECISIONS: close one by answering it: bin/fm-send.sh <task> --resolve-key <key> '<answer>'
+2026-11-01T21:57:56Z drain: acked through 0
+2026-11-01T21:57:56Z === results
+2026-11-01T21:57:56Z status[dated]:
+2026-11-01T21:57:56Z   working [at=1793569532]: started
+2026-11-01T21:57:56Z   paused [at=1793569632]: waiting for the vendor fix until 2026-11-01T21:47:12Z
+2026-11-01T21:57:56Z   blocked [key=paused-overdue-dated] [at=1793570034]: paused 401s, wait overdue - decide or release
+2026-11-01T21:57:56Z   overdue decision lines: 1
+2026-11-01T21:57:56Z   open decisions: paused-overdue-dated	blocked	paused 401s, wait overdue - decide or release
+2026-11-01T21:57:56Z   overdue stale wakes: 1
+2026-11-01T21:57:56Z status[undated]:
+2026-11-01T21:57:56Z   working [at=1793569832]: started
+2026-11-01T21:57:56Z   paused [at=1793569932]: waiting for the upstream tool release
+2026-11-01T21:57:56Z   blocked [key=paused-overdue-undated] [at=1793570091]: paused 156s, wait overdue - decide or release
+2026-11-01T21:57:56Z   overdue decision lines: 1
+2026-11-01T21:57:56Z   open decisions: paused-overdue-undated	blocked	paused 156s, wait overdue - decide or release
+2026-11-01T21:57:56Z   overdue stale wakes: 1
+2026-11-01T21:57:56Z status[malformed]:
+2026-11-01T21:57:56Z   working [at=1793569532]: started
+2026-11-01T21:57:56Z   paused [at=1793569632]: waiting for the vendor fix until tomorrow morning
+2026-11-01T21:57:56Z   overdue decision lines: 0
+2026-11-01T21:57:57Z   open decisions: 
+2026-11-01T21:57:57Z   overdue stale wakes: 0
+2026-11-01T21:57:57Z worker panes after: boot:0 fm-dated:0 fm-undated:0 fm-malformed:0 
+2026-11-01T21:57:57Z PASS: dated and undated each opened one blocked decision and one stale wake; malformed dated stayed on bounded rechecks; all worker panes remained alive
