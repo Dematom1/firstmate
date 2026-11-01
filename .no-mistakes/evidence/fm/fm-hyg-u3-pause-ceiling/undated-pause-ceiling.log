@@ -1,0 +1,30 @@
+2026-11-01T23:26:19Z lab root=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CHFYY73HWAK8A41B7K47WQ/data/lab-undated-current.ESFoBq home=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CHFYY73HWAK8A41B7K47WQ/data/lab-undated-current.ESFoBq/home code=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CHFYY73HWAK8A41B7K47WQ head=55cd855e159e538c98d8ec043b923762a82ae2c6 tmux=-L fmlv38549 TMUX_TMPDIR=/tmp/fml.Bn1apX
+2026-11-01T23:26:20Z head=55cd855e159e538c98d8ec043b923762a82ae2c6; knobs=FM_PAUSE_UNDATED_MAX_SECS=15 FM_PAUSE_RESURFACE_SECS=30 FM_POLL=1 FM_SIGNAL_GRACE=0 FM_HEARTBEAT=999999 FM_CHECK_INTERVAL=999999 FM_LIVE=0; idle worker=lab:fm-undated
+2026-11-01T23:26:28Z watcher stdout: signal: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CHFYY73HWAK8A41B7K47WQ/data/lab-undated-current.ESFoBq/home/state/undated.status
+2026-11-01T23:26:28Z watcher exit=0 after ~8s
+2026-11-01T23:26:31Z drain: 1793575586	2	signal	undated.status	signal: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CHFYY73HWAK8A41B7K47WQ/data/lab-undated-current.ESFoBq/home/state/undated.status
+2026-11-01T23:26:31Z drain: wake annotation: unread wake-EVENT since last drain, not current state: undated.status: working [at=1793575578]: started
+2026-11-01T23:26:31Z drain: wake annotation: latest wake-EVENT observed at drain, not current state: undated.status: paused [at=1793575580]: waiting for upstream tool release
+2026-11-01T23:26:31Z drain: acked through 2
+2026-11-01T23:26:31Z below-bound pause remained unblocked at age=11s
+2026-11-01T23:26:39Z watcher stdout: stale: lab:fm-undated (paused 18s, wait overdue - decide or release)
+2026-11-01T23:26:39Z watcher exit=0 after ~3s
+2026-11-01T23:26:41Z drain: 1793575598	3	stale	lab:fm-undated	stale: lab:fm-undated (paused 18s, wait overdue - decide or release)
+2026-11-01T23:26:41Z drain: OPEN DECISIONS (still open, folded from the durable status logs - not just the latest line):
+2026-11-01T23:26:41Z drain: undated [key=paused-overdue-undated] blocked: paused 18s, wait overdue - decide or release
+2026-11-01T23:26:41Z drain: OPEN DECISIONS: close one by answering it: bin/fm-send.sh <task> --resolve-key <key> '<answer>'
+2026-11-01T23:26:41Z drain: acked through 3
+2026-11-01T23:26:41Z overdue decision count=1; stale wake count=1
+2026-11-01T23:26:44Z watcher pid 27027 still blocking after 3s (no wake); stopping it
+2026-11-01T23:26:45Z watcher exit=124 after ~3s
+2026-11-01T23:26:45Z next poll quiet; still exactly one decision
+2026-11-01T23:26:48Z watcher stdout: check: rearm-resurface
+2026-11-01T23:26:48Z watcher exit=0 after ~3s
+2026-11-01T23:26:53Z drain: acked through 0
+2026-11-01T23:26:53Z status after resume:
+2026-11-01T23:26:53Z   working [at=1793575578]: started
+2026-11-01T23:26:53Z   paused [at=1793575580]: waiting for upstream tool release
+2026-11-01T23:26:53Z   blocked [key=paused-overdue-undated] [at=1793575598]: paused 18s, wait overdue - decide or release
+2026-11-01T23:26:53Z   working [at=1793575605]: upstream tool released, resuming
+2026-11-01T23:26:53Z   resolved [key=paused-overdue-undated] [at=1793575606]: worker pause changed
+2026-11-01T23:26:53Z PASS: below-bound quiet; overdue opened once with one stale wake; quiet on next poll; resume closed decision

@@ -1,0 +1,33 @@
+2026-11-01T23:26:19Z lab root=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CHFYY73HWAK8A41B7K47WQ/data/lab-dated-current.nttA1R home=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CHFYY73HWAK8A41B7K47WQ/data/lab-dated-current.nttA1R/home code=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CHFYY73HWAK8A41B7K47WQ head=55cd855e159e538c98d8ec043b923762a82ae2c6 tmux=-L fmlv38515 TMUX_TMPDIR=/tmp/fml.Help63
+2026-11-01T23:26:20Z head=55cd855e159e538c98d8ec043b923762a82ae2c6; knobs=FM_PAUSE_RESURFACE_SECS=30 FM_PAUSE_UNDATED_MAX_SECS=15 FM_POLL=1 FM_SIGNAL_GRACE=0 FM_HEARTBEAT=999999 FM_CHECK_INTERVAL=999999 FM_LIVE=0; workers=lab:fm-dated,lab:fm-malformed
+2026-11-01T23:26:28Z watcher stdout: signal: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CHFYY73HWAK8A41B7K47WQ/data/lab-dated-current.nttA1R/home/state/dated.status /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CHFYY73HWAK8A41B7K47WQ/data/lab-dated-current.nttA1R/home/state/malformed.status
+2026-11-01T23:26:28Z watcher exit=0 after ~8s
+2026-11-01T23:26:31Z drain: 1793575588	3	signal	dated.status	signal: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CHFYY73HWAK8A41B7K47WQ/data/lab-dated-current.nttA1R/home/state/dated.status /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CHFYY73HWAK8A41B7K47WQ/data/lab-dated-current.nttA1R/home/state/malformed.status
+2026-11-01T23:26:31Z drain: 1793575588	4	signal	malformed.status	signal: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CHFYY73HWAK8A41B7K47WQ/data/lab-dated-current.nttA1R/home/state/dated.status /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CHFYY73HWAK8A41B7K47WQ/data/lab-dated-current.nttA1R/home/state/malformed.status
+2026-11-01T23:26:31Z drain: wake annotation: unread wake-EVENT since last drain, not current state: dated.status: working [at=1793575480]: started
+2026-11-01T23:26:31Z drain: wake annotation: latest wake-EVENT observed at drain, not current state: dated.status: paused [at=1793575580]: waiting for vendor fix until 2026-11-01T23:21:19Z
+2026-11-01T23:26:31Z drain: wake annotation: unread wake-EVENT since last drain, not current state: malformed.status: working [at=1793575180]: started
+2026-11-01T23:26:31Z drain: wake annotation: latest wake-EVENT observed at drain, not current state: malformed.status: paused [at=1793575280]: waiting for vendor fix until tomorrow morning
+2026-11-01T23:26:32Z drain: acked through 4
+2026-11-01T23:26:35Z watcher stdout: stale: lab:fm-dated (paused 14s, wait overdue - decide or release)
+2026-11-01T23:26:35Z watcher exit=0 after ~3s
+2026-11-01T23:26:38Z drain: 1793575594	5	stale	lab:fm-dated	stale: lab:fm-dated (paused 14s, wait overdue - decide or release)
+2026-11-01T23:26:38Z drain: OPEN DECISIONS (still open, folded from the durable status logs - not just the latest line):
+2026-11-01T23:26:38Z drain: dated [key=paused-overdue-dated] blocked: paused 14s, wait overdue - decide or release
+2026-11-01T23:26:38Z drain: OPEN DECISIONS: close one by answering it: bin/fm-send.sh <task> --resolve-key <key> '<answer>'
+2026-11-01T23:26:38Z drain: acked through 5
+2026-11-01T23:26:38Z dated opened once and emitted one stale wake; malformed dated stayed unblocked
+2026-11-01T23:26:41Z watcher stdout: stale: lab:fm-malformed (paused 320s, awaiting external - declared pause, rechecked on a long cadence not a wedge; confirm the wait still holds)
+2026-11-01T23:26:41Z watcher exit=0 after ~3s
+2026-11-01T23:26:41Z next poll quiet; workers alive: boot:0 fm-dated:0 fm-malformed:0 
+2026-11-01T23:26:44Z watcher stdout: check: rearm-resurface
+2026-11-01T23:26:44Z watcher exit=0 after ~2s
+2026-11-01T23:26:47Z drain: 1793575601	6	stale	lab:fm-malformed	stale: lab:fm-malformed (paused 320s, awaiting external - declared pause, rechecked on a long cadence not a wedge; confirm the wait still holds)
+2026-11-01T23:26:48Z drain: acked through 6
+2026-11-01T23:26:48Z status after resume:
+2026-11-01T23:26:48Z   working [at=1793575480]: started
+2026-11-01T23:26:48Z   paused [at=1793575580]: waiting for vendor fix until 2026-11-01T23:21:19Z
+2026-11-01T23:26:48Z   blocked [key=paused-overdue-dated] [at=1793575594]: paused 14s, wait overdue - decide or release
+2026-11-01T23:26:48Z   working [at=1793575601]: vendor fix landed, resuming
+2026-11-01T23:26:48Z   resolved [key=paused-overdue-dated] [at=1793575602]: worker pause changed
+2026-11-01T23:26:48Z PASS: dated overdue decision opened once; malformed dated pause stayed bounded; worker panes remained alive; resume closed the decision

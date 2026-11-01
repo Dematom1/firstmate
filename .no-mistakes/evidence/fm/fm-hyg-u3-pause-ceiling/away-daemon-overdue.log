@@ -1,0 +1,10 @@
+2026-11-01T23:26:19Z lab root=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CHFYY73HWAK8A41B7K47WQ/data/lab-8036away-current.uhkABN home=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CHFYY73HWAK8A41B7K47WQ/data/lab-8036away-current.uhkABN/home code=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CHFYY73HWAK8A41B7K47WQ head=55cd855e159e538c98d8ec043b923762a82ae2c6 tmux=-L fmlv38632 TMUX_TMPDIR=/tmp/fml.DgbYRy
+2026-11-01T23:26:21Z panes: lab:supervisor/%0 cmd=bash lab:fm-ovdaway/%1 cmd=bash 
+2026-11-01T23:26:23Z away mode enabled; supervisor=%0; seeded: paused [at=1793575281]: waiting for the vendor fix until 2026-11-01T23:21:21Z
+2026-11-01T23:26:23Z daemon knobs: FM_DAEMON_PRIMARY_HARNESS=unknown FM_SUPERVISOR_TARGET=%0 FM_SUPERVISOR_BACKEND=tmux FM_ESCALATE_BATCH_SECS=0 FM_HOUSEKEEPING_TICK=1 FM_POLL=2 FM_SIGNAL_GRACE=1 FM_HEARTBEAT=999999 FM_CHECK_INTERVAL=999999 FM_HEARTBEAT_SCAN_SECS=999999 FM_INJECT_CONFIRM_SLEEP=0.3 FM_INJECT_CONFIRM_RETRIES=5 FM_PAUSE_UNDATED_MAX_SECS=120 FM_PAUSE_RESURFACE_SECS=120 FM_WEDGE_ALARM_EXEC=discard FM_WEDGE_ALARM_CHANNEL=off FM_MAX_DEFER_SECS=0
+2026-11-01T23:26:29Z opened decisions=1; live supervisor submissions=1
+2026-11-01T23:26:36Z resolved after resume: resolved [key=paused-overdue-ovdaway] [at=1793575595]: worker pause changed
+2026-11-01T23:26:36Z PASS: real away-mode daemon opened one overdue decision, submitted the stale wake, and closed it after worker resume
+[2026-11-01T17:26:23-0600] daemon starting (pid 57574); target=%0; target_source=FM_SUPERVISOR_TARGET; backend=tmux; backend_source=FM_SUPERVISOR_BACKEND; afk=on; inject_skip='heartbeat'; stale_escalate=240s; batch=0s
+[2026-11-01T17:26:31-0600] wake: signal: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CHFYY73HWAK8A41B7K47WQ/data/lab-8036away-current.uhkABN/home/state/ovdaway.status
+[2026-11-01T17:26:33-0600] self-handle: signal: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CHFYY73HWAK8A41B7K47WQ/data/lab-8036away-current.uhkABN/home/state/ovdaway.status -> routine signal: ovdaway.status: working [at=1793575593]: resumed after external dependency
