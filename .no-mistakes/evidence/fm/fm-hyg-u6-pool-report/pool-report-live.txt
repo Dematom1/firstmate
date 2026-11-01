@@ -1,0 +1,17 @@
+=== bootstrap detect-only with treehouse available ===
+TREEHOUSE_POOL_REPORT: duplicate-clone pool <fixture>/pools/clone-b (project <fixture>/home/projects/b)
+TREEHOUSE_POOL_REPORT: unowned slot older than 30d: <fixture>/home/projects/base
+TREEHOUSE_POOL_REPORT: unregistered pool <fixture>/pools/orphan
+TREEHOUSE_POOL_REPORT: test-leftover pool <fixture>/pools/project-leftover
+TREEHOUSE_POOL_REPORT: test-leftover pool <fixture>/pools/scratch-project-leftover
+checksums_unchanged=yes
+
+=== bootstrap detect-only with treehouse absent from PATH, env -i ===
+TREEHOUSE_POOL_REPORT: duplicate-clone pool <fixture>/pools/clone-b (project <fixture>/home/projects/b)
+TREEHOUSE_POOL_REPORT: unowned slot older than 30d: <fixture>/home/projects/base
+TREEHOUSE_POOL_REPORT: unregistered pool <fixture>/pools/orphan
+TREEHOUSE_POOL_REPORT: test-leftover pool <fixture>/pools/project-leftover
+TREEHOUSE_POOL_REPORT: test-leftover pool <fixture>/pools/scratch-project-leftover
+checksums_unchanged=yes
+
+The disposable fixture used real Git repositories and persisted Treehouse state JSON. No origin URLs or credentials were emitted.
