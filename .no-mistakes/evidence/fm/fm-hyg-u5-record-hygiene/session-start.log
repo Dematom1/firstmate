@@ -1,0 +1,7 @@
+RECORD_HYGIENE: status log without metadata older than 24 hours: orphan
+RECORD_HYGIENE: metadata has no endpoint: one
+RECORD_HYGIENE: metadata has no endpoint: three
+RECORD_HYGIENE: duplicate PR https://example.test/pull/17 in records: one, three
+RECORD_HYGIENE: metadata has no endpoint: two
+archive=present
+state_orphan=absent
