@@ -1,0 +1,14 @@
+lab code: current worktree head=f11fa5dde7724498ad03b9389c318b0faa2568b8
+PASS: hung registration queued exactly one could-not-be-armed notice
+PASS: the retry armed the merge watch
+PASS: the retry published the poll
+PASS: the replacement took over pr=
+PASS: the poll sidecar names the replacement
+PASS: control: this sweep ran and registered a canonical line
+PASS: a pr= the log never named stayed
+PASS: control: this sweep ran and registered a canonical line
+PASS: prose registered no PR
+PASS: red registered no PR
+PASS: later registered no PR
+PASS: failed registered no PR
+LAB PASS
