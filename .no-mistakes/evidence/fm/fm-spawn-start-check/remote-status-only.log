@@ -1,0 +1,158 @@
+1793591722 case=d id=rsmd59757 run=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rd head=12ed2e55f67fcaca230ae12993399966d0078ca7
+1793591722 herdr lab session=fm-lab-fm-start-check-h-92573-25307
+1793591722 herdr provision ok
+1793591723  bin/fm-remote-readiness-lib.sh      | 1 +
+1793591723  bin/fm-remote-secondmate-control.sh | 2 +-
+1793591723  bin/fm-spawn.sh                     | 2 +-
+1793591723  bin/fm-watch.sh                     | 2 +-
+1793591723  4 files changed, 4 insertions(+), 3 deletions(-)
+1793591724 sshd pid=94257 port=54821
+1793591724 charter=[Lab secondmate for a start-check experiment: acknowledge the charter, then wait idle for routed work.]
+1793591736 seed rc=0
+1793591736 provisioned: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rd/rhome projects=0
+1793591736 home=labremote:/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rd/rhome
+1793591736 - rsmd59757 - Lab secondmate for a start-check experiment: acknowledge the charter, then wait idle for routed work. (host: labremote; root: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rd/code; home: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rd/rhome; scope: lab start-check experiment only; projects: ; added 2026-11-01)
+1793591736 watcher loop pgid=23737
+1793591738 SPAWN_START=1793591738
+1793591804 spawn rc=0 start=1793591738 end=1793591804
+1793591804 fm-gate-refuse: gate agent lifecycle permitted only against lab home /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rd/home
+1793591804 spawned rsmd59757 harness=pi kind=secondmate mode=secondmate yolo=off window=remote:rsmd59757 worktree=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rd/rhome remote=labremote backend=herdr
+1793591804 parent meta:
+1793591804 window=remote:rsmd59757
+1793591804 endpoint_task_id=rsmd59757
+1793591804 worktree=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rd/rhome
+1793591804 project=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rd/code
+1793591804 harness=pi
+1793591804 kind=secondmate
+1793591804 mode=secondmate
+1793591804 yolo=off
+1793591804 tasktmp=
+1793591804 model=openai-codex/gpt-5.6-luna
+1793591804 effort=low
+1793591804 home=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rd/rhome
+1793591804 projects=
+1793591804 remote_host=labremote
+1793591804 remote_root=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rd/code
+1793591804 remote_backend=herdr
+1793591804 remote_herdr_session=fm-lab-fm-start-check-h-92573-25307
+1793591804 remote_target=fm-lab-fm-start-check-h-92573-25307:w1:p2
+1793591804 remote_busy_gen=g1793591797.77307.30168
+1793591804 driver-call observe@t0 begin
+1793591807 observe@t0 rc=0: busy|verdict=busy pi-ext|busy_gen=g1793591797.77307.30168|
+1793591807 +69s parent=[1793591790 g1793591797.77307.30168 pi] remote=[ABSENT] parent-status-mtime=[ABSENT] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=2 state=busy source=pi-ext event=agent-start ts=1793591804 ]
+1793591820 +82s parent=[1793591790 g1793591797.77307.30168 pi] remote=[ABSENT] parent-status-mtime=[ABSENT] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=3 state=idle source=pi-ext event=agent-settled ts=1793591818 ]
+1793591823 +85s parent=[1793591790 g1793591797.77307.30168 pi] remote=[ABSENT] parent-status-mtime=[1793591822] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=3 state=idle source=pi-ext event=agent-settled ts=1793591818 ]
+1793591826 +88s parent=[1793591790 g1793591797.77307.30168 pi] remote=[ABSENT] parent-status-mtime=[1793591822] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=4 state=busy source=pi-ext event=agent-start ts=1793591824 ]
+1793591830 driver-call observe@t90 begin
+1793591836 observe@t90 rc=0: busy|verdict=busy pi-ext|busy_gen=g1793591797.77307.30168|
+1793591840 +102s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793591822] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=4 state=busy source=pi-ext event=agent-start ts=1793591824 ]
+1793591843 +105s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793591843] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=4 state=busy source=pi-ext event=agent-start ts=1793591824 ]
+1793591849 +111s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793591849] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=4 state=busy source=pi-ext event=agent-start ts=1793591824 ]
+1793591859 +121s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793591856] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=4 state=busy source=pi-ext event=agent-start ts=1793591824 ]
+1793591862 +124s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793591861] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=4 state=busy source=pi-ext event=agent-start ts=1793591824 ]
+1793591868 +130s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793591866] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=4 state=busy source=pi-ext event=agent-start ts=1793591824 ]
+1793591875 +137s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793591872] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=4 state=busy source=pi-ext event=agent-start ts=1793591824 ]
+1793591878 driver-call observe@t140 begin
+1793591882 observe@t140 rc=0: busy|verdict=busy pi-ext|busy_gen=g1793591797.77307.30168|
+1793591882 driver-call capture@t140 begin
+1793591886 capture@t140 rc=0 saved
+1793591889 +151s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793591888] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=4 state=busy source=pi-ext event=agent-start ts=1793591824 ]
+1793591896 +158s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793591893] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=4 state=busy source=pi-ext event=agent-start ts=1793591824 ]
+1793591902 +164s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793591899] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=4 state=busy source=pi-ext event=agent-start ts=1793591824 ]
+1793591905 +167s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793591905] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=4 state=busy source=pi-ext event=agent-start ts=1793591824 ]
+1793591918 +180s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793591917] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=4 state=busy source=pi-ext event=agent-start ts=1793591824 ]
+1793591931 +193s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793591928] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=4 state=busy source=pi-ext event=agent-start ts=1793591824 ]
+1793591940 +202s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793591939] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=4 state=busy source=pi-ext event=agent-start ts=1793591824 ]
+1793591947 +209s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793591945] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=4 state=busy source=pi-ext event=agent-start ts=1793591824 ]
+1793591953 +215s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793591951] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=4 state=busy source=pi-ext event=agent-start ts=1793591824 ]
+1793591959 +221s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793591958] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=4 state=busy source=pi-ext event=agent-start ts=1793591824 ]
+1793591966 +228s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793591965] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=4 state=busy source=pi-ext event=agent-start ts=1793591824 ]
+1793591975 +237s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793591974] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=4 state=busy source=pi-ext event=agent-start ts=1793591824 ]
+1793591982 +244s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793591981] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=4 state=busy source=pi-ext event=agent-start ts=1793591824 ]
+1793591991 +253s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793591989] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=4 state=busy source=pi-ext event=agent-start ts=1793591824 ]
+1793592001 +263s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793591998] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=4 state=busy source=pi-ext event=agent-start ts=1793591824 ]
+1793592007 +269s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793592005] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=4 state=busy source=pi-ext event=agent-start ts=1793591824 ]
+1793592014 +276s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793592013] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=4 state=busy source=pi-ext event=agent-start ts=1793591824 ]
+1793592020 +282s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793592020] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=4 state=busy source=pi-ext event=agent-start ts=1793591824 ]
+1793592029 +291s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793592028] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=4 state=busy source=pi-ext event=agent-start ts=1793591824 ]
+1793592036 +298s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793592034] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=4 state=busy source=pi-ext event=agent-start ts=1793591824 ]
+1793592042 +304s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793592040] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=4 state=busy source=pi-ext event=agent-start ts=1793591824 ]
+1793592052 +314s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793592050] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=4 state=busy source=pi-ext event=agent-start ts=1793591824 ]
+1793592061 +323s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793592060] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=4 state=busy source=pi-ext event=agent-start ts=1793591824 ]
+1793592071 +333s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793592068] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=4 state=busy source=pi-ext event=agent-start ts=1793591824 ]
+1793592077 +339s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793592077] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=4 state=busy source=pi-ext event=agent-start ts=1793591824 ]
+1793592084 +346s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793592084] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591797.77307.30168 seq=4 state=busy source=pi-ext event=agent-start ts=1793591824 ]
+1793592090 driver-call observe@end begin
+1793592096 observe@end rc=0: busy|verdict=busy pi-ext|busy_gen=g1793591797.77307.30168|
+1793592096 driver-call capture@end begin
+1793592102 capture@end rc=0 saved
+1793592102 final parent start-pending: ABSENT
+1793592102 parent status file:
+1793592102 done [at=1793591817]: charter acknowledged; idle and awaiting routed lab start-check work
+1793592102 blocked [key=watcher-continuity] [at=1793591831]: Pi watcher recovery was requested after five retries; the reported disposable-validation checkout refusal may still require main-firstmate repair
+1793592102 blocked [key=watcher-continuity] [at=1793591841]: repeated watcher recovery attempt still reports refusal from the disposable-validation checkout; main-firstmate repair remains required
+1793592102 blocked [key=watcher-continuity] [at=1793591848]: watcher recovery retried again after queue drain; disposable-validation checkout refusal remains unresolved
+1793592102 blocked [key=watcher-continuity] [at=1793591856]: queue drained and watcher recovery retried; disposable-validation checkout refusal still prevents continuity
+1793592102 blocked [key=watcher-continuity] [at=1793591863]: queue drained and watcher recovery retried; disposable-validation checkout refusal remains unresolved
+1793592102 blocked [key=watcher-continuity] [at=1793591869]: queue drained and watcher recovery retried; disposable-validation checkout refusal remains unresolved
+1793592102 blocked [key=watcher-continuity] [at=1793591876]: queue drained and watcher recovery retried; disposable-validation checkout refusal remains unresolved
+1793592102 blocked [key=watcher-continuity] [at=1793591886]: queue drained and watcher recovery retried; disposable-validation checkout refusal remains unresolved
+1793592102 blocked [key=watcher-continuity] [at=1793591891]: queue drained and watcher recovery retried; disposable-validation checkout refusal remains unresolved
+1793592102 blocked [key=watcher-continuity] [at=1793591898]: queue drained and watcher recovery retried; disposable-validation checkout refusal remains unresolved
+1793592102 blocked [key=watcher-continuity] [at=1793591903]: queue drained and watcher recovery retried; disposable-validation checkout refusal remains unresolved
+1793592102 blocked [key=watcher-continuity] [at=1793591913]: queue drained and watcher recovery retried; disposable-validation checkout refusal remains unresolved
+1793592102 blocked [key=watcher-continuity] [at=1793591924]: queue drained and watcher recovery retried; disposable-validation checkout refusal remains unresolved
+1793592102 blocked [key=watcher-continuity] [at=1793591935]: queue drained and watcher recovery retried; disposable-validation checkout refusal remains unresolved
+1793592102 blocked [key=watcher-continuity] [at=1793591943]: queue drained and watcher recovery retried; disposable-validation checkout refusal remains unresolved
+1793592102 blocked [key=watcher-continuity] [at=1793591949]: queue drained and watcher recovery retried; disposable-validation checkout refusal remains unresolved
+1793592102 blocked [key=watcher-continuity] [at=1793591956]: queue drained and watcher recovery retried; disposable-validation checkout refusal remains unresolved
+1793592102 blocked [key=watcher-continuity] [at=1793591963]: queue drained and watcher recovery retried; disposable-validation checkout refusal remains unresolved
+1793592102 blocked [key=watcher-continuity] [at=1793591972]: queue drained and watcher recovery retried; disposable-validation checkout refusal remains unresolved
+1793592102 blocked [key=watcher-continuity] [at=1793591980]: queue drained and watcher recovery retried; disposable-validation checkout refusal remains unresolved
+1793592102 blocked [key=watcher-continuity] [at=1793591987]: queue drained and watcher recovery retried; disposable-validation checkout refusal remains unresolved
+1793592102 blocked [key=watcher-continuity] [at=1793591996]: queue drained and watcher recovery retried; disposable-validation checkout refusal remains unresolved
+1793592102 blocked [key=watcher-continuity] [at=1793592002]: queue drained and watcher recovery retried; disposable-validation checkout refusal remains unresolved
+1793592102 blocked [key=watcher-continuity] [at=1793592010]: queue drained and watcher recovery retried; disposable-validation checkout refusal remains unresolved
+1793592102 blocked [key=watcher-continuity] [at=1793592017]: queue drained and watcher recovery retried; disposable-validation checkout refusal remains unresolved
+1793592102 blocked [key=watcher-continuity] [at=1793592024]: queue drained and watcher recovery retried; disposable-validation checkout refusal remains unresolved
+1793592102 blocked [key=watcher-continuity] [at=1793592032]: queue drained and watcher recovery retried; disposable-validation checkout refusal remains unresolved
+1793592102 blocked [key=watcher-continuity] [at=1793592038]: queue drained and watcher recovery retried; disposable-validation checkout refusal remains unresolved
+1793592102 blocked [key=watcher-continuity] [at=1793592046]: queue drained and watcher recovery retried; disposable-validation checkout refusal remains unresolved
+1793592102 blocked [key=watcher-continuity] [at=1793592053]: queue drained and watcher recovery retried; disposable-validation checkout refusal remains unresolved
+1793592102 blocked [key=watcher-continuity] [at=1793592060]: queue drained and watcher recovery retried; disposable-validation checkout refusal remains unresolved
+1793592102 blocked [key=watcher-continuity] [at=1793592067]: queue drained and watcher recovery retried; disposable-validation checkout refusal remains unresolved
+1793592102 blocked [key=watcher-continuity] [at=1793592075]: queue drained and watcher recovery retried; disposable-validation checkout refusal remains unresolved
+1793592102 blocked [key=watcher-continuity] [at=1793592084]: queue drained and watcher recovery retried; disposable-validation checkout refusal remains unresolved
+1793592102 blocked [key=watcher-continuity] [at=1793592091]: queue drained and watcher recovery retried; disposable-validation checkout refusal remains unresolved
+1793592102 start wakes in queue log:
+1793592102 all queue rows:
+1793592102 1793591869	1	signal	rsmd59757.status	signal: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rd/home/state/rsmd59757.status
+1793592102 1793591870	2	signal	rsmd59757.status	signal: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rd/home/state/rsmd59757.status
+1793592102 1793591911	3	signal	rsmd59757.status	signal: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rd/home/state/rsmd59757.status
+1793592102 1793591911	4	signal	rsmd59757.status	signal: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rd/home/state/rsmd59757.status
+1793592102 1793591956	5	signal	rsmd59757.status	signal: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rd/home/state/rsmd59757.status
+1793592102 1793591956	6	signal	rsmd59757.status	signal: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rd/home/state/rsmd59757.status
+1793592102 1793591999	7	signal	rsmd59757.status	signal: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rd/home/state/rsmd59757.status
+1793592102 1793591999	8	signal	rsmd59757.status	signal: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rd/home/state/rsmd59757.status
+1793592102 1793592005	9	check	procevent:remote-reply-rsmd59757:24	check: procevent remote-reply remote-reply-rsmd59757 24
+1793592102 1793592043	10	signal	rsmd59757.status	signal: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rd/home/state/rsmd59757.status
+1793592102 1793592044	11	signal	rsmd59757.status	signal: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rd/home/state/rsmd59757.status
+1793592102 1793592090	12	signal	rsmd59757.status	signal: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rd/home/state/rsmd59757.status
+1793592102 1793592090	13	signal	rsmd59757.status	signal: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rd/home/state/rsmd59757.status
+1793592102 triage start-check lines:
+1793592102 [2026-11-01T21:57:15-0600] start check: rsmd59757 started
+1793592102 first parent status write: 1793591822
+1793592102 record cleared at: 1793591840
+1793592102 cleanup: begin
+1793592103 cleanup: retire rc=0 retired: remote-reply-rsmd59757 
+1793592106 cleanup: pass 1 killing run-owned pids: 1180 1975 2503 22726 92677 93177 93825 94257 78375
+1793592108 cleanup: pass 2 killing run-owned pids: 98903
+1793592110 cleanup: pass 3 killing run-owned pids: 3627
+1793592112 cleanup: sshd stopped
+1793592112 cleanup: lab-home teardown rc=0
+1793592113 cleanup: herdr teardown rc=0 
+1793592113 cleanup: lab patches reverted, status=[]
+1793592114 cleanup: task temp dirs removed: []
+1793592129 cleanup: leftover run pids after 15s: [40509 40517 59738 59757 91978 ]
+1793592129 cleanup: leftover processes naming session fm-lab-fm-start-check-h-92573-25307: []
+1793592129 cleanup: done

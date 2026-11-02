@@ -1,0 +1,4 @@
+local: PASS rc=0 wake at t+124s with exact trust accept command; trust accepted in disposable home; no start wake after relaunch; exited worker got relaunch wake; operator trust unchanged
+remote-silent: PASS rc=0 live driver completed; evidence in driver log
+remote-trust: PASS rc=0 live driver completed; evidence in driver log
+remote-status-only: PASS rc=0 no start wake; parent status file written; record cleared after status write

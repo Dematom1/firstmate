@@ -1,0 +1,78 @@
+1793590885 case=a id=rsma98050 run=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-ra head=12ed2e55f67fcaca230ae12993399966d0078ca7
+1793590885 herdr lab session=fm-lab-fm-start-check-h-7573-2845
+1793590886 herdr provision ok
+1793590886  bin/fm-remote-readiness-lib.sh      | 1 +
+1793590886  bin/fm-remote-secondmate-control.sh | 2 +-
+1793590886  bin/fm-spawn.sh                     | 2 +-
+1793590886  3 files changed, 3 insertions(+), 2 deletions(-)
+1793590887 sshd pid=8853 port=53379
+1793590887 charter=[Lab secondmate for a start-check experiment: wait idle for routed work.]
+1793590898 seed rc=0
+1793590898 provisioned: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-ra/rhome projects=0
+1793590898 home=labremote:/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-ra/rhome
+1793590898 - rsma98050 - Lab secondmate for a start-check experiment: wait idle for routed work. (host: labremote; root: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-ra/code; home: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-ra/rhome; scope: lab start-check experiment only; projects: ; added 2026-11-01)
+1793590898 watcher loop pgid=29140
+1793590900 SPAWN_START=1793590900
+1793590972 spawn rc=0 start=1793590900 end=1793590972
+1793590972 fm-gate-refuse: gate agent lifecycle permitted only against lab home /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-ra/home
+1793590972 spawned rsma98050 harness=pi kind=secondmate mode=secondmate yolo=off window=remote:rsma98050 worktree=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-ra/rhome remote=labremote backend=herdr
+1793590972 parent meta:
+1793590972 window=remote:rsma98050
+1793590972 endpoint_task_id=rsma98050
+1793590972 worktree=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-ra/rhome
+1793590972 project=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-ra/code
+1793590972 harness=pi
+1793590972 kind=secondmate
+1793590972 mode=secondmate
+1793590972 yolo=off
+1793590972 tasktmp=
+1793590973 model=openai-codex/gpt-5.6-luna
+1793590973 effort=low
+1793590973 home=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-ra/rhome
+1793590973 projects=
+1793590973 remote_host=labremote
+1793590973 remote_root=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-ra/code
+1793590973 remote_backend=herdr
+1793590973 remote_herdr_session=fm-lab-fm-start-check-h-7573-2845
+1793590973 remote_target=fm-lab-fm-start-check-h-7573-2845:w1:p2
+1793590973 remote_busy_gen=g1793590965.68193.3287
+1793590973 driver-call observe@t0 begin
+1793590977 observe@t0 rc=0: busy|verdict=busy pi-ext|busy_gen=g1793590965.68193.3287|
+1793590977 +77s parent=[1793590959 g1793590965.68193.3287 pi] remote=[ABSENT] parent-status-mtime=[ABSENT] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793590965.68193.3287 seq=2 state=busy source=pi-ext event=agent-start ts=1793590972 ]
+1793590987 +87s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[ABSENT] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793590965.68193.3287 seq=2 state=busy source=pi-ext event=agent-start ts=1793590972 ]
+1793590990 driver-call observe@t90 begin
+1793590994 observe@t90 rc=0: idle|verdict=idle pi-ext|busy_gen=g1793590965.68193.3287|
+1793590997 +97s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[ABSENT] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793590965.68193.3287 seq=4 state=busy source=pi-ext event=agent-start ts=1793590997 ]
+1793591013 +113s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793591012] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793590965.68193.3287 seq=4 state=busy source=pi-ext event=agent-start ts=1793590997 ]
+1793591042 driver-call observe@t140 begin
+1793591050 observe@t140 rc=0: busy|verdict=busy pi-ext|busy_gen=g1793590965.68193.3287|
+1793591050 driver-call capture@t140 begin
+1793591056 capture@t140 rc=0 saved
+1793591258 driver-call observe@end begin
+1793591262 observe@end rc=0: busy|verdict=busy pi-ext|busy_gen=g1793590965.68193.3287|
+1793591262 driver-call capture@end begin
+1793591268 capture@end rc=0 saved
+1793591268 final parent start-pending: ABSENT
+1793591268 parent status file:
+1793591268 blocked [at=1793591010]: watcher continuity cannot be verified because this home is a disposable validation checkout; Pi arm attempts report started but the extension refuses continuity restoration
+1793591268 start wakes in queue log:
+1793591268 all queue rows:
+1793591268 1793591052	1	signal	rsma98050.status	signal: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-ra/home/state/rsma98050.status
+1793591268 1793591052	2	signal	rsma98050.status	signal: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-ra/home/state/rsma98050.status
+1793591268 triage start-check lines:
+1793591268 [2026-11-01T21:43:06-0600] start check: rsma98050 started
+1793591268 first parent status write: 1793591012
+1793591268 record cleared at: 1793590987
+1793591268 cleanup: begin
+1793591269 cleanup: retire rc=0 retired: remote-reply-rsma98050 
+1793591271 cleanup: pass 1 killing run-owned pids: 1599 1831 1833 7899 8853 10596 12200 12255 12257 12269 12423 12593 12716 12964 16671 81740 69141
+1793591274 cleanup: pass 2 killing run-owned pids: 16124
+1793591276 cleanup: pass 3 killing run-owned pids: 17926
+1793591278 cleanup: sshd stopped
+1793591278 cleanup: lab-home teardown rc=0
+1793591279 cleanup: herdr teardown rc=0 
+1793591279 cleanup: lab patches reverted, status=[]
+1793591279 cleanup: task temp dirs removed: []
+1793591294 cleanup: leftover run pids after 15s: [7180 56818 56827 98045 98050 ]
+1793591294 cleanup: leftover processes naming session fm-lab-fm-start-check-h-7573-2845: []
+1793591294 cleanup: done

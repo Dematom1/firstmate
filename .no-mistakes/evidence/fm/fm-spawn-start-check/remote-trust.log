@@ -1,0 +1,74 @@
+1793591304 case=b id=rsmb66392 run=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rb head=12ed2e55f67fcaca230ae12993399966d0078ca7
+1793591305 herdr lab session=fm-lab-fm-start-check-h-81252-24264
+1793591305 herdr provision ok
+1793591306  bin/fm-remote-readiness-lib.sh      | 1 +
+1793591306  bin/fm-remote-secondmate-control.sh | 2 +-
+1793591306  bin/fm-spawn.sh                     | 4 ++--
+1793591306  3 files changed, 4 insertions(+), 3 deletions(-)
+1793591307 sshd pid=83763 port=54308
+1793591307 charter=[Lab secondmate for a start-check experiment: wait idle for routed work.]
+1793591319 seed rc=0
+1793591319 provisioned: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rb/rhome projects=0
+1793591319 home=labremote:/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rb/rhome
+1793591319 - rsmb66392 - Lab secondmate for a start-check experiment: wait idle for routed work. (host: labremote; root: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rb/code; home: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rb/rhome; scope: lab start-check experiment only; projects: ; added 2026-11-01)
+1793591319 watcher loop pgid=15364
+1793591321 SPAWN_START=1793591321
+1793591383 spawn rc=0 start=1793591321 end=1793591383
+1793591383 fm-gate-refuse: gate agent lifecycle permitted only against lab home /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rb/home
+1793591383 spawned rsmb66392 harness=pi kind=secondmate mode=secondmate yolo=off window=remote:rsmb66392 worktree=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rb/rhome remote=labremote backend=herdr
+1793591383 parent meta:
+1793591383 window=remote:rsmb66392
+1793591383 endpoint_task_id=rsmb66392
+1793591383 worktree=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rb/rhome
+1793591383 project=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rb/code
+1793591383 harness=pi
+1793591383 kind=secondmate
+1793591383 mode=secondmate
+1793591383 yolo=off
+1793591383 tasktmp=
+1793591383 model=openai-codex/gpt-5.6-luna
+1793591383 effort=low
+1793591383 home=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rb/rhome
+1793591384 projects=
+1793591384 remote_host=labremote
+1793591384 remote_root=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rb/code
+1793591384 remote_backend=herdr
+1793591384 remote_herdr_session=fm-lab-fm-start-check-h-81252-24264
+1793591384 remote_target=fm-lab-fm-start-check-h-81252-24264:w1:p2
+1793591384 remote_busy_gen=g1793591377.55771.3095
+1793591384 driver-call observe@t0 begin
+1793591388 observe@t0 rc=0: idle|verdict=busy fm-spawn|busy_gen=g1793591377.55771.3095|
+1793591388 +67s parent=[1793591370 g1793591377.55771.3095 pi] remote=[ABSENT] parent-status-mtime=[ABSENT] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591377.55771.3095 seq=1 state=busy source=fm-spawn event=launch-brief ts=1793591377 ]
+1793591411 driver-call observe@t90 begin
+1793591417 observe@t90 rc=0: idle|verdict=busy fm-spawn|busy_gen=g1793591377.55771.3095|
+1793591461 driver-call observe@t140 begin
+1793591465 observe@t140 rc=0: idle|verdict=busy fm-spawn|busy_gen=g1793591377.55771.3095|
+1793591465 driver-call capture@t140 begin
+1793591471 capture@t140 rc=0 saved
+1793591509 +188s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[ABSENT] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793591377.55771.3095 seq=1 state=busy source=fm-spawn event=launch-brief ts=1793591377 ]
+1793591670 driver-call observe@end begin
+1793591674 observe@end rc=0: idle|verdict=busy fm-spawn|busy_gen=g1793591377.55771.3095|
+1793591674 driver-call capture@end begin
+1793591680 capture@end rc=0 saved
+1793591680 final parent start-pending: ABSENT
+1793591680 parent status file:
+1793591680 start wakes in queue log:
+1793591680 1793591507	1	check	start:rsmb66392	check: start rsmb66392: no start signal 129s after spawn (harness=pi; on screen on labremote: Pi project-trust dialog "Trust project folder?"); accept: FM_HOME=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rb/home /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rb/code/bin/fm-send.sh rsmb66392 --key Enter
+1793591680 all queue rows:
+1793591680 1793591507	1	check	start:rsmb66392	check: start rsmb66392: no start signal 129s after spawn (harness=pi; on screen on labremote: Pi project-trust dialog "Trust project folder?"); accept: FM_HOME=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rb/home /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-rb/code/bin/fm-send.sh rsmb66392 --key Enter
+1793591680 triage start-check lines:
+1793591680 first parent status write: 
+1793591680 record cleared at: 1793591509
+1793591680 cleanup: begin
+1793591681 cleanup: retire rc=0 retired: remote-reply-rsmb66392 
+1793591683 cleanup: pass 1 killing run-owned pids: 7984 8069 8070 13510 14944 14946 14953 17741 82016 83763 89462 92946 93590 94485 56391
+1793591685 cleanup: pass 2 killing run-owned pids: 19794
+1793591687 cleanup: pass 3 killing run-owned pids: 21564
+1793591689 cleanup: sshd stopped
+1793591689 cleanup: lab-home teardown rc=0
+1793591690 cleanup: herdr teardown rc=0 
+1793591690 cleanup: lab patches reverted, status=[]
+1793591690 cleanup: task temp dirs removed: []
+1793591706 cleanup: leftover run pids after 15s: [49885 49888 66386 66392 80357 ]
+1793591706 cleanup: leftover processes naming session fm-lab-fm-start-check-h-81252-24264: []
+1793591706 cleanup: done

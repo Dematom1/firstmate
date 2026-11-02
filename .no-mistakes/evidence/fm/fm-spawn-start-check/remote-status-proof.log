@@ -1,0 +1,148 @@
+1793577363 case=c id=rsmc28807 run=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-c head=12ed2e55f67fcaca230ae12993399966d0078ca7
+1793577363 herdr lab session=fm-lab-fm-start-check-h-34146-31866
+1793577363 herdr provision ok
+1793577364  bin/fm-remote-readiness-lib.sh      | 1 +
+1793577364  bin/fm-remote-secondmate-control.sh | 2 +-
+1793577364  bin/fm-spawn.sh                     | 2 +-
+1793577364  3 files changed, 3 insertions(+), 2 deletions(-)
+1793577365 sshd pid=36244 port=54230
+1793577365 charter=[Lab secondmate for a start-check experiment: acknowledge the charter, then wait idle for routed work.]
+1793577376 seed rc=0
+1793577376 provisioned: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-c/rhome projects=0
+1793577376 home=labremote:/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-c/rhome
+1793577376 - rsmc28807 - Lab secondmate for a start-check experiment: acknowledge the charter, then wait idle for routed work. (host: labremote; root: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-c/code; home: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-c/rhome; scope: lab start-check experiment only; projects: ; added 2026-11-01)
+1793577376 watcher loop pgid=76142
+1793577379 SPAWN_START=1793577378
+1793577434 spawn rc=0 start=1793577378 end=1793577434
+1793577434 fm-gate-refuse: gate agent lifecycle permitted only against lab home /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-c/home
+1793577434 spawned rsmc28807 harness=pi kind=secondmate mode=secondmate yolo=off window=remote:rsmc28807 worktree=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-c/rhome remote=labremote backend=herdr
+1793577434 parent meta:
+1793577434 window=remote:rsmc28807
+1793577434 endpoint_task_id=rsmc28807
+1793577434 worktree=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-c/rhome
+1793577434 project=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-c/code
+1793577434 harness=pi
+1793577434 kind=secondmate
+1793577434 mode=secondmate
+1793577434 yolo=off
+1793577434 tasktmp=
+1793577434 model=openai-codex/gpt-5.6-luna
+1793577434 effort=low
+1793577434 home=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-c/rhome
+1793577434 projects=
+1793577434 remote_host=labremote
+1793577434 remote_root=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-c/code
+1793577434 remote_backend=herdr
+1793577434 remote_herdr_session=fm-lab-fm-start-check-h-34146-31866
+1793577434 remote_target=fm-lab-fm-start-check-h-34146-31866:w1:p2
+1793577434 remote_busy_gen=g1793577429.63694.10504
+1793577434 driver-call observe@t0 begin
+1793577438 observe@t0 rc=0: busy|verdict=busy pi-ext|busy_gen=g1793577429.63694.10504|
+1793577438 +60s parent=[1793577422 g1793577429.63694.10504 pi] remote=[ABSENT] parent-status-mtime=[ABSENT] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=2 state=busy source=pi-ext event=agent-start ts=1793577434 ]
+1793577444 +66s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[ABSENT] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=2 state=busy source=pi-ext event=agent-start ts=1793577434 ]
+1793577448 +70s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[ABSENT] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=3 state=idle source=pi-ext event=agent-settled ts=1793577446 ]
+1793577451 +73s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577450] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=3 state=idle source=pi-ext event=agent-settled ts=1793577446 ]
+1793577454 +76s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577450] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577464 +86s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577461] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577470 +92s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577469] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577470 driver-call observe@t90 begin
+1793577472 observe@t90 rc=0: busy|verdict=busy pi-ext|busy_gen=g1793577429.63694.10504|
+1793577476 +97s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577475] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577482 +104s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577482] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577488 +110s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577488] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577498 +120s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577495] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577504 +126s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577501] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577507 +129s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577507] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577514 +136s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577513] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577520 +142s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577519] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577520 driver-call observe@t140 begin
+1793577525 observe@t140 rc=0: busy|verdict=busy pi-ext|busy_gen=g1793577429.63694.10504|
+1793577525 driver-call capture@t140 begin
+1793577529 capture@t140 rc=0 saved
+1793577532 +154s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577527] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577535 +157s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577533] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577544 +166s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577543] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577558 +180s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577555] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577564 +186s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577561] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577567 +189s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577566] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577570 +192s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577570] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577577 +199s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577574] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577583 +205s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577580] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577586 +208s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577585] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577597 +219s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577594] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577603 +225s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577601] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577609 +231s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577608] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577616 +238s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577614] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577619 +241s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577619] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577625 +247s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577624] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577632 +254s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577631] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577645 +267s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577644] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577651 +273s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577651] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577661 +283s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577659] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577671 +293s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577668] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577688 +310s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577685] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577701 +323s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577700] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577711 +333s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577709] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577717 +339s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[1793577714] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577429.63694.10504 seq=4 state=busy source=pi-ext event=agent-start ts=1793577452 ]
+1793577720 driver-call observe@end begin
+1793577728 observe@end rc=0: busy|verdict=busy pi-ext|busy_gen=g1793577429.63694.10504|
+1793577728 driver-call capture@end begin
+1793577733 capture@end rc=0 saved
+1793577733 final parent start-pending: ABSENT
+1793577733 parent status file:
+1793577733 done [at=1793577445]: Charter acknowledged; lab start-check second mate is idle and awaiting routed work.
+1793577733 blocked [at=1793577459]: Watcher continuity failed because this disposable validation checkout is not armable; repair requires a non-disposable home.
+1793577733 blocked [at=1793577468]: Watcher repair was attempted, but this disposable validation checkout remains unable to host continuity; persistent-home repair is still required.
+1793577733 blocked [at=1793577474]: Watcher continuity still cannot be restored from this disposable validation checkout; persistent-home repair remains required.
+1793577733 blocked [at=1793577480]: Watcher continuity repair still cannot succeed in this disposable validation checkout; persistent-home repair is required.
+1793577733 blocked [at=1793577487]: Watcher continuity remains unavailable in this disposable validation checkout; persistent-home repair is required.
+1793577733 blocked [at=1793577493]: Watcher continuity still cannot be restored from this disposable validation checkout; persistent-home repair remains required.
+1793577733 blocked [at=1793577500]: Watcher continuity remains unavailable in this disposable validation checkout; persistent-home repair is required.
+1793577733 blocked [at=1793577505]: Watcher continuity remains unavailable in this disposable validation checkout; persistent-home repair is required.
+1793577733 blocked [at=1793577511]: Watcher continuity remains unavailable in this disposable validation checkout; persistent-home repair is required.
+1793577733 blocked [at=1793577517]: Watcher continuity remains unavailable in this disposable validation checkout; persistent-home repair is required.
+1793577733 blocked [at=1793577524]: Watcher continuity remains unavailable in this disposable validation checkout; persistent-home repair is required.
+1793577733 blocked [at=1793577531]: Watcher continuity remains unavailable in this disposable validation checkout; persistent-home repair is required.
+1793577733 blocked [at=1793577538]: Watcher continuity remains unavailable in this disposable validation checkout; persistent-home repair is required.
+1793577733 blocked [at=1793577544]: Watcher continuity remains unavailable in this disposable validation checkout; persistent-home repair is required.
+1793577733 blocked [at=1793577555]: Watcher continuity remains unavailable in this disposable validation checkout; persistent-home repair is required.
+1793577733 blocked [at=1793577561]: Watcher continuity remains unavailable in this disposable validation checkout; persistent-home repair is required.
+1793577733 blocked [at=1793577566]: Watcher continuity remains unavailable in this disposable validation checkout; persistent-home repair is required.
+1793577733 blocked [at=1793577572]: Watcher continuity remains unavailable in this disposable validation checkout; persistent-home repair is required.
+1793577733 blocked [at=1793577579]: Watcher continuity remains unavailable in this disposable validation checkout; persistent-home repair is required.
+1793577733 blocked [at=1793577584]: Watcher continuity remains unavailable in this disposable validation checkout; persistent-home repair is required.
+1793577733 blocked [at=1793577591]: Watcher continuity remains unavailable in this disposable validation checkout; persistent-home repair is required.
+1793577733 blocked [at=1793577599]: Watcher continuity remains unavailable in this disposable validation checkout; persistent-home repair is required.
+1793577733 blocked [at=1793577606]: Watcher continuity remains unavailable in this disposable validation checkout; persistent-home repair is required.
+1793577733 blocked [at=1793577612]: Watcher continuity remains unavailable in this disposable validation checkout; persistent-home repair is required.
+1793577733 blocked [at=1793577618]: Watcher continuity remains unavailable in this disposable validation checkout; persistent-home repair is required.
+1793577733 blocked [at=1793577623]: Watcher continuity remains unavailable in this disposable validation checkout; persistent-home repair is required.
+1793577733 blocked [at=1793577629]: Watcher continuity remains unavailable in this disposable validation checkout; persistent-home repair is required.
+1793577733 blocked [at=1793577642]: Watcher continuity remains unavailable in this disposable validation checkout; persistent-home repair is required.
+1793577733 blocked [at=1793577649]: Watcher continuity remains unavailable in this disposable validation checkout; persistent-home repair is required.
+1793577733 blocked [at=1793577657]: Watcher continuity remains unavailable in this disposable validation checkout; persistent-home repair is required.
+1793577733 blocked [at=1793577666]: Watcher continuity remains unavailable in this disposable validation checkout; persistent-home repair is required.
+1793577733 blocked [at=1793577674]: Watcher continuity remains unavailable in this disposable validation checkout; persistent-home repair is required.
+1793577733 blocked [at=1793577687]: Watcher continuity remains unavailable in this disposable validation checkout; persistent-home repair is required.
+1793577733 blocked [at=1793577702]: Watcher continuity remains unavailable in this disposable validation checkout; persistent-home repair is required.
+1793577733 blocked [at=1793577709]: Watcher continuity remains unavailable in this disposable validation checkout; persistent-home repair is required.
+1793577733 blocked [at=1793577715]: Watcher continuity remains unavailable in this disposable validation checkout; persistent-home repair is required.
+1793577733 blocked [at=1793577721]: Watcher continuity remains unavailable in this disposable validation checkout; persistent-home repair is required.
+1793577734 start wakes in queue log:
+1793577734 all queue rows:
+1793577734 1793577463	1	check	procevent:remote-reply-rsmc28807:2	check: procevent remote-reply remote-reply-rsmc28807 2
+1793577734 1793577499	2	signal	rsmc28807.status	signal: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-c/home/state/rsmc28807.status
+1793577734 1793577499	3	signal	rsmc28807.status	signal: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-c/home/state/rsmc28807.status
+1793577734 1793577533	4	signal	rsmc28807.status	signal: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-c/home/state/rsmc28807.status
+1793577734 1793577533	5	signal	rsmc28807.status	signal: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-c/home/state/rsmc28807.status
+1793577734 1793577591	6	signal	rsmc28807.status	signal: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-c/home/state/rsmc28807.status
+1793577734 1793577592	7	signal	rsmc28807.status	signal: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-c/home/state/rsmc28807.status
+1793577734 1793577637	8	signal	rsmc28807.status	signal: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-c/home/state/rsmc28807.status
+1793577734 1793577637	9	signal	rsmc28807.status	signal: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-c/home/state/rsmc28807.status
+1793577734 1793577644	10	check	procevent:remote-reply-rsmc28807:29	check: procevent remote-reply remote-reply-rsmc28807 29
+1793577734 1793577682	11	signal	rsmc28807.status	signal: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-c/home/state/rsmc28807.status
+1793577734 1793577683	12	signal	rsmc28807.status	signal: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-c/home/state/rsmc28807.status
+1793577734 triage start-check lines:
+1793577734 [2026-11-01T17:57:23-0600] start check: rsmc28807 started
+1793577734 cleanup: begin
+1793577734 cleanup: retire rc=0 retired: remote-reply-rsmc28807 

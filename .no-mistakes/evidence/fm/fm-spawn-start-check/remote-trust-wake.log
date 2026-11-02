@@ -1,0 +1,61 @@
+1793576982 case=b id=rsmb42732 run=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-b head=12ed2e55f67fcaca230ae12993399966d0078ca7
+1793576982 herdr lab session=fm-lab-fm-start-check-h-46567-16279
+1793576982 herdr provision ok
+1793576983  bin/fm-remote-readiness-lib.sh      | 1 +
+1793576983  bin/fm-remote-secondmate-control.sh | 2 +-
+1793576983  bin/fm-spawn.sh                     | 4 ++--
+1793576983  3 files changed, 4 insertions(+), 3 deletions(-)
+1793576984 sshd pid=47864 port=53278
+1793576984 charter=[Lab secondmate for a start-check experiment: wait idle for routed work.]
+1793576990 seed rc=0
+1793576990 provisioned: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-b/rhome projects=0
+1793576990 home=labremote:/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-b/rhome
+1793576990 - rsmb42732 - Lab secondmate for a start-check experiment: wait idle for routed work. (host: labremote; root: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-b/code; home: /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-b/rhome; scope: lab start-check experiment only; projects: ; added 2026-11-01)
+1793576990 watcher loop pgid=68630
+1793576992 SPAWN_START=1793576992
+1793577054 spawn rc=0 start=1793576992 end=1793577054
+1793577054 fm-gate-refuse: gate agent lifecycle permitted only against lab home /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-b/home
+1793577054 spawned rsmb42732 harness=pi kind=secondmate mode=secondmate yolo=off window=remote:rsmb42732 worktree=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-b/rhome remote=labremote backend=herdr
+1793577054 parent meta:
+1793577054 window=remote:rsmb42732
+1793577054 endpoint_task_id=rsmb42732
+1793577054 worktree=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-b/rhome
+1793577054 project=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-b/code
+1793577054 harness=pi
+1793577054 kind=secondmate
+1793577054 mode=secondmate
+1793577054 yolo=off
+1793577054 tasktmp=
+1793577054 model=openai-codex/gpt-5.6-luna
+1793577054 effort=low
+1793577054 home=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-b/rhome
+1793577054 projects=
+1793577054 remote_host=labremote
+1793577054 remote_root=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-b/code
+1793577054 remote_backend=herdr
+1793577054 remote_herdr_session=fm-lab-fm-start-check-h-46567-16279
+1793577054 remote_target=fm-lab-fm-start-check-h-46567-16279:w1:p2
+1793577054 remote_busy_gen=g1793577048.83562.14722
+1793577054 driver-call observe@t0 begin
+1793577059 observe@t0 rc=0: idle|verdict=busy fm-spawn|busy_gen=g1793577048.83562.14722|
+1793577059 +67s parent=[1793577044 g1793577048.83562.14722 pi] remote=[ABSENT] parent-status-mtime=[ABSENT] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577048.83562.14722 seq=1 state=busy source=fm-spawn event=launch-brief ts=1793577048 ]
+1793577084 driver-call observe@t90 begin
+1793577088 observe@t90 rc=0: idle|verdict=busy fm-spawn|busy_gen=g1793577048.83562.14722|
+1793577132 driver-call observe@t140 begin
+1793577137 observe@t140 rc=0: idle|verdict=busy fm-spawn|busy_gen=g1793577048.83562.14722|
+1793577137 driver-call capture@t140 begin
+1793577141 capture@t140 rc=0 saved
+1793577179 +187s parent=[ABSENT] remote=[ABSENT] parent-status-mtime=[ABSENT] parent-turn-ended-mtime=[ABSENT] remote-busy=[v1 gen=g1793577048.83562.14722 seq=1 state=busy source=fm-spawn event=launch-brief ts=1793577048 ]
+1793577341 driver-call observe@end begin
+1793577345 observe@end rc=0: idle|verdict=busy fm-spawn|busy_gen=g1793577048.83562.14722|
+1793577345 driver-call capture@end begin
+1793577349 capture@end rc=0 saved
+1793577349 final parent start-pending: ABSENT
+1793577349 parent status file:
+1793577349 start wakes in queue log:
+1793577349 1793577176	1	check	start:rsmb42732	check: start rsmb42732: no start signal 123s after spawn (harness=pi; on screen on labremote: Pi project-trust dialog "Trust project folder?"); accept: FM_HOME=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-b/home /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-b/code/bin/fm-send.sh rsmb42732 --key Enter
+1793577349 all queue rows:
+1793577349 1793577176	1	check	start:rsmb42732	check: start rsmb42732: no start signal 123s after spawn (harness=pi; on screen on labremote: Pi project-trust dialog "Trust project folder?"); accept: FM_HOME=/Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-b/home /Users/laszlohoranszky/.no-mistakes/worktrees/cefde73f9e93/01M6CDGRA44D766ABDZ3BGDTVD/.live-evidence-remote-b/code/bin/fm-send.sh rsmb42732 --key Enter
+1793577349 triage start-check lines:
+1793577349 cleanup: begin
+1793577350 cleanup: retire rc=0 retired: remote-reply-rsmb42732 
