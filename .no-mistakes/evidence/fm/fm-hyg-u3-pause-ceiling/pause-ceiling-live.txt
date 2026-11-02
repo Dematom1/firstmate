@@ -1,0 +1,10 @@
+stale: l:fm-d (paused 90010s, wait overdue - decide or release)
+blocked [key=paused-overdue-d] [at=1793652164]: paused 90010s, wait overdue - decide or release
+PASS watcher: dated pause 25h past gives one blocked line and one stale wake
+resolved [key=paused-overdue-d] [at=1793652186]: worker pause changed
+PASS watcher: resume closes key, pane alive
+⁣FIRSTMATE_OP: v1 away-supervisor: Supervisor escalate (1 event(s)): stale: l:fm-a (paused 11s, wait overdue - decide or release) (pre-read; re-arm not needed — watcher daemon-managed)
+PASS daemon: one alert to the away captain, one blocked line, no repeat
+resolved [key=paused-overdue-a] [at=1793652223]: worker pause changed
+PASS daemon: resume closes key, pane alive, daemon running
+RESULT PASS at ce227b6b
