@@ -1,0 +1,61 @@
+Note: switching to '0de2170420ff05e57f987ad22fe3cd234f055650'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+code under test: 0de21704
+=== SCENARIO 1: session start reports the home's records and archives the old orphan
+detect-only session start:
+RECORD_HYGIENE: status log without metadata older than 24 hours: orphan-lab
+RECORD_HYGIENE: duplicate PR https://example.test/pull/7 in records: a, b
+RECORD_HYGIENE: metadata has no tab: no-tab
+RECORD_HYGIENE: In-flight backlog row without metadata: ghost-lab
+PASS: detect-only reports the orphan
+PASS: detect-only moves nothing
+mutating session start:
+RECORD_HYGIENE: status log without metadata older than 24 hours: orphan-lab
+RECORD_HYGIENE: duplicate PR https://example.test/pull/7 in records: a, b
+RECORD_HYGIENE: metadata has no tab: no-tab
+RECORD_HYGIENE: In-flight backlog row without metadata: ghost-lab
+PASS: reports the old orphan status log
+PASS: reports metadata with no tab
+PASS: reports the duplicate PR
+PASS: reports the In-flight row with no metadata
+PASS: archives the orphan to data/<id>/status.log
+PASS: leaves a recent orphan alone
+archived file: data/orphan-lab/status.log
+=== SCENARIO 2: a remote mate home keeps its parent-replies channel
+session start:
+RECORD_HYGIENE: status log without metadata older than 24 hours: real-task
+PASS: does not report the parent channel
+PASS: parent channel stays in place
+PASS: reports the genuine orphan
+PASS: archives the genuine orphan
+=== SCENARIO 3: heartbeat reports durably, suppresses repeats, archives nothing
+first heartbeat run: exit=0
+durable wake: check: record hygiene: RECORD_HYGIENE: status log without metadata older than 24 hours: orphan-lab RECORD_HYGIENE: metadata has no tab: a RECORD_HYGIENE: duplicate PR https://example.test/pull/7 in records: a, b
+PASS: one durable record-hygiene check wake
+PASS: wake lists the orphan
+PASS: wake lists the record with no tab
+PASS: wake lists the duplicate PR
+PASS: orphan left in place (report-only)
+repeat heartbeat run: exit=124
+PASS: unchanged report raised no new wake
+clean heartbeat run 1: exit=0
+clean heartbeat run 2: exit=124
+PASS: clean report cleared the suppression marker
+returned-findings run 1: exit=0
+PASS: findings that return wake again
+total: 0 failed
