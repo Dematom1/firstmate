@@ -1,4 +1,4 @@
-lab code: current worktree head=f11fa5dde7724498ad03b9389c318b0faa2568b8
+lab code: {run-worktree} head=8c7e0e21282143d7edd75009c1a7c6d1b51c2ba4
 PASS: hung registration queued exactly one could-not-be-armed notice
 PASS: the retry armed the merge watch
 PASS: the retry published the poll
