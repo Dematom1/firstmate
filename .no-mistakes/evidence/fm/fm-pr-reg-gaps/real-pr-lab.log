@@ -1,0 +1,46 @@
+real disposable PRs on Dematom1/firstmate (base fm-lab-pr-reg/base):
+  A https://github.com/Dematom1/firstmate/pull/9
+  B https://github.com/Dematom1/firstmate/pull/10
+  C https://github.com/Dematom1/firstmate/pull/11
+  D https://github.com/Dematom1/firstmate/pull/12
+
+=== code: head ({run-worktree}), env -i, HOME=throwaway, config/pr-register-scan present
+
+-- a lane reports PR A, closes it, reports PR B
+  A recorded: 1 sweep(s)
+  forge: A is OPEN
+  lane: pr=https://github.com/Dematom1/firstmate/pull/9 poll=https://github.com/Dematom1/firstmate/pull/9
+PASS: head: first sweep recorded A
+  B took over: 1 sweep(s)
+  forge: A is CLOSED, B is OPEN
+  lane: pr=https://github.com/Dematom1/firstmate/pull/10 poll=https://github.com/Dematom1/firstmate/pull/10
+  merge poll reads in that sweep:
+    gh pr view https://github.com/Dematom1/firstmate/pull/10 --json state -q .state
+PASS: head: pr= moved to B
+PASS: head: the merge poll sidecar names B
+PASS: head: the sweep's merge poll read B from the forge
+
+-- a pr= the status log never named stays put
+  control registered: 1 sweep(s)
+  chosen: pr=https://github.com/Dematom1/firstmate/pull/11 poll=https://github.com/Dematom1/firstmate/pull/11
+  control: pr=https://github.com/Dematom1/firstmate/pull/12 poll=https://github.com/Dematom1/firstmate/pull/12
+PASS: head: control, this sweep registered a canonical line
+PASS: head: the unnamed pr= stayed
+PASS: head: its merge poll stayed
+
+-- a prose done line, and a ready line followed by working or failed, register nothing
+  control registered: 1 sweep(s)
+  prose: pr= poll=
+  later: pr= poll=
+  failed: pr= poll=
+  control2: pr=https://github.com/Dematom1/firstmate/pull/12 poll=https://github.com/Dematom1/firstmate/pull/12
+PASS: head: control, this sweep registered a canonical line
+PASS: head: prose registered no PR
+PASS: head: prose armed no poll
+PASS: head: later registered no PR
+PASS: head: later armed no poll
+PASS: head: failed registered no PR
+PASS: head: failed armed no poll
+
+REAL LAB PASS
+cleanup: open lab PRs=0, lab branches=0
