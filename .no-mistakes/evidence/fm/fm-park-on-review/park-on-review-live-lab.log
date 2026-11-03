@@ -1,0 +1,37 @@
+  lane relaunch --note-file {run-worktree}/.lab-live/run.KKPNY8/fm-park.3yaS6y/note
+  You are a fresh agent relaunched in the same local copy on the same branch because: review threads could not all be read.
+PASS: parked lane relaunches and its note names the incomplete-thread trigger
+  exit=3
+  unclean: review threads could not all be read
+PASS: clean gate refuses an incomplete review-thread read
+  exit=3
+  fm-park: refusing to park lane: automated reviewers (coderabbitai) have not submitted a review of this head;  quiet window 899s left 3
+  clean head=d37400c137bf1888679ced8b800df80df4359175
+PASS: reviewer not on head refuses park with no stop; quiet window settles the gate
+  exit=3
+  fm-park: refusing to park lane: required check(s) build have not reported on head bbfe16ef5a60 3
+PASS: required check not reported on head refuses park with no stop
+  parked lane: PR https://github.com/example/repo/pull/7 clean at 5eefa164ae8d; agent stopped
+  paused [at=1793667147]: parked on review: PR https://github.com/example/repo/pull/7 clean at 5eefa164ae8d; agent stopped, relaunches on review activity
+  state: paused · source: review-park · parked on review: PR https://github.com/example/repo/pull/7 at 5eefa164ae8d since 2026-11-03T00:52Z; agent stopped, relaunches on review activity
+  lane	PR https://github.com/example/repo/pull/7	head 5eefa164ae8d	parked 2026-11-03T00:52Z
+PASS: clean PR parks with a forge re-read, one stop, a lease, and a declared wait
+  behind base: no relaunch
+  You are a fresh agent relaunched in the same local copy on the same branch because: new comments from maintainer.
+PASS: new comment relaunches a parked lane; a branch merely behind its base does not
+  automatic cleanup started
+  cleaned up lane: PR https://github.com/example/repo/pull/7 merged; lane torn down and its working copy returned
+  unparked: untouched without config/auto-land, cleaned up with it
+PASS: merge cleans up through unforced teardown, opt-in for unparked lanes
+  closed lane: PR https://github.com/example/repo/pull/7 was closed without merging; the lane needs a decision
+PASS: PR closed without merging is reported once and nothing is torn down
+  dead agent: promoted to parked
+  live agent past the stop bound: record dropped
+  live agent inside the stop bound with failing CI: stays pending, no relaunch
+PASS: interrupted park settles from the real agent liveness read
+  exit=3
+  unclean: automated reviewers (group_42_bot_abc) have not submitted a review of this head; quiet window 5s left
+  clean head=d926b261eb62d9cb1c53259b76a2098b1d2e5563
+PASS: GitLab bot discussion blocks parking until the quiet window expires
+LAB_HEAD=9c880957555acdf03647b8600a2743a7c4b1d12f
+LAB_RESULT=pass
