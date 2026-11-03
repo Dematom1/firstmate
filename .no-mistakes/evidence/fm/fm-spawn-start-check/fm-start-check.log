@@ -1,0 +1,21 @@
+1..19
+ok - spawn arms a start record carrying the launch's busy generation (pi) or none (codex)
+ok - a hook-written record before the deadline removes the record silently
+ok - turn-ended proof at the launch epoch is accepted
+ok - existing status and turn-ended markers precede the launch boundary; later proof still counts
+ok - a parked Pi trust dialog wakes once at the deadline with its name and the Enter command
+ok - a Claude dialog is named without a key route
+ok - an exited worker is named with a relaunch command that relaunch accepts for its kind
+ok - a vanished endpoint points at recovery, not at a relaunch that would refuse
+ok - a brief left in the composer is named with the submit command
+ok - no signal at all still wakes, and rendered-text idle is not a start proof
+ok - a codex busy footer and a status line written after spawn each prove the start
+ok - a codex trust dialog overrides footer proof, while ordinary footer proof remains valid
+ok - records of a superseded launch, a removed task, or malformed content are dropped silently
+ok - a secondmate launch, exempt from the stale path, still gets its start check
+ok - a record whose task lock is held is skipped for that poll without waiting, then judged
+ok - remote route calls share a bounded poll budget and later records wait for the next poll
+ok - a remote record past the poll's spent route budget waits for the next poll instead of waking
+ok - two due launches wake on consecutive polls, one each
+ok - the real watcher loop absorbs the parked pane and wakes once, named, at the deadline
+FM_TEST_COMPLETE
