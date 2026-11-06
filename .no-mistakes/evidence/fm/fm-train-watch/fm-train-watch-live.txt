@@ -1,0 +1,87 @@
+head=b3183e07ff0f5877d52153c634676d5b9c4e3402 work=/var/folders/nd/580vz3l92ljds7vw6j8_q3xm0000gn/T/tmp.Wsb60uUeKy
+harness exit=0
+2026-11-06T23:18:36Z source: no-mistakes(review): Persist both GitLab degradation baselines
+2026-11-06T23:18:36Z mode: PR-head scripts, throwaway home, stub forge; FM_LIVE=0; Herdr lab unset
+2026-11-06T23:18:36Z SCENARIO 1: arm a ready change that is already degraded; baseline without waking
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+●  WATCHER DOWN - SUPERVISION IS OFF
+●  1 task(s) in flight, but no watcher has a fresh beacon (last beat: never, grace 300s).
+●  Trust the emitted supervision protocol for this harness; do not use shell & for watcher repair.
+●  This is a supervision warning only; the guarded operation WILL still run.
+●  repair missing watcher supervision according to the session-start block for this harness; do not use shell &.
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+armed: state/task-a.check.sh
+2026-11-06T23:18:38Z s1 baseline marker: pipeline=941
+2026-11-06T23:18:50Z s1-repeat-of-baseline: silent (watcher stayed blocked after its check pass)
+2026-11-06T23:18:53Z s1-new-failure: rc=0 wake: check: PR https://gitlab.example/group/project/-/merge_requests/7 degraded after ready: degraded pipeline=942 url=https://gitlab.example/group/project/-/pipelines/942
+2026-11-06T23:18:54Z SCENARIO 2: a ready change degrades; wake once, silent on repeats
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+●  WATCHER DOWN - SUPERVISION IS OFF
+●  1 task(s) in flight, but no watcher has a fresh beacon (last beat: never, grace 300s).
+●  Trust the emitted supervision protocol for this harness; do not use shell & for watcher repair.
+●  This is a supervision warning only; the guarded operation WILL still run.
+●  repair missing watcher supervision according to the session-start block for this harness; do not use shell &.
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+armed: state/task-a.check.sh
+2026-11-06T23:18:58Z s2-degrade: rc=0 wake: check: PR https://gitlab.example/group/project/-/merge_requests/7 degraded after ready: degraded pipeline=941 url=https://gitlab.example/group/project/-/pipelines/941
+2026-11-06T23:19:11Z s2-repeat: silent (watcher stayed blocked after its check pass)
+2026-11-06T23:19:24Z s2-repeat-again: silent (watcher stayed blocked after its check pass)
+2026-11-06T23:19:24Z SCENARIO 3: degraded wake is queued even when the marker cannot be saved
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+●  WATCHER DOWN - SUPERVISION IS OFF
+●  1 task(s) in flight, but no watcher has a fresh beacon (last beat: never, grace 300s).
+●  Trust the emitted supervision protocol for this harness; do not use shell & for watcher repair.
+●  This is a supervision warning only; the guarded operation WILL still run.
+●  repair missing watcher supervision according to the session-start block for this harness; do not use shell &.
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+armed: state/task-a.check.sh
+2026-11-06T23:19:28Z s3-degrade-unsaved-marker: rc=1 wake: 
+2026-11-06T23:19:29Z s3 durable wake-queue rows for the transition: 1
+2026-11-06T23:19:29Z s3 watcher stderr: 
+2026-11-06T23:19:29Z SCENARIO 4: an observed train car disappears; wake once; merge during detection is not a drop
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+●  WATCHER DOWN - SUPERVISION IS OFF
+●  1 task(s) in flight, but no watcher has a fresh beacon (last beat: never, grace 300s).
+●  Trust the emitted supervision protocol for this harness; do not use shell & for watcher repair.
+●  This is a supervision warning only; the guarded operation WILL still run.
+●  repair missing watcher supervision according to the session-start block for this harness; do not use shell &.
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+armed: state/task-a.check.sh
+2026-11-06T23:19:42Z s4-on-train: silent (watcher stayed blocked after its check pass)
+2026-11-06T23:19:45Z s4-drop: rc=0 wake: check: PR https://gitlab.example/group/project/-/merge_requests/7 degraded after ready: degraded train=dropped url=https://gitlab.example/group/project/-/merge_requests/7 reason=need_rebase pipeline_url=https://gitlab.example/group/project/-/pipelines/941
+2026-11-06T23:19:57Z s4-drop-repeat: silent (watcher stayed blocked after its check pass)
+2026-11-06T23:20:10Z s4-requeue: silent (watcher stayed blocked after its check pass)
+2026-11-06T23:20:12Z s4-second-drop: rc=0 wake: check: PR https://gitlab.example/group/project/-/merge_requests/7 degraded after ready: degraded train=dropped url=https://gitlab.example/group/project/-/merge_requests/7 reason=mergeable pipeline_url=https://gitlab.example/group/project/-/pipelines/941
+2026-11-06T23:20:30Z s4-requeue-2: silent (watcher stayed blocked after its check pass)
+2026-11-06T23:20:34Z s4-pipeline-fails-on-train: rc=0 wake: check: PR https://gitlab.example/group/project/-/merge_requests/7 degraded after ready: degraded pipeline=943 url=https://gitlab.example/group/project/-/pipelines/943
+2026-11-06T23:20:48Z s4-recovered: silent (watcher stayed blocked after its check pass)
+2026-11-06T23:20:50Z s4-drop-after-recovery: rc=0 wake: check: PR https://gitlab.example/group/project/-/merge_requests/7 degraded after ready: degraded train=dropped url=https://gitlab.example/group/project/-/merge_requests/7 reason=mergeable pipeline_url=https://gitlab.example/group/project/-/pipelines/941
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+●  WATCHER DOWN - SUPERVISION IS OFF
+●  1 task(s) in flight, but no watcher has a fresh beacon (last beat: never, grace 300s).
+●  Trust the emitted supervision protocol for this harness; do not use shell & for watcher repair.
+●  This is a supervision warning only; the guarded operation WILL still run.
+●  repair missing watcher supervision according to the session-start block for this harness; do not use shell &.
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+armed: state/task-a.check.sh
+2026-11-06T23:20:56Z s4m-merged-during-detection: rc=0 wake: check: /var/folders/nd/580vz3l92ljds7vw6j8_q3xm0000gn/T/tmp.Wsb60uUeKy/out/s4m/home/state/task-a.check.sh: merged
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+●  WATCHER DOWN - SUPERVISION IS OFF
+●  1 task(s) in flight, but no watcher has a fresh beacon (last beat: never, grace 300s).
+●  Trust the emitted supervision protocol for this harness; do not use shell & for watcher repair.
+●  This is a supervision warning only; the guarded operation WILL still run.
+●  repair missing watcher supervision according to the session-start block for this harness; do not use shell &.
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+armed: state/task-a.check.sh
+2026-11-06T23:21:11Z s4c-closed-during-detection: silent (watcher stayed blocked after its check pass)
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+●  WATCHER DOWN - SUPERVISION IS OFF
+●  1 task(s) in flight, but no watcher has a fresh beacon (last beat: never, grace 300s).
+●  Trust the emitted supervision protocol for this harness; do not use shell & for watcher repair.
+●  This is a supervision warning only; the guarded operation WILL still run.
+●  repair missing watcher supervision according to the session-start block for this harness; do not use shell &.
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+armed: state/task-a.check.sh
+2026-11-06T23:21:16Z s4e-drop-with-reread-error: rc=0 wake: check: PR https://gitlab.example/group/project/-/merge_requests/7 degraded after ready: degraded train=dropped url=https://gitlab.example/group/project/-/merge_requests/7 reason=mergeable pipeline_url=https://gitlab.example/group/project/-/pipelines/941 mr_state=unconfirmed
+2026-11-06T23:21:17Z done
+VERDICT: PASS 4/4 scenarios driven live on b3183e07ff0f5877d52153c634676d5b9c4e3402
