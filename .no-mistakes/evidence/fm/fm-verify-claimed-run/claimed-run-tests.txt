@@ -1,0 +1,12 @@
+=== test_claimed_run_outcomes ===
+ok - delayed validation claims flag only when the branch has no run, then clear their markers
+=== test_claimed_run_path_with_spaces ===
+ok - claimed-run stat rows preserve paths containing repeated spaces
+=== test_claimed_run_incremental_log ===
+ok - an appended validation claim on a running watcher is detected once
+=== test_claimed_run_poll_cost ===
+ok - claimed-run polls batch one stat, read only appended bytes, and catch a same-second rewrite
+=== test_claimed_run_same_size_rewrite_resets_cursor ===
+ok - a same-size status rewrite resets its cursor and detects validation claims
+=== test_claimed_run_shrink_resets_cursor ===
+ok - a truncated status log resets its cursor and redetects a validation claim
