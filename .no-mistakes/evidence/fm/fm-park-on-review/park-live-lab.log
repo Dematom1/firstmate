@@ -1,4 +1,4 @@
-  lane relaunch --note-file {run-worktree}/.lab-live/run.ZjSY6t/fm-park.0drgLZ/note
+  lane relaunch --note-file {run-worktree}/.lab-live/run.MFnZtl/fm-park.pIxHyO/note
   You are a fresh agent relaunched in the same local copy on the same branch because: review threads could not all be read.
 PASS: parked lane relaunches and its note names the incomplete-thread trigger
   exit=3
@@ -6,15 +6,15 @@ PASS: parked lane relaunches and its note names the incomplete-thread trigger
 PASS: clean gate refuses an incomplete review-thread read
   exit=3
   fm-park: refusing to park lane: automated reviewers (coderabbitai) have not submitted a review of this head;  quiet window 899s left 3
-  clean head=3c6a6488ee200242155d1f0b6f9c5ef31150c827
+  clean head=8156b32401a74b815bb7c4816b0c232bfdee8746
 PASS: reviewer not on head refuses park with no stop; quiet window settles the gate
   exit=3
-  fm-park: refusing to park lane: required check(s) build have not reported on head 04cb93424691 3
+  fm-park: refusing to park lane: required check(s) build have not reported on head 039b0fd3b129 3
 PASS: required check not reported on head refuses park with no stop
-  parked lane: PR https://github.com/example/repo/pull/7 clean at 315edf18d05b; agent stopped
-  paused [at=1793672246]: parked on review: PR https://github.com/example/repo/pull/7 clean at 315edf18d05b; agent stopped, relaunches on review activity
-  state: paused · source: review-park · parked on review: PR https://github.com/example/repo/pull/7 at 315edf18d05b since 2026-11-03T02:17Z; agent stopped, relaunches on review activity
-  lane	PR https://github.com/example/repo/pull/7	head 315edf18d05b	parked 2026-11-03T02:17Z
+  parked lane: PR https://github.com/example/repo/pull/7 clean at 23ccfeac70f9; agent stopped
+  paused [at=1793994470]: parked on review: PR https://github.com/example/repo/pull/7 clean at 23ccfeac70f9; agent stopped, relaunches on review activity
+  state: paused · source: review-park · parked on review: PR https://github.com/example/repo/pull/7 at 23ccfeac70f9 since 2026-11-06T19:47Z; agent stopped, relaunches on review activity
+  lane	PR https://github.com/example/repo/pull/7	head 23ccfeac70f9	parked 2026-11-06T19:47Z
 PASS: clean PR parks with a forge re-read, one stop, a lease, and a declared wait
   behind base: no relaunch
   You are a fresh agent relaunched in the same local copy on the same branch because: new comments from maintainer.
@@ -30,8 +30,8 @@ PASS: PR closed without merging is reported once and nothing is torn down
   live agent inside the stop bound with failing CI: stays pending, no relaunch
 PASS: interrupted park settles from the real agent liveness read
   exit=3
-  unclean: automated reviewers (group_42_bot_abc) have not submitted a review of this head; quiet window 4s left
-  clean head=db2873ba2f2f4e0cc9908ff5a832328772be6b67
+  unclean: automated reviewers (group_42_bot_abc) have not submitted a review of this head; quiet window 5s left
+  clean head=7cbc9af0e3214e504d4dff260bfcdc752b2cb584
 PASS: GitLab bot discussion blocks parking until the quiet window expires
-LAB_HEAD=a64187f8c1b343e4e13b3067b000dd2cebd6a859
+LAB_HEAD=8f436f628c6c83a057bd248722a1460d3b6052f9
 LAB_RESULT=pass
