@@ -1,0 +1,2 @@
+ok - ownerless readiness recovers only dead exact-token groups and refuses unsafe or unproved ownership
+not ok - recovered source orphan-first orphan-second did not finish within 34s
