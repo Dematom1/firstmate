@@ -1,0 +1,10 @@
+PASS: already-degraded ready change stays quiet until a later transition
+PASS: degradation wakes once per head or pipeline transition; repeats stay silent
+ok - a degraded wake is queued before its dedupe marker, so a failed marker save never silences it
+PASS: degradation wake survives failure to save its deduplication marker
+ok - GitLab merge requests are followed on any instance and never wake falsely
+PASS: GitLab train drop wakes once and a merged MR stays silent
+PASS: opt-in scan registers an already-degraded PR silently; timeout releases its lock and the next sweep succeeds
+LAB_HEAD=0e0ebdf62e54d13d97e2ce2d1960f1187cc9ec4e
+LAB_RESULT=pass
+ok - teardown refuses unsafe degraded and train markers before lifecycle cleanup
