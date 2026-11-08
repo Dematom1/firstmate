@@ -1,0 +1,9 @@
+1794117698	1	heartbeat		synthetic scheduled review
+WAKE_ACK_REQUIRED: after handling completes run bin/fm-wake-drain.sh --ack-through 1 --recovery-generation 36966.1794117699.sA023y
+READY WORK (queued and dispatchable now):
+count: 2
+ready[2]{id,state,kind,repo,title}:
+  lab-ready-1,queued,task,"-",synthetic queued item one
+  lab-ready-2,queued,task,"-",synthetic queued item two
+ready_public_followups: 0 delivery-ready obligations
+(shown 2 of 2 ready queued item(s))

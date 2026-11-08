@@ -1,0 +1,11 @@
+
+=== opted-in opted=yes rc=0 ===
+1794117299	1	heartbeat		synthetic scheduled review
+WAKE_ACK_REQUIRED: after handling completes run bin/fm-wake-drain.sh --ack-through 1 --recovery-generation 61962.1794117300.kkFWOL
+tasks-axi calls: 2
+
+
+=== default opted=no rc=0 ===
+1794117330	1	heartbeat		synthetic scheduled review
+WAKE_ACK_REQUIRED: after handling completes run bin/fm-wake-drain.sh --ack-through 1 --recovery-generation 19784.1794117331.M9Zi1L
+tasks-axi calls: 0
