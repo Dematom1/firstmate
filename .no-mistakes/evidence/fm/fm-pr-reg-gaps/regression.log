@@ -1,0 +1,11 @@
+actionable: inactive terminal outcome awaiting captain presentation: child=child state=done
+ok - main direct terminal presentation has a durable receipt
+ok - busy agent withholds the terminal outcome
+ok - idle agent on a newer incarnation withholds the terminal outcome
+actionable: inactive terminal outcome awaiting captain presentation: child=child state=done
+ok - idle finished agent keeps the terminal outcome
+actionable: inactive terminal outcome awaiting captain presentation: child=child state=done
+ok - idle finished agent with rewritten meta keeps the terminal outcome
+actionable: inactive terminal outcome awaiting captain presentation: child=child state=done
+ok - dead agent keeps the terminal outcome
+not ok - scan did not queue the terminal presentation

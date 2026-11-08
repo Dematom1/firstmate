@@ -1,0 +1,6 @@
+done [key=child-outcome-github-done-2a661206]: child github done: PR https://github.com/owner/repo/pull/44 checks green pr=https://github.com/owner/repo/pull/44 mode=no-mistakes yolo=off
+done [key=child-outcome-gitlab-done-218b283b]: child gitlab done: PR https://gitlab.com/group/sub/project/-/merge_requests/8 checks green pr=https://gitlab.com/group/sub/project/-/merge_requests/8 mode=no-mistakes yolo=off
+done [key=child-outcome-kept-done-25e05858]: child kept done: PR https://github.com/owner/repo/pull/23 checks green pr=https://github.com/owner/repo/pull/1 mode=no-mistakes yolo=off
+done [key=child-outcome-prose-done-e4df9895]: child prose done: cleanup finished mode=no-mistakes yolo=off
+done [key=child-outcome-replaced-done-7aaaf1d0]: child replaced done: PR https://github.com/owner/repo/pull/22 checks green pr=https://github.com/owner/repo/pull/22 mode=no-mistakes yolo=off
+done [key=child-outcome-unrecorded-done-4f62aa00]: child unrecorded done: PR https://gitlab.com/group/sub/project/-/merge_requests/9 checks green pr=https://gitlab.com/group/sub/project/-/merge_requests/9 mode=no-mistakes yolo=off
