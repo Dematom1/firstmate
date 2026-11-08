@@ -1,0 +1,51 @@
+ok      fm-watch-triage-pause.test_required_captain_hold_tests_fail_without_tasks_axi
+ok      fm-watch-triage-pause.test_nonterminal_stale_not_working_surfaced
+ok      fm-watch-triage-pause.test_nonterminal_stale_paused_absorbed_then_resurfaced
+ok      fm-watch-triage-pause.test_declared_wait_surfaces_superseding_state
+ok      fm-watch-triage-pause.test_superseded_wait_check_is_opt_in
+ok      fm-watch-triage-pause.test_exited_declared_pause_is_bounded_but_live_gate_surfaces
+ok      fm-watch-triage-pause.test_own_work_wait_keeps_first_alert_then_long_cadence
+ok      fm-watch-triage-pause.test_absorbed_replacement_wait_does_not_inherit_the_old_throttle
+ok      fm-watch-triage-pause.test_live_declared_wait_churn_honors_the_resurface_throttle
+ok      fm-watch-triage-pause.test_live_paused_until_controls_recheck_time
+ok      fm-watch-triage-pause.test_open_captain_call_bounds_stale_churn
+ok      fm-watch-triage-pause.test_stale_churn_without_a_captain_call_still_alarms
+ok      fm-watch-triage-pause.test_failed_wake_append_does_not_arm_the_captain_hold_throttle
+ok      fm-watch-triage-pause.test_reheld_captain_call_starts_its_own_resurface_window
+ok      fm-watch-triage-pause.test_secondmate_paused_resurfaces_in_normal_mode
+ok      fm-watch-triage-pause.test_secondmate_captain_held_resurfaces_in_normal_mode
+ok      fm-watch-triage-pause.test_secondmate_nonpaused_stale_remains_suppressed
+ok      fm-watch-triage-pause.test_secondmate_unpause_clears_pause_tracking
+ok      fm-watch-triage-pause.test_nonterminal_stale_pause_transitions_reclassify_unchanged_hash
+ok      fm-watch-triage-pause.test_nonterminal_paused_rechecks_authoritative_state
+ok      fm-watch-triage-pause.test_paused_authoritative_working_preserves_wedge_timer
+ok      fm-watch-triage-pause.test_captain_held_never_rechecked_while_away_record_exists
+ok      fm-watch-triage-pause.test_live_captain_held_first_sight_silenced_by_away_record
+ok      fm-watch-triage-pause.test_backlog_hold_never_rechecked_while_away_record_exists
+ok      fm-watch-triage-pause.test_afk_one_shot_never_hands_off_captain_held_under_away_record
+ok      fm-watch-triage-pause.test_captain_held_rechecked_under_a_quiet_record
+ok      fm-watch-triage-pause.test_paused_until_near_future_is_quiet_before_the_cadence
+ok      fm-watch-triage-pause.test_paused_until_wrong_year_is_bounded_by_the_cadence
+ok      fm-watch-triage-pause.test_paused_until_that_passed_is_rechecked_before_the_cadence
+ok      fm-watch-triage-pause.test_paused_bg_job_without_until_stays_silent_after_the_job_ends
+ok      fm-watch-triage-pause.test_paused_bg_job_until_timeout_rechecks_after_the_job_ends
+ok      fm-watch-triage-wedge-defer.test_wedge_threshold_defers_to_a_declared_wait_under_a_working_verdict
+ok      fm-watch-triage-wedge-defer.test_wedge_threshold_keeps_a_wait_past_a_default_key_answer
+ok      fm-watch-triage-wedge-defer.test_wedge_threshold_recheck_names_the_captain_for_a_held_lane
+ok      fm-watch-triage-wedge-defer.test_wedge_threshold_defers_to_a_backlog_captain_hold
+ok      fm-watch-triage-wedge-defer.test_wedge_threshold_defers_to_a_parked_gate_awaiting_a_human
+ok      fm-watch-triage-wedge-defer.test_wedge_threshold_parked_gate_needs_an_unanswered_decision
+ok      fm-watch-triage-wedge-defer.test_wedge_threshold_parked_gate_is_off_until_armed
+ok      fm-watch-triage-wedge-defer.test_wedge_threshold_defers_to_a_worker_blocker
+ok      fm-watch-triage-wedge-defer.test_wedge_threshold_worker_wait_is_off_until_armed
+ok      fm-watch-triage-wedge-defer.test_wedge_defer_refuses_a_half_filled_wait_record
+ok      fm-watch-triage-wedge-defer.test_wedge_threshold_defers_to_an_executing_validation_run
+ok      fm-watch-triage-wedge-defer.test_wedge_threshold_escalates_when_no_run_is_executing
+ok      fm-watch-triage-wedge-defer.test_wedge_threshold_validating_run_is_off_until_armed
+ok      lab.armed-gate: stale: fmlab53601:fm-paused (paused wait superseded: run R is parked at a human-owed gate with no open decision) [--- crew-state reads: 3]
+ok      lab.armed-terminal: stale: fmlab96237:fm-paused (paused wait superseded: current run R is terminal (done)) [--- crew-state reads: 3]
+ok      lab.unarmed-gate-branch: stale: fmlab37048:fm-paused [--- crew-state reads: 2]
+ok      lab.unarmed-gate-main: stale: fmlab77116:fm-paused [--- crew-state reads: 2]
+ok      lab.unarmed-terminal-branch: stale: fmlab37969:fm-paused [--- crew-state reads: 2]
+ok      lab.unarmed-terminal-main: stale: fmlab92225:fm-paused [--- crew-state reads: 2]
+head 6f25b32d24cfe4e3dc9ecfd812f3024dea2d88e0: passed=50 failed=0 pending=0
