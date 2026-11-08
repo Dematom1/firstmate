@@ -1,0 +1,14 @@
+main=bf05a4fcd69b8bb27f261177eac4abb57f98aa1b branch=7b3a711ad7bce0e35c4db723e934787e14d8abf2 dirty=0
+== diff main-flag-absent vs branch-flag-absent (expect empty)
+IDENTICAL
+== diff main-flag-absent vs branch-flag-present (expect gap closed)
+2c2
+< done [key=child-outcome-gitlab-done-218b283b]: child gitlab done: PR https://gitlab.com/group/sub/project/-/merge_requests/8 checks green pr=https://github.com/owner/repo/pull/1 mode=no-mistakes yolo=off
+---
+> done [key=child-outcome-gitlab-done-218b283b]: child gitlab done: PR https://gitlab.com/group/sub/project/-/merge_requests/8 checks green pr=https://gitlab.com/group/sub/project/-/merge_requests/8 mode=no-mistakes yolo=off
+5,6c5,6
+< done [key=child-outcome-replaced-done-7aaaf1d0]: child replaced done: PR https://github.com/owner/repo/pull/22 checks green pr=https://github.com/owner/repo/pull/1 mode=no-mistakes yolo=off
+< done [key=child-outcome-unrecorded-done-4f62aa00]: child unrecorded done: PR https://gitlab.com/group/sub/project/-/merge_requests/9 checks green mode=no-mistakes yolo=off
+---
+> done [key=child-outcome-replaced-done-7aaaf1d0]: child replaced done: PR https://github.com/owner/repo/pull/22 checks green pr=https://github.com/owner/repo/pull/22 mode=no-mistakes yolo=off
+> done [key=child-outcome-unrecorded-done-4f62aa00]: child unrecorded done: PR https://gitlab.com/group/sub/project/-/merge_requests/9 checks green pr=https://gitlab.com/group/sub/project/-/merge_requests/9 mode=no-mistakes yolo=off

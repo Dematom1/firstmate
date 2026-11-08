@@ -1,0 +1,22 @@
+actionable: inactive terminal outcome awaiting captain presentation: child=child state=done
+ok - main direct terminal presentation has a durable receipt
+ok - busy agent withholds the terminal outcome
+ok - idle agent on a newer incarnation withholds the terminal outcome
+actionable: inactive terminal outcome awaiting captain presentation: child=child state=done
+ok - idle finished agent keeps the terminal outcome
+actionable: inactive terminal outcome awaiting captain presentation: child=child state=done
+ok - idle finished agent with rewritten meta keeps the terminal outcome
+actionable: inactive terminal outcome awaiting captain presentation: child=child state=done
+ok - dead agent keeps the terminal outcome
+actionable: inactive terminal outcome awaiting captain presentation: child=child state=done
+ok - a branch-actor acknowledgement retires the inactive-outcome receipt and later scans stay quiet
+ok - unpushed CI-ready ship done: is not published upstream
+ok - inactive reconciliation pins local readiness under its existing lock before one parent delivery
+ok - a delivered ship done: skips the git gate on later polls
+ok - secondmate delivers a child's terminal ledger line once, on the next poll, from the ledger alone
+ok - multiline terminal outcomes are reported once before or during a state read
+ok - an unterminated continuation line does not withhold a proven child outcome
+ok - later status prose does not change the inactive terminal receipt identity
+ok - busy child locks do not starve later ledger outcomes
+ok - ledger delivery carries the report pointer, the failed verb, and each new terminal line
+not ok - ready receipt key missing
