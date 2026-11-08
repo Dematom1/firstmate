@@ -1,0 +1,8 @@
+RECORD_HYGIENE: status log without metadata older than 24 hours: orphan
+RECORD_HYGIENE: metadata has no tab: no-tab
+PASS: flag-on bootstrap reports and archives
+PASS: remote parent channel excluded
+PASS: flag-off bootstrap inert
+PASS: flag-off bootstrap matches main output
+PASS: flag-off heartbeat does not scan
+PASS: flag-on heartbeat queues report without archiving
