@@ -1,0 +1,16 @@
+code under test: 8c87df042ffa054d9109e0cdc3f8de04d4a8156c
+base for brief identity: origin/main 14d06b0441783fc8fc80d04ce5c2745db91b0700
+no-mistakes: no-mistakes version v1.106.1 (5732d1e) 2026-10-31T05:16:09Z
+real run row: failed       fm-live-run          5470de19  2026-11-08 17:53
+=== SCENARIO 1: flag present, claim with no run on the branch
+PASS on-missing: exactly one wake after 1 real run lookup(s): check: validation claim has no run for fm-live-missing (worker reported validation started)
+=== SCENARIO 2: flag present, claim on a branch with a real run
+PASS on-matching: no wake, claim cleared after 3 real run lookup(s)
+=== SCENARIO 3: flag absent, claim with no run on the branch
+PASS off-missing: no wake, no run lookup, no claimed-run record while the flag is absent
+=== SCENARIO 4: flag absent, ship brief identical to the base code; flag present adds one line
+PASS brief-default-off: flag-absent brief is byte-identical to origin/main's (137 lines)
+PASS brief-default-on: flag-present brief adds exactly the one validation-started line
+PASS brief-gerrit-off: flag-absent brief is byte-identical to origin/main's (159 lines)
+PASS brief-gerrit-on: flag-present brief adds exactly the one validation-started line
+total: 0 failed
