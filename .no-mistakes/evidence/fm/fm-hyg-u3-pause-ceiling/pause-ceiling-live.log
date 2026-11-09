@@ -1,0 +1,23 @@
+===== watcher-absent =====
+2026-11-09T02:12:07Z ROW PASS: no blocked [key=paused-overdue-...] line, no overdue wake and no overdue record for a dated pause 25h past until and an undated pause past 45s
+2026-11-09T02:12:07Z ROW PASS: the dated pause past until gets the unchanged plain recheck (declared clearing time has passed)
+2026-11-09T02:12:07Z ROW PASS: worker panes still alive
+2026-11-09T02:12:07Z RESULT: PASS
+===== watcher-present =====
+2026-11-09T02:12:14Z ROW PASS: undated pause below its 45s bound stays quiet (age 6s)
+2026-11-09T02:12:56Z ROW PASS: dated pause past its ceiling: one blocked [key=paused-overdue-dated] line, one overdue stale wake, key open
+2026-11-09T02:12:56Z ROW PASS: undated pause past its ceiling: one blocked [key=paused-overdue-undated] line, one overdue stale wake, key open
+2026-11-09T02:14:09Z ROW PASS: no repeat blocked line or overdue wake on later polls
+2026-11-09T02:14:16Z ROW PASS: after working:, the overdue key closes with a resolved line; worker panes still alive (no kill, no teardown)
+2026-11-09T02:14:16Z RESULT: PASS
+===== away-absent =====
+2026-11-09T02:15:18Z ROW PASS: away posture, undated pause 60s past its would-be 30s bound: no decision, no alert, no overdue record
+2026-11-09T02:15:18Z ROW PASS: daemon still running
+2026-11-09T02:15:18Z ROW PASS: worker pane still alive
+2026-11-09T02:15:18Z RESULT: PASS
+===== away-present =====
+2026-11-09T02:15:35Z ROW PASS: undated pause below its 30s bound: no decision, no alert
+2026-11-09T02:15:53Z ROW PASS: pause past its ceiling: one blocked [key=paused-overdue-awaylab] line, one overdue stale alert delivered to the supervisor pane, key open
+2026-11-09T02:16:13Z ROW PASS: 20s of further housekeeping: no repeat decision or alert
+2026-11-09T02:16:14Z ROW PASS: after working:, the overdue key closes with a resolved line; worker pane still alive (no kill, no teardown)
+2026-11-09T02:16:14Z RESULT: PASS
