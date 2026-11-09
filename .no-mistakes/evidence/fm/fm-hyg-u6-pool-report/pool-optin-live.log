@@ -1,0 +1,21 @@
+=== scenario A: flag absent, branch vs origin/main (97e309c7) ===
+identical to main: yes
+main output: 0 lines; branch output: 0 lines
+main output (same on branch): 
+pool report lines: 0
+=== scenario B: flag present (config/treehouse-pool-report) ===
+TREEHOUSE_POOL_REPORT: unowned slot older than 30d: <lab>/slot-two (age 2504d)
+TREEHOUSE_POOL_REPORT: duplicate-clone pool <lab>/treehouse/first (project <lab>/slot-one)
+TREEHOUSE_POOL_REPORT: unowned slot older than 30d: <lab>/slot-one (age 2504d)
+TREEHOUSE_POOL_REPORT: unregistered pool <lab>/treehouse/orphan (project path unavailable: <lab>/no-such-project)
+TREEHOUSE_POOL_REPORT: test-leftover pool <lab>/treehouse/project-u6-leftover
+TREEHOUSE_POOL_REPORT: scanned 4 pools under <lab>/treehouse
+=== scenario C: flag present, no treehouse executable on PATH ===
+treehouse on PATH: no
+TREEHOUSE_POOL_REPORT: unowned slot older than 30d: <lab>/slot-two (age 2504d)
+TREEHOUSE_POOL_REPORT: duplicate-clone pool <lab>/treehouse/first (project <lab>/slot-one)
+TREEHOUSE_POOL_REPORT: unowned slot older than 30d: <lab>/slot-one (age 2504d)
+TREEHOUSE_POOL_REPORT: unregistered pool <lab>/treehouse/orphan (project path unavailable: <lab>/no-such-project)
+TREEHOUSE_POOL_REPORT: test-leftover pool <lab>/treehouse/project-u6-leftover
+TREEHOUSE_POOL_REPORT: scanned 4 pools under <lab>/treehouse
+fixture checksums unchanged: yes
