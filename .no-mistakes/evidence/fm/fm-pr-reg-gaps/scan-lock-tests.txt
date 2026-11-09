@@ -1,0 +1,5 @@
+ok - a merge record holding its lock blocks the scan from replacing that PR
+ok - poll retirement preserves a replacement authority record
+ok - the scan does not replace a PR whose merge was already reported
+ok - a replacement PR on a newer ready line takes over pr= and the merge poll
+ok - the scan keeps a recorded PR the status log never named
