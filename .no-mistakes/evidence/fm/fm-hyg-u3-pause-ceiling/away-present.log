@@ -1,0 +1,16 @@
+2026-11-09T02:34:55Z lab head=c58c0748b0058626f737a06055465055b78c0048 home=<lab>/home tmux=-L fmla20303 FM_LIVE=0 config/pause-ceiling=present
+2026-11-09T02:34:56Z panes before: captain:0 fm-awaylab:0 
+2026-11-09T02:34:56Z knobs: FM_DAEMON_PRIMARY_HARNESS=unknown FM_SUPERVISOR_TARGET=%0 FM_SUPERVISOR_BACKEND=tmux FM_PAUSE_UNDATED_MAX_SECS=30 FM_PAUSE_RESURFACE_SECS=999999 FM_ESCALATE_BATCH_SECS=0 FM_HOUSEKEEPING_TICK=1 FM_POLL=1 FM_SIGNAL_GRACE=1 FM_HEARTBEAT=999999 FM_CHECK_INTERVAL=999999 FM_STALE_ESCALATE_SECS=999999 FM_INJECT_CONFIRM_SLEEP=0.3 FM_INJECT_CONFIRM_RETRIES=5
+2026-11-09T02:34:56Z daemon pid=25418 started; seeded: paused [at=1794191695]: waiting for the upstream tool release
+2026-11-09T02:35:11Z ROW PASS: undated pause below its 30s bound: no decision, no alert
+2026-11-09T02:35:29Z status: working [at=1794191690]: started|paused [at=1794191695]: waiting for the upstream tool release|blocked [key=paused-overdue-awaylab] [at=1794191726]: paused 31s, wait overdue - decide or release|
+2026-11-09T02:35:29Z open decisions: paused-overdue-awaylab	blocked	paused 31s, wait overdue - decide or release
+2026-11-09T02:35:29Z supervisor pane received: ⁣FIRSTMATE_OP: v1 away-supervisor: Supervisor escalate (1 event(s)): stale: sup:fm-awaylab (paused 31s, wait overdue - decide or release) (pre-read; re-arm not needed — watcher daemon-managed)
+2026-11-09T02:35:29Z ROW PASS: pause past its ceiling: one blocked [key=paused-overdue-awaylab] line, one overdue stale alert delivered to the supervisor pane, key open
+2026-11-09T02:35:49Z ROW PASS: 20s of further housekeeping: no repeat decision or alert
+2026-11-09T02:35:50Z status: working [at=1794191690]: started|paused [at=1794191695]: waiting for the upstream tool release|blocked [key=paused-overdue-awaylab] [at=1794191726]: paused 31s, wait overdue - decide or release|working [at=1794191749]: dependency cleared, resuming|resolved [key=paused-overdue-awaylab] [at=1794191749]: worker pause changed|
+2026-11-09T02:35:50Z open decisions: 
+2026-11-09T02:35:50Z panes after: captain:0 fm-awaylab:0 
+2026-11-09T02:35:50Z daemon still running
+2026-11-09T02:35:51Z ROW PASS: after working:, the overdue key closes with a resolved line; worker pane still alive (no kill, no teardown)
+2026-11-09T02:35:51Z RESULT: PASS

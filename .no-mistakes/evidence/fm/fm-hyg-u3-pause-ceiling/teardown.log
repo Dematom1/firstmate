@@ -1,0 +1,41 @@
+ok - teardown leaves opencode's busy plugin in the returned pool worktree as on main
+ok - hidden untracked work is refused before return while a clean control returns
+ok - content fallback distinguishes unavailable Git proof, containment, conflicts, and unlanded content
+orca/reap-refusal: teardown_exit=1 replay_exit=0 metadata_after_replay=retained backlog_after_replay=in_flight
+tmux/reap-refusal: teardown_exit=1 replay_exit=0 metadata_after_replay=retained backlog_after_replay=in_flight
+ok - post-reap proof retains late work and retry records on ordinary and Orca paths, preserving clean/force/scout behavior
+ok - status archival is opt-in and preserves the complete log
+ok - config-absent teardown does not read or invoke record export
+ok - unopted teardown ignores symlinked config when record export is absent
+ok - teardown commits the record archive before deleting sources and fails closed when export cannot commit
+ok - forced secondmate teardown exports task records from the child sub-state
+ok - record export waits for endpoint quiescence and retry captures records changed after refusal
+ok - forced secondmate retirement preserves two descendant levels and refuses linked child directories
+ok - local missing-status retirement stays lock-free without creating an archive
+ok - reused task IDs never overwrite archives and retention removes only old owned logs
+ok - archive sources and directories reject symlinks; pruning never follows children links
+ok - failed archive publication preserves presentation and watcher bookkeeping
+ok - cursor retirement failure removes its archive so retry publishes one history
+ok - archive publication and cold logs never re-wake or re-present
+ok - retention failures warn without aborting unrelated teardown
+ok - a missing teardown startup source refuses before cleanup
+ok - an unreadable teardown startup source refuses before cleanup
+ok - a missing adapter sibling refuses before cleanup
+ok - a forced descendant with a missing adapter sibling refuses before cleanup
+ok - a forced secondmate with a missing own adapter sibling refuses before child cleanup
+ok - present required sources still reach the ordinary teardown refusal
+ok - local-only worktree with HEAD on a fork remote is torn down and the home summary is refreshed
+ok - teardown closes its own backlog item before reporting success
+ok - teardown closes a landed Gerrit task with its change URL as a note and a GitHub task with --pr
+ok - teardown closes a landed GitLab task with its merge request URL as a note and GitHub and Forgejo tasks with --pr
+ok - teardown honors config/backlog-backend=manual and still finishes cleanly
+ok - local-only worktree with truly unpushed work is refused (safety preserved)
+ok - local-only worktree with work merged into local main is torn down (no regression)
+ok - work landed on another origin branch from another clone is proven after a refresh
+ok - a failed refresh refuses and names the remote it could not reach
+ok - commits on no remote branch still refuse after a successful refresh
+ok - uncommitted work refuses even when the commits have landed
+ok - a file saved during the refresh refuses teardown and survives
+ok - a project with no remote refuses as before and fetches nothing
+ok - the refresh keeps a dropped branch's tracking ref even with fetch.prune set
+ok - work the tracking refs already show adds no network call

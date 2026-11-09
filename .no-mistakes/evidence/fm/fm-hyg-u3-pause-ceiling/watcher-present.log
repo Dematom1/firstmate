@@ -1,0 +1,80 @@
+2026-11-09T02:31:30Z lab head=c58c0748b0058626f737a06055465055b78c0048 home=<lab>/home tmux=-L fmlw28721 FM_LIVE=0 config/pause-ceiling=present
+2026-11-09T02:31:30Z knobs: FM_PAUSE_UNDATED_MAX_SECS=45 FM_PAUSE_RESURFACE_SECS=30 FM_POLL=2 FM_SIGNAL_GRACE=1 FM_HEARTBEAT=999999 FM_CHECK_INTERVAL=999999
+2026-11-09T02:31:30Z seed dated: paused [at=1794101490]: waiting for the vendor fix until 2026-11-08T01:31:30Z
+2026-11-09T02:31:30Z seed undated: paused [at=1794191490]: waiting for the upstream tool release
+2026-11-09T02:31:30Z worker panes before: boot:0 fm-dated:0 fm-undated:0 
+2026-11-09T02:31:30Z === phase 1: polls before the undated bound
+2026-11-09T02:31:35Z watcher: signal: {run-worktree}/.lab-live/watch.3EMfTF/home/state/dated.status {run-worktree}/.lab-live/watch.3EMfTF/home/state/undated.status
+2026-11-09T02:31:35Z watcher exit=0 after 4s
+2026-11-09T02:31:36Z drain: 1794191493	3	signal	dated.status	signal: {run-worktree}/.lab-live/watch.3EMfTF/home/state/dated.status {run-worktree}/.lab-live/watch.3EMfTF/home/state/undated.status
+2026-11-09T02:31:36Z drain: 1794191493	4	signal	undated.status	signal: {run-worktree}/.lab-live/watch.3EMfTF/home/state/dated.status {run-worktree}/.lab-live/watch.3EMfTF/home/state/undated.status
+2026-11-09T02:31:36Z drain: wake annotation: unread wake-EVENT since last drain, not current state: dated.status: working [at=1794101390]: started
+2026-11-09T02:31:36Z drain: wake annotation: latest wake-EVENT observed at drain, not current state: dated.status: paused [at=1794101490]: waiting for the vendor fix until 2026-11-08T01:31:30Z
+2026-11-09T02:31:36Z drain: wake annotation: unread wake-EVENT since last drain, not current state: undated.status: working [at=1794191390]: started
+2026-11-09T02:31:36Z drain: wake annotation: latest wake-EVENT observed at drain, not current state: undated.status: paused [at=1794191490]: waiting for the upstream tool release
+2026-11-09T02:31:37Z ROW PASS: undated pause below its 45s bound stays quiet (age 7s)
+2026-11-09T02:31:37Z === phase 2: polls until both pauses pass their ceilings
+2026-11-09T02:31:39Z watcher: stale: lab:fm-dated (paused 90008s, wait overdue - decide or release)
+2026-11-09T02:31:39Z watcher exit=0 after 2s
+2026-11-09T02:31:40Z drain: 1794191498	5	stale	lab:fm-dated	stale: lab:fm-dated (paused 90008s, wait overdue - decide or release)
+2026-11-09T02:31:40Z drain: OPEN DECISIONS (still open, folded from the durable status logs - not just the latest line):
+2026-11-09T02:31:40Z drain: dated [key=paused-overdue-dated] blocked: paused 90008s, wait overdue - decide or release
+2026-11-09T02:31:40Z drain: OPEN DECISIONS: close one by answering it: bin/fm-send.sh <task> --resolve-key <key> '<answer>'
+2026-11-09T02:31:40Z drain: OPEN DECISIONS: <key> is the [key=...] printed before the verb; a token inside a note is prose, not a key.
+2026-11-09T02:32:02Z watcher: stale: lab:fm-undated (paused 31s, awaiting external - declared pause, rechecked on a long cadence not a wedge; confirm the wait still holds)
+2026-11-09T02:32:02Z watcher exit=0 after 19s
+2026-11-09T02:32:03Z drain: 1794191521	6	stale	lab:fm-undated	stale: lab:fm-undated (paused 31s, awaiting external - declared pause, rechecked on a long cadence not a wedge; confirm the wait still holds)
+2026-11-09T02:32:03Z drain: OPEN DECISIONS (still open, folded from the durable status logs - not just the latest line):
+2026-11-09T02:32:03Z drain: dated [key=paused-overdue-dated] blocked: paused 90008s, wait overdue - decide or release
+2026-11-09T02:32:03Z drain: OPEN DECISIONS: close one by answering it: bin/fm-send.sh <task> --resolve-key <key> '<answer>'
+2026-11-09T02:32:03Z drain: OPEN DECISIONS: <key> is the [key=...] printed before the verb; a token inside a note is prose, not a key.
+2026-11-09T02:32:20Z watcher: stale: lab:fm-undated (paused 48s, wait overdue - decide or release)
+2026-11-09T02:32:20Z watcher exit=0 after 14s
+2026-11-09T02:32:21Z drain: 1794191538	7	stale	lab:fm-undated	stale: lab:fm-undated (paused 48s, wait overdue - decide or release)
+2026-11-09T02:32:21Z drain: OPEN DECISIONS (still open, folded from the durable status logs - not just the latest line):
+2026-11-09T02:32:21Z drain: dated [key=paused-overdue-dated] blocked: paused 90008s, wait overdue - decide or release
+2026-11-09T02:32:21Z drain: undated [key=paused-overdue-undated] blocked: paused 48s, wait overdue - decide or release
+2026-11-09T02:32:21Z drain: OPEN DECISIONS: close one by answering it: bin/fm-send.sh <task> --resolve-key <key> '<answer>'
+2026-11-09T02:32:21Z drain: OPEN DECISIONS: <key> is the [key=...] printed before the verb; a token inside a note is prose, not a key.
+2026-11-09T02:32:21Z status[dated]: working [at=1794101390]: started|paused [at=1794101490]: waiting for the vendor fix until 2026-11-08T01:31:30Z|blocked [key=paused-overdue-dated] [at=1794191498]: paused 90008s, wait overdue - decide or release|
+2026-11-09T02:32:21Z open decisions[dated]: paused-overdue-dated	blocked	paused 90008s, wait overdue - decide or release
+2026-11-09T02:32:21Z ROW PASS: dated pause past its ceiling: one blocked [key=paused-overdue-dated] line, one overdue stale wake, key open
+2026-11-09T02:32:21Z status[undated]: working [at=1794191390]: started|paused [at=1794191490]: waiting for the upstream tool release|blocked [key=paused-overdue-undated] [at=1794191538]: paused 48s, wait overdue - decide or release|
+2026-11-09T02:32:22Z open decisions[undated]: paused-overdue-undated	blocked	paused 48s, wait overdue - decide or release
+2026-11-09T02:32:22Z ROW PASS: undated pause past its ceiling: one blocked [key=paused-overdue-undated] line, one overdue stale wake, key open
+2026-11-09T02:32:22Z === phase 3: further polls stay quiet while the decision is open
+2026-11-09T02:32:45Z watcher exit=124 after 20s
+2026-11-09T02:32:46Z drain: OPEN DECISIONS (still open, folded from the durable status logs - not just the latest line):
+2026-11-09T02:32:46Z drain: dated [key=paused-overdue-dated] blocked: paused 90008s, wait overdue - decide or release
+2026-11-09T02:32:46Z drain: undated [key=paused-overdue-undated] blocked: paused 48s, wait overdue - decide or release
+2026-11-09T02:32:46Z drain: OPEN DECISIONS: close one by answering it: bin/fm-send.sh <task> --resolve-key <key> '<answer>'
+2026-11-09T02:32:46Z drain: OPEN DECISIONS: <key> is the [key=...] printed before the verb; a token inside a note is prose, not a key.
+2026-11-09T02:33:09Z watcher exit=124 after 20s
+2026-11-09T02:33:10Z drain: OPEN DECISIONS (still open, folded from the durable status logs - not just the latest line):
+2026-11-09T02:33:10Z drain: dated [key=paused-overdue-dated] blocked: paused 90008s, wait overdue - decide or release
+2026-11-09T02:33:10Z drain: undated [key=paused-overdue-undated] blocked: paused 48s, wait overdue - decide or release
+2026-11-09T02:33:10Z drain: OPEN DECISIONS: close one by answering it: bin/fm-send.sh <task> --resolve-key <key> '<answer>'
+2026-11-09T02:33:10Z drain: OPEN DECISIONS: <key> is the [key=...] printed before the verb; a token inside a note is prose, not a key.
+2026-11-09T02:33:34Z watcher exit=124 after 20s
+2026-11-09T02:33:36Z drain: OPEN DECISIONS (still open, folded from the durable status logs - not just the latest line):
+2026-11-09T02:33:36Z drain: dated [key=paused-overdue-dated] blocked: paused 90008s, wait overdue - decide or release
+2026-11-09T02:33:36Z drain: undated [key=paused-overdue-undated] blocked: paused 48s, wait overdue - decide or release
+2026-11-09T02:33:36Z drain: OPEN DECISIONS: close one by answering it: bin/fm-send.sh <task> --resolve-key <key> '<answer>'
+2026-11-09T02:33:36Z drain: OPEN DECISIONS: <key> is the [key=...] printed before the verb; a token inside a note is prose, not a key.
+2026-11-09T02:33:36Z ROW PASS: no repeat blocked line or overdue wake on later polls
+2026-11-09T02:33:36Z === phase 4: worker resumes
+2026-11-09T02:33:42Z watcher: signal: {run-worktree}/.lab-live/watch.3EMfTF/home/state/dated.status
+2026-11-09T02:33:42Z watcher exit=0 after 5s
+2026-11-09T02:33:44Z drain: 1794191621	9	signal	dated.status	signal: {run-worktree}/.lab-live/watch.3EMfTF/home/state/dated.status
+2026-11-09T02:33:44Z drain: wake annotation: unread wake-EVENT since last drain, not current state: dated.status: blocked [key=paused-overdue-dated] [at=1794191498]: paused 90008s, wait overdue - decide or release
+2026-11-09T02:33:44Z drain: wake annotation: unread wake-EVENT since last drain, not current state: dated.status: working [at=1794191616]: dependency cleared, resuming
+2026-11-09T02:33:44Z drain: wake annotation: latest wake-EVENT observed at drain, not current state: dated.status: resolved [key=paused-overdue-dated] [at=1794191617]: worker pause changed
+2026-11-09T02:33:44Z drain: OPEN DECISIONS (still open, folded from the durable status logs - not just the latest line):
+2026-11-09T02:33:44Z drain: undated [key=paused-overdue-undated] blocked: paused 48s, wait overdue - decide or release
+2026-11-09T02:33:44Z drain: OPEN DECISIONS: close one by answering it: bin/fm-send.sh <task> --resolve-key <key> '<answer>'
+2026-11-09T02:33:44Z drain: OPEN DECISIONS: <key> is the [key=...] printed before the verb; a token inside a note is prose, not a key.
+2026-11-09T02:33:44Z status[dated]: working [at=1794101390]: started|paused [at=1794101490]: waiting for the vendor fix until 2026-11-08T01:31:30Z|blocked [key=paused-overdue-dated] [at=1794191498]: paused 90008s, wait overdue - decide or release|working [at=1794191616]: dependency cleared, resuming|resolved [key=paused-overdue-dated] [at=1794191617]: worker pause changed|
+2026-11-09T02:33:44Z open decisions[dated]: 
+2026-11-09T02:33:44Z worker panes after: boot:0 fm-dated:0 fm-undated:0 
+2026-11-09T02:33:44Z ROW PASS: after working:, the overdue key closes with a resolved line; worker panes still alive (no kill, no teardown)
+2026-11-09T02:33:44Z RESULT: PASS

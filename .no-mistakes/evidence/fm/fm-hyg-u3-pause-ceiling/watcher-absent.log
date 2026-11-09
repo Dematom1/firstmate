@@ -1,0 +1,47 @@
+2026-11-09T02:29:14Z lab head=c58c0748b0058626f737a06055465055b78c0048 home=<lab>/home tmux=-L fmlw89213 FM_LIVE=0 config/pause-ceiling=absent
+2026-11-09T02:29:15Z knobs: FM_PAUSE_UNDATED_MAX_SECS=45 FM_PAUSE_RESURFACE_SECS=30 FM_POLL=2 FM_SIGNAL_GRACE=1 FM_HEARTBEAT=999999 FM_CHECK_INTERVAL=999999
+2026-11-09T02:29:15Z seed dated: paused [at=1794101354]: waiting for the vendor fix until 2026-11-08T01:29:14Z
+2026-11-09T02:29:15Z seed undated: paused [at=1794191354]: waiting for the upstream tool release
+2026-11-09T02:29:15Z worker panes before: boot:0 fm-dated:0 fm-undated:0 
+2026-11-09T02:29:15Z === flag absent: polls well past both would-be ceilings
+2026-11-09T02:29:19Z watcher: signal: {run-worktree}/.lab-live/watch.ESjvlr/home/state/dated.status {run-worktree}/.lab-live/watch.ESjvlr/home/state/undated.status
+2026-11-09T02:29:19Z watcher exit=0 after 4s
+2026-11-09T02:29:21Z drain: 1794191358	3	signal	dated.status	signal: {run-worktree}/.lab-live/watch.ESjvlr/home/state/dated.status {run-worktree}/.lab-live/watch.ESjvlr/home/state/undated.status
+2026-11-09T02:29:21Z drain: 1794191358	4	signal	undated.status	signal: {run-worktree}/.lab-live/watch.ESjvlr/home/state/dated.status {run-worktree}/.lab-live/watch.ESjvlr/home/state/undated.status
+2026-11-09T02:29:21Z drain: wake annotation: unread wake-EVENT since last drain, not current state: dated.status: working [at=1794101254]: started
+2026-11-09T02:29:21Z drain: wake annotation: latest wake-EVENT observed at drain, not current state: dated.status: paused [at=1794101354]: waiting for the vendor fix until 2026-11-08T01:29:14Z
+2026-11-09T02:29:21Z drain: wake annotation: unread wake-EVENT since last drain, not current state: undated.status: working [at=1794191254]: started
+2026-11-09T02:29:21Z drain: wake annotation: latest wake-EVENT observed at drain, not current state: undated.status: paused [at=1794191354]: waiting for the upstream tool release
+2026-11-09T02:29:24Z watcher: stale: lab:fm-dated (paused 90009s, awaiting external - the declared clearing time has passed, rechecked on a long cadence not a wedge; confirm the wait cleared)
+2026-11-09T02:29:24Z watcher exit=0 after 2s
+2026-11-09T02:29:25Z drain: 1794191363	5	stale	lab:fm-dated	stale: lab:fm-dated (paused 90009s, awaiting external - the declared clearing time has passed, rechecked on a long cadence not a wedge; confirm the wait cleared)
+2026-11-09T02:29:48Z watcher: stale: lab:fm-undated (paused 32s, awaiting external - declared pause, rechecked on a long cadence not a wedge; confirm the wait still holds)
+2026-11-09T02:29:48Z watcher exit=0 after 20s
+2026-11-09T02:29:50Z drain: 1794191387	6	stale	lab:fm-undated	stale: lab:fm-undated (paused 32s, awaiting external - declared pause, rechecked on a long cadence not a wedge; confirm the wait still holds)
+2026-11-09T02:29:57Z watcher: stale: lab:fm-dated (paused 90043s, awaiting external - the declared clearing time has passed, rechecked on a long cadence not a wedge; confirm the wait cleared)
+2026-11-09T02:29:57Z watcher exit=0 after 6s
+2026-11-09T02:30:00Z drain: 1794191397	7	stale	lab:fm-dated	stale: lab:fm-dated (paused 90043s, awaiting external - the declared clearing time has passed, rechecked on a long cadence not a wedge; confirm the wait cleared)
+2026-11-09T02:30:19Z watcher: stale: lab:fm-undated (paused 63s, awaiting external - declared pause, rechecked on a long cadence not a wedge; confirm the wait still holds)
+2026-11-09T02:30:19Z watcher exit=0 after 16s
+2026-11-09T02:30:20Z drain: 1794191418	8	stale	lab:fm-undated	stale: lab:fm-undated (paused 63s, awaiting external - declared pause, rechecked on a long cadence not a wedge; confirm the wait still holds)
+2026-11-09T02:30:29Z watcher: stale: lab:fm-dated (paused 90074s, awaiting external - the declared clearing time has passed, rechecked on a long cadence not a wedge; confirm the wait cleared)
+2026-11-09T02:30:29Z watcher exit=0 after 8s
+2026-11-09T02:30:31Z drain: 1794191428	9	stale	lab:fm-dated	stale: lab:fm-dated (paused 90074s, awaiting external - the declared clearing time has passed, rechecked on a long cadence not a wedge; confirm the wait cleared)
+2026-11-09T02:30:50Z watcher: stale: lab:fm-undated (paused 94s, awaiting external - declared pause, rechecked on a long cadence not a wedge; confirm the wait still holds)
+2026-11-09T02:30:50Z watcher exit=0 after 17s
+2026-11-09T02:30:52Z drain: 1794191449	10	stale	lab:fm-undated	stale: lab:fm-undated (paused 94s, awaiting external - declared pause, rechecked on a long cadence not a wedge; confirm the wait still holds)
+2026-11-09T02:31:00Z watcher: stale: lab:fm-dated (paused 90105s, awaiting external - the declared clearing time has passed, rechecked on a long cadence not a wedge; confirm the wait cleared)
+2026-11-09T02:31:00Z watcher exit=0 after 7s
+2026-11-09T02:31:01Z drain: 1794191459	11	stale	lab:fm-dated	stale: lab:fm-dated (paused 90105s, awaiting external - the declared clearing time has passed, rechecked on a long cadence not a wedge; confirm the wait cleared)
+2026-11-09T02:31:23Z watcher: stale: lab:fm-undated (paused 126s, awaiting external - declared pause, rechecked on a long cadence not a wedge; confirm the wait still holds)
+2026-11-09T02:31:23Z watcher exit=0 after 19s
+2026-11-09T02:31:25Z drain: 1794191481	12	stale	lab:fm-undated	stale: lab:fm-undated (paused 126s, awaiting external - declared pause, rechecked on a long cadence not a wedge; confirm the wait still holds)
+2026-11-09T02:31:25Z status[dated]: working [at=1794101254]: started|paused [at=1794101354]: waiting for the vendor fix until 2026-11-08T01:29:14Z|
+2026-11-09T02:31:25Z open decisions[dated]: 
+2026-11-09T02:31:25Z status[undated]: working [at=1794191254]: started|paused [at=1794191354]: waiting for the upstream tool release|
+2026-11-09T02:31:25Z open decisions[undated]: 
+2026-11-09T02:31:25Z ROW PASS: no blocked [key=paused-overdue-...] line, no overdue wake and no overdue record for a dated pause 25h past until and an undated pause past 45s
+2026-11-09T02:31:25Z ROW PASS: the dated pause past until gets the unchanged plain recheck (declared clearing time has passed)
+2026-11-09T02:31:25Z worker panes after: boot:0 fm-dated:0 fm-undated:0 
+2026-11-09T02:31:25Z ROW PASS: worker panes still alive
+2026-11-09T02:31:25Z RESULT: PASS
