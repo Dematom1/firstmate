@@ -1,0 +1,29 @@
+20:19:01Z lab root={run-worktree}/.lab-live/s2/root ref=8fc88f176b8fe53aa33081d5970cf5bbb9f018cd tree=8fc88f17 pi=0.87.1 mode=off flag=absent gate-env=set lab-marker=fm-lab-home v1
+20:19:02Z STEP A spawn scbc4766d8-1 into a fresh untrusted slot with config/spawn-start-check absent
+fm-gate-refuse: gate agent lifecycle permitted only against lab home {run-worktree}/.lab-live/s2/root/home
+spawned scbc4766d8-1 harness=pi kind=ship mode=local-only yolo=on window=firstmate:fm-scbc4766d8-1 worktree={run-worktree}/.lab-live/s2/root/treehouse/.treehouse/notes-d2807f/1/notes
+20:19:10Z start-pending after spawn: absent
+20:19:18Z pane shows trust dialog: 1
+20:19:33Z WAKE t+23s: stale: firstmate:fm-scbc4766d8-1
+20:22:30Z all wakes in 200s:
+  t+23s stale: firstmate:fm-scbc4766d8-1
+20:22:30Z flag absent: 0 start wakes in 200s; start-pending absent
+20:22:30Z start-check triage lines: 0
+20:22:30Z STEP B press Enter on the trust prompt
+20:22:30Z accept rc=0
+20:22:47Z status: done [at=1794255766]: lab start check
+20:22:47Z STEP C relaunch scbc4766d8-1 with config/spawn-start-check absent
+fm-gate-refuse: gate agent lifecycle permitted only against lab home {run-worktree}/.lab-live/s2/root/home
+WARNING: watcher still down (same stale episode; last beat: 26s ago, grace 300s) - full banner already printed this episode.
+relaunched scbc4766d8-1 harness=pi from=pi model=openai/gpt-5-mini effort=low backend=tmux endpoint=firstmate:fm-scbc4766d8-1 worktree={run-worktree}/.lab-live/s2/root/treehouse/.treehouse/notes-d2807f/1/notes
+20:22:56Z start-pending after relaunch: absent
+20:22:57Z WAKE t+1s: check: rearm-resurface
+20:23:33Z WAKE t+37s: signal: {run-worktree}/.lab-live/s2/root/home/state/scbc4766d8-1.status {run-worktree}/.lab-live/s2/root/home/state/scbc4766d8-1.turn-ended
+20:23:48Z WAKE t+52s: stale: firstmate:fm-scbc4766d8-1
+20:23:56Z after relaunch: 0 start wakes in 60s; start-pending absent
+20:23:56Z teardown
+20:23:56Z lab tmux socket dir teardown rc=0 left=none
+20:23:56Z lab trust store: {  "{run-worktree}/.lab-live/s2/root/treehouse/.treehouse/notes-d2807f/1/notes": true}
+20:23:56Z local credential copy deleted
+20:23:56Z lab worktree root contents at teardown: []
+20:23:56Z operator Pi store not read (lab key in ~/pi-lab)

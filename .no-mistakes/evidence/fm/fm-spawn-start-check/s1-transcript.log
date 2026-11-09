@@ -1,0 +1,54 @@
+20:11:27Z lab root={run-worktree}/.lab-live/s1/root ref=8fc88f176b8fe53aa33081d5970cf5bbb9f018cd tree=8fc88f17 pi=0.87.1 mode=on flag=present gate-env=set lab-marker=fm-lab-home v1
+20:11:27Z STEP 1 spawn sc54329597-1 into a fresh untrusted slot
+fm-gate-refuse: gate agent lifecycle permitted only against lab home {run-worktree}/.lab-live/s1/root/home
+spawned sc54329597-1 harness=pi kind=ship mode=local-only yolo=on window=firstmate:fm-sc54329597-1 worktree={run-worktree}/.lab-live/s1/root/treehouse/.treehouse/notes-df5c15/1/notes
+20:11:36Z start-pending: 1794255094 g1794255093.57001.8009 pi
+20:11:44Z pane shows trust dialog: 1
+20:13:35Z WAKE t+121s: check: start sc54329597-1: no start signal 120s after spawn (harness=pi; on screen: Pi project-trust dialog "Trust project folder?"); accept: FM_HOME={run-worktree}/.lab-live/s1/root/home {run-worktree}/.lab-live/s1/root/home/bin/fm-send.sh sc54329597-1 --key Enter
+20:14:55Z wakes before accept:
+  t+121s check: start sc54329597-1: no start signal 120s after spawn (harness=pi; on screen: Pi project-trust dialog "Trust project folder?"); accept: FM_HOME={run-worktree}/.lab-live/s1/root/home {run-worktree}/.lab-live/s1/root/home/bin/fm-send.sh sc54329597-1 --key Enter
+20:14:55Z marker after wake: removed
+  triage: [2026-11-09T14:11:56-0600] absorbed stale (start check pending): firstmate:fm-sc54329597-1
+  triage: [2026-11-09T14:12:02-0600] absorbed stale (start check pending): firstmate:fm-sc54329597-1
+  triage: [2026-11-09T14:12:08-0600] absorbed stale (start check pending): firstmate:fm-sc54329597-1
+  triage: [2026-11-09T14:12:13-0600] absorbed stale (start check pending): firstmate:fm-sc54329597-1
+  triage: [2026-11-09T14:12:19-0600] absorbed stale (start check pending): firstmate:fm-sc54329597-1
+  triage: [2026-11-09T14:12:25-0600] absorbed stale (start check pending): firstmate:fm-sc54329597-1
+  triage: [2026-11-09T14:12:31-0600] absorbed stale (start check pending): firstmate:fm-sc54329597-1
+  triage: [2026-11-09T14:12:37-0600] absorbed stale (start check pending): firstmate:fm-sc54329597-1
+  triage: [2026-11-09T14:12:43-0600] absorbed stale (start check pending): firstmate:fm-sc54329597-1
+  triage: [2026-11-09T14:12:49-0600] absorbed stale (start check pending): firstmate:fm-sc54329597-1
+  triage: [2026-11-09T14:12:54-0600] absorbed stale (start check pending): firstmate:fm-sc54329597-1
+  triage: [2026-11-09T14:13:00-0600] absorbed stale (start check pending): firstmate:fm-sc54329597-1
+  triage: [2026-11-09T14:13:06-0600] absorbed stale (start check pending): firstmate:fm-sc54329597-1
+  triage: [2026-11-09T14:13:11-0600] absorbed stale (start check pending): firstmate:fm-sc54329597-1
+  triage: [2026-11-09T14:13:17-0600] absorbed stale (start check pending): firstmate:fm-sc54329597-1
+  triage: [2026-11-09T14:13:23-0600] absorbed stale (start check pending): firstmate:fm-sc54329597-1
+  triage: [2026-11-09T14:13:28-0600] absorbed stale (start check pending): firstmate:fm-sc54329597-1
+20:14:55Z STEP 2 run accept command: FM_HOME={run-worktree}/.lab-live/s1/root/home {run-worktree}/.lab-live/s1/root/home/bin/fm-send.sh sc54329597-1 --key Enter
+  accept: fm-gate-refuse: gate agent lifecycle permitted only against lab home {run-worktree}/.lab-live/s1/root/home
+  accept: WARNING: watcher still down (same stale episode; last beat: 5s ago, grace 300s) - full banner already printed this episode.
+20:14:55Z accept rc=0 gate guard: permitted (lab home notice)
+20:15:06Z busy record: v1 gen=g1794255093.57001.8009 seq=2 state=busy source=pi-ext event=agent-start ts=1794255296
+20:15:06Z status: done [at=1794255305]: lab start check
+20:15:06Z lab trust.json: {  "{run-worktree}/.lab-live/s1/root/treehouse/.treehouse/notes-df5c15/1/notes": true}
+20:15:06Z slot path: {run-worktree}/.lab-live/s1/root/treehouse/.treehouse/notes-df5c15/1/notes
+20:15:07Z WAKE t+213s: check: rearm-resurface
+20:15:37Z wakes after accept (30s): 0 start wakes; 1 total
+20:15:37Z STEP 3 relaunch sc54329597-1 in its now-trusted slot
+fm-gate-refuse: gate agent lifecycle permitted only against lab home {run-worktree}/.lab-live/s1/root/home
+WARNING: watcher still down (same stale episode; last beat: 31s ago, grace 300s) - full banner already printed this episode.
+relaunched sc54329597-1 harness=pi from=pi model=openai/gpt-5-mini effort=low backend=tmux endpoint=firstmate:fm-sc54329597-1 worktree={run-worktree}/.lab-live/s1/root/treehouse/.treehouse/notes-df5c15/1/notes
+20:15:44Z start-pending after relaunch: 1794255343 g1794255341.11229.3684 pi
+20:15:45Z WAKE t+2s: check: rearm-resurface
+20:16:18Z WAKE t+35s: signal: {run-worktree}/.lab-live/s1/root/home/state/sc54329597-1.status {run-worktree}/.lab-live/s1/root/home/state/sc54329597-1.turn-ended
+20:16:33Z WAKE t+50s: stale: firstmate:fm-sc54329597-1
+20:18:13Z trusted control: 0 start wakes in 150s; marker removed
+  triage: [2026-11-09T14:15:44-0600] start check: sc54329597-1 started
+20:18:13Z relaunch pane shows trust dialog: 0
+20:18:13Z teardown
+20:18:13Z lab tmux socket dir teardown rc=0 left=none
+20:18:13Z lab trust store: {  "{run-worktree}/.lab-live/s1/root/treehouse/.treehouse/notes-df5c15/1/notes": true}
+20:18:13Z local credential copy deleted
+20:18:13Z lab worktree root contents at teardown: []
+20:18:13Z operator Pi store not read (lab key in ~/pi-lab)
