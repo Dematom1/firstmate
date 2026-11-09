@@ -1,0 +1,2 @@
+row 1: PASS start wake at 120s; accepted prompt and relaunch had zero start wakes
+row 2: PASS flag absent; zero start wakes in 200s; manual accept and relaunch had zero start wakes
