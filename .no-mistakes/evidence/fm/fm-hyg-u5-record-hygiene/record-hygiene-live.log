@@ -1,39 +1,5 @@
-Note: switching to '6d8d4de10855b9db6057fc502e0428f3bbb46a7b'.
-
-You are in 'detached HEAD' state. You can look around, make experimental
-changes and commit them, and you can discard any commits you make in this
-state without impacting any branches by switching back to a branch.
-
-If you want to create a new branch to retain commits you create, you may
-do so (now or later) by using -c with the switch command. Example:
-
-  git switch -c <new-branch-name>
-
-Or undo this operation with:
-
-  git switch -
-
-Turn off this advice by setting config variable advice.detachedHead to false
-
-code under test: 6d8d4de1
-Note: switching to '6d8d4de10855b9db6057fc502e0428f3bbb46a7b'.
-
-You are in 'detached HEAD' state. You can look around, make experimental
-changes and commit them, and you can discard any commits you make in this
-state without impacting any branches by switching back to a branch.
-
-If you want to create a new branch to retain commits you create, you may
-do so (now or later) by using -c with the switch command. Example:
-
-  git switch -c <new-branch-name>
-
-Or undo this operation with:
-
-  git switch -
-
-Turn off this advice by setting config variable advice.detachedHead to false
-
-main for comparison: 3e9c781d
+code under test: d5826773
+main for comparison: 913bb7a7
 === SCENARIO 1 (flag present): session start reports the home's records and archives the old orphan
 detect-only session start:
 RECORD_HYGIENE: status log without metadata older than 24 hours: orphan-lab
