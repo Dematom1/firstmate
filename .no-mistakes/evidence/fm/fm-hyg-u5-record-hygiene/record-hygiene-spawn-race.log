@@ -1,0 +1,11 @@
+round 1: bootstrap_rc=0 archived=167 published_while_live=233 violations=0 leftover_locks=0
+round 2: bootstrap_rc=0 archived=168 published_while_live=232 violations=0 leftover_locks=0
+round 3: bootstrap_rc=0 archived=166 published_while_live=234 violations=0 leftover_locks=0
+round 4: bootstrap_rc=0 archived=168 published_while_live=232 violations=0 leftover_locks=0
+round 5: bootstrap_rc=0 archived=166 published_while_live=234 violations=0 leftover_locks=0
+round 6: bootstrap_rc=0 archived=166 published_while_live=234 violations=0 leftover_locks=0
+round 7: bootstrap_rc=0 archived=166 published_while_live=234 violations=0 leftover_locks=0
+round 8: bootstrap_rc=0 archived=167 published_while_live=233 violations=0 leftover_locks=0
+round 9: bootstrap_rc=0 archived=167 published_while_live=233 violations=0 leftover_locks=0
+round 10: bootstrap_rc=0 archived=167 published_while_live=233 violations=0 leftover_locks=0
+code={run-worktree} lib_sha=6fa2859ad645 rounds=10 orphans=400 archived=1668 published_while_live=2332 violations=0
