@@ -1,29 +1,29 @@
-02:46:09Z lab root={run-worktree}/.lab-live/s2/root ref=45e1737370cb715ebf0dd821bf7a94fa396b64ac tree=45e17373 pi=0.87.1 mode=off flag=absent gate-env=set lab-marker=fm-lab-home v1
-02:46:09Z STEP A spawn sc47448530-1 into a fresh untrusted slot with config/spawn-start-check absent
+19:31:10Z lab root={run-worktree}/.lab-live/s2/root ref=ffbd6e12d6732b4c2fff34be3d2dd9433e58ecc8 tree=ffbd6e12 pi=0.87.1 mode=off flag=absent gate-env=set lab-marker=fm-lab-home v1
+19:31:10Z STEP A spawn scbdab04fd-1 into a fresh untrusted slot with config/spawn-start-check absent
 fm-gate-refuse: gate agent lifecycle permitted only against lab home {run-worktree}/.lab-live/s2/root/home
-spawned sc47448530-1 harness=pi kind=ship mode=local-only yolo=on window=firstmate:fm-sc47448530-1 worktree={run-worktree}/.lab-live/s2/root/treehouse/.treehouse/notes-2ed0a1/1/notes
-02:46:25Z start-pending after spawn: absent
-02:46:33Z pane shows trust dialog: 1
-02:46:50Z WAKE t+25s: stale: firstmate:fm-sc47448530-1
-02:49:46Z all wakes in 200s:
-  t+25s stale: firstmate:fm-sc47448530-1
-02:49:46Z flag absent: 0 start wakes in 200s; start-pending absent
-02:49:46Z start-check triage lines: 0
-02:49:46Z STEP B press Enter on the trust prompt
-02:49:49Z accept rc=0
-02:50:02Z status: done [at=1794279000]: lab start check
-02:50:02Z STEP C relaunch sc47448530-1 with config/spawn-start-check absent
+spawned scbdab04fd-1 harness=pi kind=ship mode=local-only yolo=on window=firstmate:fm-scbdab04fd-1 worktree={run-worktree}/.lab-live/s2/root/treehouse/.treehouse/notes-f418b2/1/notes
+19:31:21Z start-pending after spawn: absent
+19:31:29Z pane shows trust dialog: 1
+19:31:45Z WAKE t+24s: stale: firstmate:fm-scbdab04fd-1
+19:34:41Z all wakes in 200s:
+  t+24s stale: firstmate:fm-scbdab04fd-1
+19:34:41Z flag absent: 0 start wakes in 200s; start-pending absent
+19:34:41Z start-check triage lines: 0
+19:34:41Z STEP B press Enter on the trust prompt
+19:34:42Z accept rc=0
+19:34:48Z status: done [at=1794339287]: lab start check
+19:34:48Z STEP C relaunch scbdab04fd-1 with config/spawn-start-check absent
 fm-gate-refuse: gate agent lifecycle permitted only against lab home {run-worktree}/.lab-live/s2/root/home
-WARNING: watcher still down (same stale episode; last beat: 25s ago, grace 300s) - full banner already printed this episode.
-relaunched sc47448530-1 harness=pi from=pi model=openai/gpt-5-mini effort=low backend=tmux endpoint=firstmate:fm-sc47448530-1 worktree={run-worktree}/.lab-live/s2/root/treehouse/.treehouse/notes-2ed0a1/1/notes
-02:50:15Z start-pending after relaunch: absent
-02:50:17Z WAKE t+2s: check: rearm-resurface
-02:50:54Z WAKE t+39s: signal: {run-worktree}/.lab-live/s2/root/home/state/sc47448530-1.status {run-worktree}/.lab-live/s2/root/home/state/sc47448530-1.turn-ended
-02:51:15Z WAKE t+60s: stale: firstmate:fm-sc47448530-1
-02:51:17Z after relaunch: 0 start wakes in 60s; start-pending absent
-02:51:17Z teardown
-02:51:17Z lab tmux socket dir teardown rc=0 left=none
-02:51:17Z lab trust store: {  "{run-worktree}/.lab-live/s2/root/treehouse/.treehouse/notes-2ed0a1/1/notes": true}
-02:51:17Z local credential copy deleted
-02:51:17Z lab worktree root contents at teardown: []
-02:51:17Z operator Pi store not read (lab key in ~/pi-lab)
+WARNING: watcher still down (same stale episode; last beat: 15s ago, grace 300s) - full banner already printed this episode.
+relaunched scbdab04fd-1 harness=pi from=pi model=openai/gpt-5-mini effort=low backend=tmux endpoint=firstmate:fm-scbdab04fd-1 worktree={run-worktree}/.lab-live/s2/root/treehouse/.treehouse/notes-f418b2/1/notes
+19:34:56Z start-pending after relaunch: absent
+19:34:57Z WAKE t+1s: check: rearm-resurface
+19:35:30Z WAKE t+34s: signal: {run-worktree}/.lab-live/s2/root/home/state/scbdab04fd-1.status {run-worktree}/.lab-live/s2/root/home/state/scbdab04fd-1.turn-ended
+19:35:46Z WAKE t+50s: stale: firstmate:fm-scbdab04fd-1
+19:35:56Z after relaunch: 0 start wakes in 60s; start-pending absent
+19:35:56Z teardown
+19:35:56Z lab tmux socket dir teardown rc=0 left=none
+19:35:56Z lab trust store: {  "{run-worktree}/.lab-live/s2/root/treehouse/.treehouse/notes-f418b2/1/notes": true}
+19:35:56Z local credential copy deleted
+19:35:56Z lab worktree root contents at teardown: []
+19:35:56Z operator Pi store not read (lab key in ~/pi-lab)
