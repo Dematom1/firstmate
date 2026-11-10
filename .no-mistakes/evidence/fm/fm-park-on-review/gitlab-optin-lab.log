@@ -1,0 +1,11 @@
+lab={run-worktree}/.lab-live/fm-gitlab-optin-lab.uRjs0k
+main_teardown_from=913bb7a7b6e68a107c2d0ee755ee29c6f9e7b208
+branch_teardown_from=033492cdfe2f089746483b8adbaac999f1e9dbde (+ worktree diff: 0 files)
+branch, config/park-on-review present, merged GitLab MR: exit=0 glab_reads=2 meta_kept=no worktree_kept=yes
+branch, config/auto-land present, merged GitLab MR: exit=0 glab_reads=2 meta_kept=no worktree_kept=yes
+branch, no flag, merged GitLab MR: exit=1 glab_reads=0 meta_kept=yes worktree_kept=yes
+    <lab>/stderr:REFUSED: worktree <lab>/wt has work not on any remote and not landed.
+main, no flag, merged GitLab MR: exit=1 glab_reads=0 meta_kept=yes worktree_kept=yes
+    <lab>/stderr:REFUSED: worktree <lab>/wt has work not on any remote and not landed.
+PASS: no flag - branch teardown identical to main (exit 1, normalized stdout/stderr equal, no glab read)
+ALL PASS
