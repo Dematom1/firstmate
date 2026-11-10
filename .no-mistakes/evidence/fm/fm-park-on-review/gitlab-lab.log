@@ -1,0 +1,42 @@
+lab=/private/var/folders/nd/580vz3l92ljds7vw6j8_q3xm0000gn/T/fm-gitlab-optin-lab.iwqruD
+main_teardown_from=913bb7a7b6e68a107c2d0ee755ee29c6f9e7b208
+branch_teardown_from=033492cdfe2f089746483b8adbaac999f1e9dbde (+ worktree diff: 0 files)
+branch, config/park-on-review present, merged GitLab MR: exit=0 glab_reads=2 meta_kept=no worktree_kept=yes
+branch, config/auto-land present, merged GitLab MR: exit=0 glab_reads=2 meta_kept=no worktree_kept=yes
+branch, no flag, merged GitLab MR: exit=1 glab_reads=0 meta_kept=yes worktree_kept=yes
+    <lab>/stderr:REFUSED: worktree <lab>/wt has work not on any remote and not landed.
+main, no flag, merged GitLab MR: exit=1 glab_reads=0 meta_kept=yes worktree_kept=yes
+    <lab>/stderr:REFUSED: worktree <lab>/wt has work not on any remote and not landed.
+FAIL: no-flag branch differs from main
+4c4
+< ●  1 task(s) in flight, but no live watcher process holds this home lock (last beat: 0s ago).
+---
+> ●  1 task(s) in flight, but no live watcher process holds this home lock (last beat: 1s ago).
+raw stderr (branch):
+fm-gate-refuse: gate agent lifecycle permitted only against lab home /private/var/folders/nd/580vz3l92ljds7vw6j8_q3xm0000gn/T/fm-gitlab-optin-lab.iwqruD/noflag-branch/home
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+●  WATCHER DOWN - SUPERVISION IS OFF
+●  1 task(s) in flight, but no live watcher process holds this home lock (last beat: 0s ago).
+●  Trust the emitted supervision protocol for this harness; do not use shell & for watcher repair.
+●  This is a supervision warning only; the guarded operation WILL still run.
+●  repair a missing or failed watcher cycle with the Pi tool fm_watch_arm_pi, or restart Pi with -e /private/var/folders/nd/580vz3l92ljds7vw6j8_q3xm0000gn/T/fm-gitlab-optin-lab.iwqruD/branch-root/.pi/extensions/fm-primary-turnend-guard.ts -e /private/var/folders/nd/580vz3l92ljds7vw6j8_q3xm0000gn/T/fm-gitlab-optin-lab.iwqruD/branch-root/.pi/extensions/fm-primary-pi-watch.ts if the extensions are not loaded.
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+REFUSED: worktree /private/var/folders/nd/580vz3l92ljds7vw6j8_q3xm0000gn/T/fm-gitlab-optin-lab.iwqruD/noflag-branch/wt has work not on any remote and not landed.
+unpushed commits:
+2a0f520 add feature
+Push the branch, land its PR, or get the captain's explicit OK to discard, then --force.
+raw stderr (main):
+fm-gate-refuse: gate agent lifecycle permitted only against lab home /private/var/folders/nd/580vz3l92ljds7vw6j8_q3xm0000gn/T/fm-gitlab-optin-lab.iwqruD/noflag-main/home
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+●  WATCHER DOWN - SUPERVISION IS OFF
+●  1 task(s) in flight, but no live watcher process holds this home lock (last beat: 1s ago).
+●  Trust the emitted supervision protocol for this harness; do not use shell & for watcher repair.
+●  This is a supervision warning only; the guarded operation WILL still run.
+●  repair a missing or failed watcher cycle with the Pi tool fm_watch_arm_pi, or restart Pi with -e /private/var/folders/nd/580vz3l92ljds7vw6j8_q3xm0000gn/T/fm-gitlab-optin-lab.iwqruD/main-root/.pi/extensions/fm-primary-turnend-guard.ts -e /private/var/folders/nd/580vz3l92ljds7vw6j8_q3xm0000gn/T/fm-gitlab-optin-lab.iwqruD/main-root/.pi/extensions/fm-primary-pi-watch.ts if the extensions are not loaded.
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+REFUSED: worktree /private/var/folders/nd/580vz3l92ljds7vw6j8_q3xm0000gn/T/fm-gitlab-optin-lab.iwqruD/noflag-main/wt has work not on any remote and not landed.
+unpushed commits:
+536fd61 add feature
+Push the branch, land its PR, or get the captain's explicit OK to discard, then --force.
+SOME FAILED
+exit=1
