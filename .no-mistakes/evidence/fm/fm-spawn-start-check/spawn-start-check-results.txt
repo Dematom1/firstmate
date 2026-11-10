@@ -1,2 +1,2 @@
-row 1: PASS start wake at 120s; accepted prompt and relaunch had zero start wakes
-row 2: PASS flag absent; zero start wakes in 200s; manual accept and relaunch had zero start wakes
+row 1: PASS opt-in wake at 120s; trust accepted and done status observed; relaunch armed and no start-check wake
+row 2: PASS flag absent; no start wake at spawn or relaunch; trust prompt accepted and worker completed
