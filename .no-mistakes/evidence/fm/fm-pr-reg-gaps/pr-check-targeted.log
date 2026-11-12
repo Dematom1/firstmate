@@ -1,0 +1,5 @@
+ok - the scan registers nothing from a non-canonical or superseded done line
+ok - a replacement PR on a newer ready line takes over pr= and the merge poll
+ok - a timed-out registration publishes one notice, retries, and clears on success
+ok - a failed scan replacement restores the previous watch without degraded watching
+ok - the watcher sweep scans only with config/pr-register-scan present, then records a reported PR and queues a refusal or a timeout
