@@ -1,0 +1,11 @@
+first heartbeat run: exit=0 after 4s
+durable wake: check: record hygiene: RECORD_HYGIENE: status log without metadata older than 24 hours: orphan-lab RECORD_HYGIENE: metadata has no tab: a RECORD_HYGIENE: duplicate PR https://example.test/pull/7 in records: a, b
+PASS: heartbeat delivered one durable record-hygiene check wake
+PASS: wake lists the old orphan status log
+PASS: wake lists the record with no tab
+PASS: wake lists the duplicate PR
+PASS: last-report marker recorded
+PASS: heartbeat left the orphan status log in place (report-only)
+repeat heartbeat run with unchanged findings: exit=124 after 12s
+PASS: unchanged report raised no new wake (watcher kept polling to its timeout)
+total: 0 failed
