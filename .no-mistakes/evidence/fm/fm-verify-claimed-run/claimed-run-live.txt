@@ -1,0 +1,14 @@
+$ FM_TEST_ONLY=test_claimed_run_off_without_flag bash tests/fm-watch-triage.test.sh
+ok - without config/verify-claimed-run the watcher never reads, arms, or wakes on a validation claim
+$ FM_TEST_ONLY=test_claimed_run_outcomes bash tests/fm-watch-triage.test.sh
+ok - delayed validation claims flag only when the branch has no run, then clear their markers
+$ FM_TEST_ONLY=test_claimed_run_path_with_spaces bash tests/fm-watch-triage.test.sh
+ok - claimed-run stat rows preserve paths containing repeated spaces
+$ FM_TEST_ONLY=test_claimed_run_incremental_log bash tests/fm-watch-triage.test.sh
+ok - an appended validation claim on a running watcher is detected once
+$ FM_TEST_ONLY=test_claimed_run_poll_cost bash tests/fm-watch-triage.test.sh
+ok - claimed-run polls batch one stat, read only appended bytes, and catch a same-second rewrite
+$ FM_TEST_ONLY=test_claimed_run_same_size_rewrite_resets_cursor bash tests/fm-watch-triage.test.sh
+ok - a same-size status rewrite resets its cursor and detects validation claims
+$ FM_TEST_ONLY=test_claimed_run_shrink_resets_cursor bash tests/fm-watch-triage.test.sh
+ok - a truncated status log resets its cursor and redetects a validation claim
