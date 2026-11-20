@@ -1,0 +1,4 @@
+config_without_exec_owner={"scopes":true,"lease_policies":true,"consumer_contract":true}
+error: dibs could not start the task scope for t1: {"code":"VALIDATION_ERROR","error":"the exec owner is off; set DIBS_EXEC_OWNER=1 or \"exec_owner\": true in the user config","exit_code":2,"help":["Run dibs scope --help for options"]}
+scope_start=refused
+exit=0
