@@ -1,0 +1,121 @@
+Scenario: a merge performed in a second mate home gets one local notification after the grace.
+parent channel: done [key=merged-ship1] [at=1795470528]: merged ship1 https://github.com/example/widget/pull/7
+  ok: merge outcome went to the parent channel
+  ok: no local merge-landed row in the mate
+heartbeat -> stale: lab:fm-ship1
+  (unrelated wake handled; heartbeat again)
+  (watcher log shows the heartbeat ran and was absorbed: yes)
+heartbeat -> (no wake; still polling)
+finished-work rows queued by this heartbeat: none
+  ok: inside the grace no finished-work row
+heartbeat -> check: finished work: ship1 - PR https://github.com/example/widget/pull/7 is merged and its record is still present; clean up with bin/fm-teardown.sh ship1, which refuses unlanded work
+finished-work rows queued by this heartbeat: finished-ship1
+  ok: after the grace exactly one row for ship1
+  ok: the wake names the merged PR and the cleanup command
+  (watcher log shows the heartbeat ran and was absorbed: yes)
+heartbeat -> (no wake; still polling)
+finished-work rows queued by this heartbeat: none
+  ok: the next heartbeat does not notify again
+  ok: nothing was cleaned up (no opt-in)
+RESULT merged-in-mate: PASS
+Scenario: a finished scout whose agent exited gets one notification; a live one does not.
+heartbeat -> check: finished work: scout1 - its last report is done: and its agent is gone (missing); clean up with bin/fm-teardown.sh scout1, which refuses unlanded work
+finished-work rows queued by this heartbeat: finished-scout1
+  ok: exactly one row, for the scout whose agent is gone
+  ok: the wake says the agent is gone
+heartbeat -> stale: lab:fm-scout2
+  (unrelated wake handled; heartbeat again)
+  (watcher log shows the heartbeat ran and was absorbed: yes)
+heartbeat -> (no wake; still polling)
+finished-work rows queued by this heartbeat: none
+  ok: the next heartbeat does not notify again
+RESULT dead-scout: PASS
+Scenario: a finished record left with a live agent past the age bound gets one notification.
+heartbeat -> check: finished work: ship3 - its last report is failed: and has had no newer status for 0h; clean up with bin/fm-teardown.sh ship3, which refuses unlanded work
+finished-work rows queued by this heartbeat: finished-ship3
+  ok: exactly one row for the unattended record
+  ok: the wake says it had no newer status
+heartbeat -> check: finished work: ship3 - its last report is failed: and has had no newer status for 0h; clean up with bin/fm-teardown.sh ship3, which refuses unlanded work
+finished-work rows queued by this heartbeat: finished-ship3
+  ok: a new terminal report on the same record is one new notification
+RESULT unattended: PASS
+Scenario: records the review does not own are never reported.
+heartbeat -> check: rearm-resurface
+  (unrelated wake handled; heartbeat again)
+heartbeat -> check: finished work: control1 - its last report is done: and its agent is gone (missing); clean up with bin/fm-teardown.sh control1, which refuses unlanded work
+finished-work rows queued by this heartbeat: finished-control1
+  ok: the review ran: only the positive control is reported, and no armed merge poll, second mate, captain hold, working record, fresh report, or merge inside the grace
+RESULT exclusions: PASS
+Scenario: without the opt-ins nothing is torn down; finished records are only reported.
+complete: scout4 captain-call inventory reviewed
+heartbeat -> check: rearm-resurface
+  (unrelated wake handled; heartbeat again)
+heartbeat -> check: finished work: scout4 - its last report is done: and its agent is gone (missing); clean up with bin/fm-teardown.sh scout4, which refuses unlanded work; finished work: ship4 - PR https://github.com/example/widget/pull/11 is merged and its record is still present; clean up with bin/fm-teardown.sh ship4, which refuses unlanded work
+finished-work rows queued by this heartbeat: finished-scout4,finished-ship4
+  ok: both records reported
+  ok: no cleanup outcome produced
+  ok: both records remain
+  ok: both worktrees remain
+  ok: the worktree-pool tool was never called
+RESULT default-off: PASS
+Scenario: with config/auto-land and config/auto-clean-finished the same detached cleanup runs; refusals are reported once and never retried.
+complete: scout5 captain-call inventory reviewed
+heartbeat -> check: rearm-resurface
+  (unrelated wake handled; heartbeat again)
+heartbeat -> check: finished work: steered1 - its last report is done: and its agent is gone (missing); clean up with bin/fm-teardown.sh steered1, which refuses unlanded work
+finished-work rows queued by this heartbeat: finished-steered1
+  ok: only the record with a waiting steering message is reported instead of cleaned
+cleanup outcomes:
+cleaned up scout5: finished record; lane torn down and its working copy returned
+cleanup-refused scout6: finished record; automatic cleanup refused: fm-gate-refuse: gate agent lifecycle permitted only against lab home <tmp>/fmlab.oYtaSI/home
+cleaned up ship5: PR https://github.com/example/widget/pull/12 merged; lane torn down and its working copy returned
+  ok: merged ship cleaned up
+  ok: finished scout cleaned up
+  ok: scout without a report refused, as a finding
+  ok: refused record kept
+  ok: steered record kept
+  ok: cleaned records removed
+heartbeat -> check: rearm-resurface
+  (unrelated wake handled; heartbeat again)
+  (watcher log shows the heartbeat ran and was absorbed: yes)
+heartbeat -> (no wake; still polling)
+finished-work rows queued by this heartbeat: none
+  ok: next heartbeat queues nothing
+  ok: the refusal is not retried (no new outcome)
+  ok: no pending cleanup request
+  ok: exactly two worktree returns, none for the refused scout
+RESULT opt-in-cleanup: PASS
+Scenario: under config/auto-clean-finished a finished record that is not yet eligible (busy agent, or a steering message waiting) is reported once, then cleaned up once it becomes eligible.
+complete: scout8 captain-call inventory reviewed
+complete: scout9 captain-call inventory reviewed
+heartbeat -> check: finished work: scout8 - its last report is done: and has had no newer status for 0h; clean up with bin/fm-teardown.sh scout8, which refuses unlanded work; finished work: scout9 - its last report is done: and has had no newer status for 0h; clean up with bin/fm-teardown.sh scout9, which refuses unlanded work
+finished-work rows queued by this heartbeat: finished-scout8,finished-scout9
+  ok: both not-yet-eligible records are reported once
+  ok: nothing is cleaned up while they are not eligible
+heartbeat -> stale: lab:fm-scout8
+  (unrelated wake handled; heartbeat again)
+  (watcher log shows the heartbeat ran and was absorbed: yes)
+heartbeat -> (no wake; still polling)
+finished-work rows queued by this heartbeat: none
+  ok: once eligible they are not reported again
+cleanup outcomes:
+cleaned up scout8: finished record; lane torn down and its working copy returned
+cleaned up scout9: finished record; lane torn down and its working copy returned
+  ok: the formerly busy record is cleaned up
+  ok: the formerly steered record is cleaned up
+heartbeat -> check: rearm-resurface
+  (unrelated wake handled; heartbeat again)
+  (watcher log shows the heartbeat ran and was absorbed: yes)
+heartbeat -> (no wake; still polling)
+finished-work rows queued by this heartbeat: none
+  ok: a later heartbeat neither reports nor cleans again
+RESULT busy-then-idle: PASS
+Scenario: fm-park.sh land for a record without a PR honours its own opt-in and the terminal check.
+complete: scout7 captain-call inventory reviewed
+land without opt-in -> (nothing)
+  ok: without config/auto-clean-finished nothing happens
+land while working again -> (nothing)
+  ok: a record working again is left alone
+land once finished -> cleaned up scout7: finished record; lane torn down and its working copy returned
+  ok: a finished record is cleaned up
+RESULT park-land: PASS
