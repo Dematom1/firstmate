@@ -1,0 +1,69 @@
+=== S1 skip: last settled relaunch took 63s, startup stage bound 30s, launch would take 5s
+  stage rc=0 elapsed=2s bound=30s
+  report> completed off the startup path in 2s: GitHub authentication, dead-secondmate relaunch, secondmate convergence, pending handoff delivery, project clone refresh with its drift reporting, and inactive terminal-outcome reconciliation.
+  report> SECONDMATE_LIVENESS: secondmate sm1: skipped: its last relaunch took 63s but only 28s of this run's time bound remain, so no relaunch was started; endpoint left dead for the watcher's liveness tick
+  report> SECONDMATE_SYNC: secondmate sm1: skipped: primary default-branch commit cannot be resolved
+  ledger> 1000	attempt
+  ledger> 1063	relaunched
+  launch markers: 0
+  PASS: report says the relaunch was skipped because 63s does not fit
+  PASS: stage finished inside its bound (not killed)
+  PASS: no harness launch started
+  PASS: ledger unchanged (no attempt row)
+
+=== S2 watcher takes over: the real watcher liveness tick on the S1 home relaunches the skipped mate
+  watcher> check: secondmate sm1 auto-relaunched after confirmed agent absence on existing endpoint (backend=tmux)
+  ledger> 1000	attempt
+  ledger> 1063	relaunched
+  ledger> 1795466538	attempt
+  ledger> 1795466544	relaunched
+  launch markers: 1
+  PASS: watcher reports the auto-relaunch
+  PASS: exactly one harness launch
+  PASS: ledger gained attempt + relaunched rows
+
+=== S3 fits: last settled relaunch took 3s (a later killed attempt with no outcome measures nothing), bound 90s, launch takes 4s
+  stage rc=0 elapsed=9s bound=90s
+  report> completed off the startup path in 9s: GitHub authentication, dead-secondmate relaunch, secondmate convergence, pending handoff delivery, project clone refresh with its drift reporting, and inactive terminal-outcome reconciliation.
+  report> BOOTSTRAP_INFO: secondmate sm1 relaunched after confirmed agent absence on existing endpoint (backend=tmux)
+  report> SECONDMATE_SYNC: secondmate sm1: skipped: primary default-branch commit cannot be resolved
+  ledger> 1000	attempt
+  ledger> 1003	relaunched
+  ledger> 2000	attempt
+  ledger> 1795466545	attempt
+  ledger> 1795466553	relaunched
+  launch markers: 1
+  PASS: report says the mate was relaunched
+  PASS: no liveness skip line
+  PASS: exactly one harness launch
+  PASS: ledger gained attempt + relaunched rows
+
+=== S4 no deadline: bootstrap's network phase with no outer bound, last settled relaunch took 63s
+  bootstrap rc=0
+  bootstrap> BOOTSTRAP_INFO: secondmate sm1 relaunched after confirmed agent absence on existing endpoint (backend=tmux)
+  bootstrap> SECONDMATE_SYNC: secondmate sm1: skipped: primary default-branch commit cannot be resolved
+  ledger> 1000	attempt
+  ledger> 1063	relaunched
+  ledger> 1795466554	attempt
+  ledger> 1795466559	relaunched
+  launch markers: 1
+  PASS: relaunched as before (no budget check without a deadline)
+  PASS: exactly one harness launch
+  PASS: ledger gained attempt + relaunched rows
+
+=== S5 bound already passed, no relaunch history: deadline one second in the past
+  bootstrap rc=0
+  bootstrap> SECONDMATE_LIVENESS: secondmate sm1: skipped: this run's time bound has passed, so no relaunch was started; endpoint left dead for the watcher's liveness tick
+  bootstrap> SECONDMATE_SYNC: secondmate sm1: skipped: primary default-branch commit cannot be resolved
+  launch markers: 0
+  PASS: report says the bound has passed
+  PASS: no harness launch started
+  PASS: no ledger written
+
+=== S6 malformed deadline is ignored: FM_BOOTSTRAP_NETWORK_DEADLINE=soon, last settled relaunch took 63s
+  bootstrap rc=0
+  bootstrap> BOOTSTRAP_INFO: secondmate sm1 relaunched after confirmed agent absence on existing endpoint (backend=tmux)
+  bootstrap> SECONDMATE_SYNC: secondmate sm1: skipped: primary default-branch commit cannot be resolved
+  PASS: relaunched as with no deadline
+
+LAB RESULT: all scenarios PASS
