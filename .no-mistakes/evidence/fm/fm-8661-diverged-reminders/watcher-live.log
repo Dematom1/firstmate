@@ -1,1 +1,1 @@
-check: secondmate sm-live still diverged after 1d1h: local 111111111111 target 222222222222 (record: <tmp>/fm-watch-live.dP6jAf/state/.secondmate-update-reconcile/sm-live.pending)
+check: secondmate sm-live still diverged after 1d1h: local 111111111111 target 222222222222 (record: <temporary lab home>/state/.secondmate-update-reconcile/sm-live.pending)

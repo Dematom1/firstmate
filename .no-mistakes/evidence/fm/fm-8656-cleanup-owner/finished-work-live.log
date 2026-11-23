@@ -67,7 +67,7 @@ finished-work rows queued by this heartbeat: finished-steered1
   ok: only the record with a waiting steering message is reported instead of cleaned
 cleanup outcomes:
 cleaned up scout5: finished record; lane torn down and its working copy returned
-cleanup-refused scout6: finished record; automatic cleanup refused: fm-gate-refuse: gate agent lifecycle permitted only against lab home <tmp>/fmlab.oYtaSI/home
+cleanup-refused scout6: finished record; automatic cleanup refused: fm-gate-refuse: gate agent lifecycle permitted only against lab home <temporary lab home>
 cleaned up ship5: PR https://github.com/example/widget/pull/12 merged; lane torn down and its working copy returned
   ok: merged ship cleaned up
   ok: finished scout cleaned up
