@@ -1,0 +1,2 @@
+ok - a declared-wait recheck names a dead or missing agent, and keeps its wording for a live one
+ok - worker auto-relaunch runs only when opted in, with a clean copy and ledger room, and reports each attempt once
