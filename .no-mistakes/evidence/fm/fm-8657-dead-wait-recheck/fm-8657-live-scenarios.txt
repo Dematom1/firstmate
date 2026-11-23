@@ -1,0 +1,27 @@
+$ bash .lab-live/fm-live-lab.sh "$PWD" dead-recheck
+  wake: stale: fmlab:fm-w1 (paused 603s, awaiting external - agent dead - the endpoint is still there with no agent running in it, so the declared wait cannot clear on its own; reconcile this record, and check for unlanded work before any cleanup)
+SCENARIO dead-recheck PASS (24s): declared-wait recheck names the dead agent and drops 'confirm the wait still holds'
+
+$ bash .lab-live/fm-live-lab.sh "$PWD" live-recheck
+  pane: sleep; wake: stale: fmlab:fm-w1 (paused 603s, awaiting external - declared pause, rechecked on a long cadence not a wedge; confirm the wait still holds)
+SCENARIO live-recheck PASS (55s): a live agent keeps 'confirm the wait still holds' and is never called dead
+
+$ bash .lab-live/fm-live-lab.sh "$PWD" dirty-copy
+  wake: stale: fmlab:fm-w1 (paused 603s, awaiting external - agent dead - the endpoint is still there with no agent running in it, so the declared wait cannot clear on its own; reconcile this record, and check for unlanded work before any cleanup)
+SCENARIO dirty-copy PASS (28s): opt-in on + dirty copy: refused, dead-agent recheck kept, no ledger, file intact
+
+$ bash .lab-live/fm-live-lab.sh "$PWD" clean-relaunch
+  wake: check: worker w1 auto-relaunched after agent dead (fmlab:fm-w1); ledger: attempt relaunched ; pane: sleep
+SCENARIO clean-relaunch PASS (52s): opt-in on + clean copy: relaunched via fm-control, ledgered, note added to the instructions
+
+$ bash .lab-live/fm-live-lab.sh "$PWD" relaunch-failure
+  wake: check: worker w1 auto-relaunch failed after agent dead: error: w1 was relaunched on grok but no running agent could be confirmed; its work is preserved at <temporary lab home>/wt; ledger: attempt failed 
+SCENARIO relaunch-failure PASS (50s): opt-in on + failing relaunch: one failure wake naming fm-control's error, ledgered
+
+$ bash .lab-live/fm-live-lab.sh "$PWD" attempt-bound
+  wake: stale: fmlab:fm-w1 (paused 602s, awaiting external - agent dead - the endpoint is still there with no agent running in it, so the declared wait cannot clear on its own; reconcile this record, and check for unlanded work before any cleanup)
+SCENARIO attempt-bound PASS (10s): opt-in on + 3 attempts already in the window: no relaunch, ledger unchanged, dead-agent recheck
+
+$ bash .lab-live/fm-live-lab.sh "$PWD" terminal-line
+  wake: stale: fmlab:fm-w1
+SCENARIO terminal-line PASS (19s): opt-in on + terminal last line: surfaced as a plain stale, no relaunch attempt, no ledger
