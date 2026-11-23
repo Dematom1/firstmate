@@ -1,0 +1,11 @@
+PASS 1 session-start sync writes first_seen and the digest names the pending home
+PASS 2 a legacy record without first_seen keeps its file time as first_seen
+PASS 3 a 23h-old record raises no notification
+PASS 4 a 1d1h-old record wakes the watcher with one reminder naming home, commits and age
+PASS 5 no repeat two days after the last reminder
+PASS 6 the reminder repeats three days after the last one
+PASS 7 a later session start keeps first_seen and reports 4d1h
+PASS 8 a converged home clears its record, the digest line and the reminders
+PASS 9 the update path records first_seen and a second update keeps it
+PASS 10 an invalid threshold stops the watcher with a named error
+ALL 10 SCENARIOS PASS
