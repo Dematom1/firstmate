@@ -1,0 +1,13 @@
+$ tests/fm-wake-drain-open-decisions.test.sh
+ok - a needs-decision buried under later routine/other-key lines still reports as open
+ok - an over-long open decision is cut to its per-item budget with the shared truncation marker
+ok - an OPEN DECISIONS listing that fits its budget prints every entry with no count lines
+ok - an over-budget OPEN DECISIONS listing prints the total and largest-first counts, then shares entries round-robin, newest first
+ok - when even the counts outrun the budget the largest print and one aggregate keeps the total exact
+ok - an explicit resolved [key=X] closes the keyed decision
+ok - a later unrelated terminal line never clears an open decision
+ok - a reserved decision key can only be opened or closed by its owning library
+ok - no open decisions across the fleet prints nothing
+ok - the open-decision section is fleet-wide, not scoped to this drain's own queued records
+ok - a buried open decision surfaces even when the wake queue itself is empty
+ok - the fleet-wide decision scan does not follow status symlinks
